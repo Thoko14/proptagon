@@ -1,10 +1,10 @@
-# PropBase Landing Page
+# Proptagon Landing Page
 
-A static marketing landing page for PropBase - a comprehensive property investment platform for Australia.
+A static marketing landing page for Proptagon - a comprehensive property investment platform for Australia.
 
 ## Overview
 
-This is a standalone static website showcasing PropBase's modules and features. It serves as a marketing site with landing pages for each module:
+This is a standalone static website showcasing Proptagon's modules and features. It serves as a marketing site with landing pages for each module:
 
 - **Grow** - Property growth analysis with interactive maps (Live)
 - **Invest** - Investment decisions and planning (Coming Soon)

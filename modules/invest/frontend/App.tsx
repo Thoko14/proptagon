@@ -18,7 +18,7 @@ const InvestPage: React.FC = () => {
             <div className="text-center">
               <div className="text-6xl mb-6">💰</div>
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                PropBase Invest
+                Proptagon Invest
               </h1>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
                 Make informed investment decisions with data-driven insights and market analysis. 
@@ -118,7 +118,7 @@ const InvestPage: React.FC = () => {
                 Ready to invest smarter?
               </h2>
               <p className="text-xl text-gray-700 mb-8">
-                Join the waitlist to be notified when PropBase Invest launches.
+                Join the waitlist to be notified when Proptagon Invest launches.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button variant="secondary" size="lg" disabled>

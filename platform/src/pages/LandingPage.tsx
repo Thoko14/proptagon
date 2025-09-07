@@ -124,7 +124,7 @@ const LandingPage: React.FC = () => {
               <thead>
                 <tr className="border-b border-gray-200">
                   <th className="text-left p-6 font-semibold text-gray-900">Feature</th>
-                  <th className="text-center p-6 font-semibold text-gray-900">PropBase (Grow) ✅</th>
+                  <th className="text-center p-6 font-semibold text-gray-900">Proptagon (Grow) ✅</th>
                   <th className="text-center p-6 font-semibold text-gray-900">RealEstate Investar</th>
                   <th className="text-center p-6 font-semibold text-gray-900">Microburbs / OpenAgent</th>
                 </tr>
@@ -208,7 +208,7 @@ const LandingPage: React.FC = () => {
               Everything you need to succeed in property investment
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-              PropBase is a strategic property investment platform built to guide everyday Australians through every stage of their investment journey — from research to acquisition, management and eventual sale. We're in early development and starting with the Grow module, but our vision spans the full lifecycle of smart property investing.
+              Proptagon is a strategic property investment platform built to guide everyday Australians through every stage of their investment journey — from research to acquisition, management and eventual sale. We're in early development and starting with the Grow module, but our vision spans the full lifecycle of smart property investing.
             </p>
           </div>
 
@@ -314,7 +314,7 @@ const LandingPage: React.FC = () => {
               Start exploring smarter
             </h2>
             <p className="text-xl text-gray-700 mb-8">
-              Join thousands of investors using PropBase to find the right suburbs faster.
+              Join thousands of investors using Proptagon to find the right suburbs faster.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/grow">

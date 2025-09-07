@@ -106,4 +106,4 @@ Developers and AI assistants needed a single, comprehensive reference rather tha
 
 ---
 
-*This archive was created during the document reconciliation process to improve the developer experience and maintain a single source of truth for PropBase documentation.*
+*This archive was created during the document reconciliation process to improve the developer experience and maintain a single source of truth for Proptagon documentation.*

@@ -1,6 +1,6 @@
 /**
- * Shared TypeScript types for the PropBase project
- * Shared TypeScript types for the PropBase project
+ * Shared TypeScript types for the Proptagon project
+ * Shared TypeScript types for the Proptagon project
  */
 
 // Base property data

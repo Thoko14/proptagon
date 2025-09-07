@@ -18,7 +18,7 @@ const ManagePage: React.FC = () => {
             <div className="text-center">
               <div className="text-6xl mb-6">🏠</div>
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                PropBase Manage
+                Proptagon Manage
               </h1>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
                 Streamline your property management with comprehensive tools for tracking performance, 
@@ -118,7 +118,7 @@ const ManagePage: React.FC = () => {
                 Ready to manage better?
               </h2>
               <p className="text-xl text-gray-700 mb-8">
-                Join the waitlist to be notified when PropBase Manage launches.
+                Join the waitlist to be notified when Proptagon Manage launches.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button variant="secondary" size="lg" disabled>

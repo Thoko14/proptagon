@@ -1,7 +1,7 @@
 # Installation Guide
 
 ## Overview
-This guide provides step-by-step instructions for setting up the PropBase development environment on your local machine.
+This guide provides step-by-step instructions for setting up the Proptagon development environment on your local machine.
 
 ## Prerequisites
 
@@ -22,9 +22,9 @@ This guide provides step-by-step instructions for setting up the PropBase develo
 ### Step 1: Clone the Repository
 
 ```bash
-# Clone the PropBase repository
+# Clone the Proptagon repository
 git clone https://github.com/your-org/propbase.git
-cd PropBase
+cd Proptagon
 
 # Verify the repository structure
 ls -la
@@ -32,7 +32,7 @@ ls -la
 
 **Expected Output:**
 ```
-PropBase/
+Proptagon/
 ├── platform/           # Main web application
 ├── modules/           # Feature-specific modules
 ├── shared/           # Common utilities and types
@@ -336,7 +336,7 @@ gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker
 
 ## Conclusion
 
-You should now have a fully functional PropBase development environment. The system includes:
+You should now have a fully functional Proptagon development environment. The system includes:
 
 - ✅ Frontend React application with TypeScript
 - ✅ Backend FastAPI server with Python

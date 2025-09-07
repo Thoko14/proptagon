@@ -1,8 +1,8 @@
-# PropBase User Manual
+# Proptagon User Manual
 
-## What is PropBase?
+## What is Proptagon?
 
-PropBase is a comprehensive property investment platform designed to help users discover, analyze, and invest in real estate opportunities across Australia. The platform combines advanced data analytics, interactive mapping, and intelligent scoring algorithms to provide users with the insights they need to make informed property investment decisions.
+Proptagon is a comprehensive property investment platform designed to help users discover, analyze, and invest in real estate opportunities across Australia. The platform combines advanced data analytics, interactive mapping, and intelligent scoring algorithms to provide users with the insights they need to make informed property investment decisions.
 
 ### Core Platform Features
 
@@ -27,7 +27,7 @@ PropBase is a comprehensive property investment platform designed to help users 
 
 ## Grow Module - Property Discovery & Analysis
 
-The Grow module is PropBase's flagship property discovery tool, designed to help users find the best investment opportunities based on their specific strategy and preferences.
+The Grow module is Proptagon's flagship property discovery tool, designed to help users find the best investment opportunities based on their specific strategy and preferences.
 
 ### Key Use Cases
 
@@ -216,7 +216,7 @@ The Grow module is PropBase's flagship property discovery tool, designed to help
 
 #### Research and Due Diligence
 1. **Start Broad**: Begin with market-level analysis before diving into specific suburbs
-2. **Use Multiple Sources**: Combine PropBase insights with external research
+2. **Use Multiple Sources**: Combine Proptagon insights with external research
 3. **Consider Context**: Understand how broader economic factors affect local markets
 4. **Validate Assumptions**: Test your investment thesis against historical data
 5. **Plan for Contingencies**: Consider different market scenarios and outcomes
@@ -288,7 +288,7 @@ The Grow module is PropBase's flagship property discovery tool, designed to help
 - **Portfolio Tracking**: Comprehensive portfolio management and performance analysis
 
 #### User Feedback and Requests
-We value your input and continuously improve PropBase based on user feedback. To contribute:
+We value your input and continuously improve Proptagon based on user feedback. To contribute:
 1. **Use the Feedback Form**: Submit suggestions through the in-app feedback system
 2. **Participate in Surveys**: Complete user experience surveys when prompted
 3. **Join Beta Testing**: Volunteer for early access to new features
@@ -296,4 +296,4 @@ We value your input and continuously improve PropBase based on user feedback. To
 
 ---
 
-*This user manual provides comprehensive guidance for using PropBase's Grow module. For the most up-to-date information and additional resources, please visit our help center and community forums.*
+*This user manual provides comprehensive guidance for using Proptagon's Grow module. For the most up-to-date information and additional resources, please visit our help center and community forums.*

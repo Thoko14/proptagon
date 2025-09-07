@@ -1,6 +1,6 @@
 /**
- * Shared constants for the PropBase project
- * Shared constants for the PropBase project
+ * Shared constants for the Proptagon project
+ * Shared constants for the Proptagon project
  */
 
 // API endpoints

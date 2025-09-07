@@ -18,7 +18,7 @@ const GrowPage: React.FC = () => {
             <div className="text-center">
               <div className="text-6xl mb-6">📈</div>
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                PropBase Grow
+                Proptagon Grow
               </h1>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
                 Research suburbs and score investment opportunities with data-driven insights. 
@@ -124,7 +124,7 @@ const GrowPage: React.FC = () => {
                 <thead>
                   <tr className="border-b border-gray-200">
                     <th className="text-left p-6 font-semibold text-gray-900">Feature</th>
-                    <th className="text-center p-6 font-semibold text-gray-900">PropBase (Grow) ✅</th>
+                    <th className="text-center p-6 font-semibold text-gray-900">Proptagon (Grow) ✅</th>
                     <th className="text-center p-6 font-semibold text-gray-900">RealEstate Investar</th>
                     <th className="text-center p-6 font-semibold text-gray-900">Microburbs / OpenAgent</th>
                   </tr>

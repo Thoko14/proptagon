@@ -174,7 +174,7 @@ This document tracks the implementation status of all epics defined in the grow-
 
 ## Conclusion
 
-All epics from the grow-spec.md have been successfully implemented. The PropBase Grow module now provides a complete property investment analysis platform with:
+All epics from the grow-spec.md have been successfully implemented. The Proptagon Grow module now provides a complete property investment analysis platform with:
 
 - Interactive map-based suburb exploration
 - Comprehensive property filtering and discovery

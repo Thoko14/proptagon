@@ -1,7 +1,7 @@
-# PropBase • Grow Module - Complete Specification
+# Proptagon • Grow Module - Complete Specification
 
 ## Overview
-This document consolidates all epics and requirements for the PropBase Grow module into a single comprehensive specification. It serves as the complete reference for all planned functionality and implementation requirements.
+This document consolidates all epics and requirements for the Proptagon Grow module into a single comprehensive specification. It serves as the complete reference for all planned functionality and implementation requirements.
 
 ## 0) Objectives (MVP)
 - Enable suburb-first and property-first flows with one properties trigger.

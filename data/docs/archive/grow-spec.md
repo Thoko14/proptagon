@@ -1,4 +1,4 @@
-# PropBase • Grow MVP — Cursor Requirements (No Code)
+# Proptagon • Grow MVP — Cursor Requirements (No Code)
 
 ## 0) Objectives (MVP)
 - Enable suburb-first and property-first flows with one properties trigger.

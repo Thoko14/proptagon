@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             {/* Brand + Social Icons */}
             <div className="flex items-center gap-4">
-              <h3 className="text-base font-bold text-white">PropBase</h3>
+              <h3 className="text-base font-bold text-white">Proptagon</h3>
               <div className="flex space-x-3">
                 {/* Social Icons */}
                 <a href="#" className="text-gray-400 hover:text-white">
@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
 
           {/* Bottom Line */}
           <div className="mt-4 text-center text-xs text-gray-400">
-            © 2025 PropBase. All rights reserved.
+            © 2025 Proptagon. All rights reserved.
           </div>
         </div>
       </footer>

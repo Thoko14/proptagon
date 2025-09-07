@@ -473,7 +473,7 @@ These files create a **safety net** for development:
 
 **Key Principle**: These files ensure that every TODO represents planned functionality that users expect. Treat them as requirements, not suggestions, and always preserve rather than delete when uncertain.
 
-This system will help you and AI assistants work together safely while building out the complete PropBase functionality! 🚀
+This system will help you and AI assistants work together safely while building out the complete Proptagon functionality! 🚀
 
 ---
 

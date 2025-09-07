@@ -18,7 +18,7 @@ const SellPage: React.FC = () => {
             <div className="text-center">
               <div className="text-6xl mb-6">📊</div>
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                PropBase Sell
+                Proptagon Sell
               </h1>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
                 Maximize returns with strategic selling and market timing. Analyze market conditions 
@@ -118,7 +118,7 @@ const SellPage: React.FC = () => {
                 Ready to sell strategically?
               </h2>
               <p className="text-xl text-gray-700 mb-8">
-                Join the waitlist to be notified when PropBase Sell launches.
+                Join the waitlist to be notified when Proptagon Sell launches.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button variant="secondary" size="lg" disabled>

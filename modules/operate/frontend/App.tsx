@@ -18,7 +18,7 @@ const OperatePage: React.FC = () => {
             <div className="text-center">
               <div className="text-6xl mb-6">⚙️</div>
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                PropBase Operate
+                Proptagon Operate
               </h1>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
                 Streamline property operations and maintenance workflows. Manage tenants, repairs, 
@@ -118,7 +118,7 @@ const OperatePage: React.FC = () => {
                 Ready to operate efficiently?
               </h2>
               <p className="text-xl text-gray-700 mb-8">
-                Join the waitlist to be notified when PropBase Operate launches.
+                Join the waitlist to be notified when Proptagon Operate launches.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button variant="secondary" size="lg" disabled>

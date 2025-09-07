@@ -1,4 +1,4 @@
-# AI Context Guide - PropBase Development
+# AI Context Guide - Proptagon Development
 
 ## 🎯 **For AI Assistants - Essential Context**
 
@@ -26,12 +26,12 @@ Before we make any changes, please:
 
 ## 🏗️ **Project Overview & Architecture**
 
-### **What is PropBase?**
-PropBase is a comprehensive property investment platform designed to help users discover, analyze, and invest in real estate opportunities across Australia. The platform combines advanced data analytics, interactive mapping, and intelligent scoring algorithms.
+### **What is Proptagon?**
+Proptagon is a comprehensive property investment platform designed to help users discover, analyze, and invest in real estate opportunities across Australia. The platform combines advanced data analytics, interactive mapping, and intelligent scoring algorithms.
 
 ### **Project Structure**
 ```
-PropBase/
+Proptagon/
 ├── platform/           # Main web application (React + TypeScript)
 ├── modules/           # Feature-specific modules
 │   ├── grow/         # Property growth analysis module (PRIMARY FOCUS)
@@ -371,7 +371,7 @@ The current implementation provides a solid foundation with all core UI componen
 
 **Remember**: Every TODO comment represents planned functionality that users expect. Treat them as requirements, not suggestions.
 
-This guide ensures that AI assistants can work safely and effectively on the PropBase project while preserving all planned functionality and following established development patterns.
+This guide ensures that AI assistants can work safely and effectively on the Proptagon project while preserving all planned functionality and following established development patterns.
 
 ---
 

@@ -1,12 +1,12 @@
-# PropBase Documentation
+# Proptagon Documentation
 
 ## Overview
-This directory contains comprehensive documentation for the PropBase platform, organized to help developers understand the system from both user and technical perspectives.
+This directory contains comprehensive documentation for the Proptagon platform, organized to help developers understand the system from both user and technical perspectives.
 
 ## Documentation Structure
 
 ### 📚 User-Focused Documentation
-- **[USER_MANUAL.md](./USER_MANUAL.md)** - Comprehensive user manual explaining PropBase concepts, workflows, and detailed use cases
+- **[USER_MANUAL.md](./USER_MANUAL.md)** - Comprehensive user manual explaining Proptagon concepts, workflows, and detailed use cases
 - **[INSTALL.md](./INSTALL.md)** - Step-by-step installation and setup guide for developers
 
 ### 📋 Requirements & Specifications
