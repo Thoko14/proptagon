@@ -8,8 +8,8 @@ This is a standalone static website showcasing Proptagon's modules and features.
 
 - **Grow** - Property growth analysis with interactive maps (Live)
 - **Invest** - Investment decisions and planning (Coming Soon)
-- **Manage** - Property management and administration (Coming Soon)
-- **Operate** - Operations and maintenance workflows (Coming Soon)
+- **Strategise** - Strategic portfolio management and analytics (Coming Soon)
+- **Manage** - Property management operations and administration (Coming Soon)
 - **Sell** - Strategic selling and market timing (In Development)
 
 ## Features
@@ -67,8 +67,8 @@ propbase-landing/
 ├── modules/            # Module-specific landing pages
 │   ├── grow/          # Grow module landing page
 │   ├── invest/        # Invest module landing page
+│   ├── strategise/    # Strategise module landing page
 │   ├── manage/        # Manage module landing page
-│   ├── operate/       # Operate module landing page
 │   └── sell/          # Sell module landing page
 └── shared/            # Shared utilities and types
 ```

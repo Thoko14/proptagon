@@ -14,14 +14,17 @@ export const API_ENDPOINTS = {
   INVESTMENT_ANALYSIS: '/api/investment/analysis',
   PORTFOLIO: '/api/investment/portfolio',
   
+  // Strategise module
+  PORTFOLIO_ANALYTICS: '/api/portfolio/analytics',
+  MARKET_ANALYSIS: '/api/market/analysis',
+  RISK_ASSESSMENT: '/api/risk/assessment',
+  
   // Manage module
   PROPERTIES: '/api/properties',
   TENANTS: '/api/tenants',
   MAINTENANCE: '/api/maintenance',
-  
-  // Operate module
-  OPERATIONS: '/api/operations',
-  REPAIRS: '/api/repairs',
+  CONTRACTS: '/api/contracts',
+  REMINDERS: '/api/reminders',
   
   // Sell module
   SALES: '/api/sales',

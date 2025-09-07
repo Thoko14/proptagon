@@ -33,23 +33,140 @@ const LandingPage: React.FC = () => {
               <p className="mt-2 text-lg sm:text-xl text-gray-800 max-w-2xl mb-8" style={{ textShadow: '0 0 6px rgba(255, 255, 255, 0.6)' }} >
                 Research suburbs, score opportunities, and build your portfolio with confidence.
               </p>
-              <Link to="/grow">
-                <Button variant="secondary" size="lg">
-                  Explore Suburbs
-                </Button>
-              </Link>
+              <Button variant="secondary" size="lg" disabled className="!bg-white !opacity-100">
+                Join Waitlist
+              </Button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* How it Works */}
+      {/* Modules Overview */}
+      <section className="bg-white py-16">
+        <div className="max-w-screen-xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Your complete property investment lifecycle
+            </h2>
+            <p className="text-xl text-gray-600 max-w-4xl mx-auto mb-8">
+              Proptagon guides you through every stage of your property investment journey — from initial research and opportunity discovery, through strategic portfolio management, to eventual sale. We're building a comprehensive platform that grows with your investment goals.
+            </p>
+            <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 max-w-2xl mx-auto">
+              <p className="text-orange-800 font-medium">
+                🚧 <strong>Under Development:</strong> Grow, Manage, and Sell modules are part of our MVP. Join the waitlist to get early access!
+              </p>
+            </div>
+          </div>
+
+          {/* Top row - 3 cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <Card className="hover:shadow-lg transition-shadow duration-300">
+              <div className="text-center">
+                <div className="text-4xl mb-4">📈</div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">Grow</h3>
+                <div className="flex justify-center mb-3">
+                  <Tag variant="grow">Under Development</Tag>
+                </div>
+                <p className="text-gray-600 mb-6">
+                  <strong>Stage 1:</strong> Discover and research high-potential suburbs with data-driven insights. 
+                  Use strategic filters to find areas that match your investment goals and risk profile.
+                </p>
+                <Link to="/grow">
+                  <Button variant="secondary" size="sm">Learn More</Button>
+                </Link>
+              </div>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow duration-300">
+              <div className="text-center">
+                <div className="text-4xl mb-4">💰</div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">Invest</h3>
+                <div className="flex justify-center mb-3">
+                  <Tag variant="invest">Coming Soon</Tag>
+                </div>
+                <p className="text-gray-600 mb-6">
+                  <strong>Stage 2:</strong> Guide your investment decisions with calculators and financial tools. 
+                  Use investment calculators, loan analysis, and financial planning tools to make informed decisions.
+                </p>
+                <Link to="/invest">
+                  <Button variant="secondary" size="sm">Learn More</Button>
+                </Link>
+              </div>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow duration-300">
+              <div className="text-center">
+                <div className="text-4xl mb-4">🎯</div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">Strategise</h3>
+                <div className="flex justify-center mb-3">
+                  <Tag variant="strategise">Coming Soon</Tag>
+                </div>
+                <p className="text-gray-600 mb-6">
+                  <strong>Stage 3:</strong> Strategically manage your property portfolio with advanced analytics and market insights. 
+                  Make data-driven decisions for optimal asset performance and portfolio growth.
+                </p>
+                <Link to="/strategise">
+                  <Button variant="secondary" size="sm">Learn More</Button>
+                </Link>
+              </div>
+            </Card>
+          </div>
+
+          {/* Bottom row - 2 centered cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+            <Card className="hover:shadow-lg transition-shadow duration-300">
+              <div className="text-center">
+                <div className="text-4xl mb-4">🏠</div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">Manage</h3>
+                <div className="flex justify-center mb-3">
+                  <Tag variant="manage">Under Development</Tag>
+                </div>
+                <p className="text-gray-600 mb-6">
+                  <strong>Stage 4:</strong> Handle day-to-day property management operations and tenant relations. 
+                  Manage tenants, maintenance requests, contracts, reminders, and property administration.
+                </p>
+                <Link to="/manage">
+                  <Button variant="secondary" size="sm">Learn More</Button>
+                </Link>
+              </div>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow duration-300">
+              <div className="text-center">
+                <div className="text-4xl mb-4">📊</div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">Sell</h3>
+                <div className="flex justify-center mb-3">
+                  <Tag variant="sell">Under Development</Tag>
+                </div>
+                <p className="text-gray-600 mb-6">
+                  <strong>Stage 5:</strong> Maximize returns with strategic selling and market timing. 
+                  Analyze market conditions and optimize your exit strategy for maximum profit.
+                </p>
+                <Link to="/sell">
+                  <Button variant="secondary" size="sm">Learn More</Button>
+                </Link>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+
+      {/* How Grow Works */}
       <section className="bg-sky-50 py-16">
         <div className="max-w-screen-xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              How it Works
+              How Grow Works
             </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+              Our MVP focuses on the Grow module to help you discover and research high-potential investment opportunities
+            </p>
+            <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 max-w-2xl mx-auto">
+              <p className="text-orange-800 font-medium">
+                🚧 <strong>Join the Waitlist:</strong> Grow, Manage, and Sell modules are under development. Get early access when we launch!
+              </p>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -103,9 +220,9 @@ const LandingPage: React.FC = () => {
           </div>
 
           <div className="text-center mt-12">
-            <Link to="/grow">
-              <Button size="lg">Explore Grow Module</Button>
-            </Link>
+            <Button variant="secondary" size="lg" disabled>
+              Join Waitlist
+            </Button>
           </div>
         </div>  
       </section>
@@ -200,129 +317,21 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Modules Overview */}
-      <section className="bg-white py-16">
-        <div className="max-w-screen-xl mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Everything you need to succeed in property investment
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-              Proptagon is a strategic property investment platform built to guide everyday Australians through every stage of their investment journey — from research to acquisition, management and eventual sale. We're in early development and starting with the Grow module, but our vision spans the full lifecycle of smart property investing.
-            </p>
-          </div>
-
-          {/* Top row - 3 cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <Card className="hover:shadow-lg transition-shadow duration-300">
-              <div className="text-center">
-                <div className="text-4xl mb-4">📈</div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">Grow</h3>
-                <div className="flex justify-center mb-3">
-                  <Tag variant="grow">Live</Tag>
-                </div>
-                <p className="text-gray-600 mb-6">
-                  Research suburbs and score investment opportunities with data-driven insights. 
-                  Use strategic filters to find high-potential areas that match your investment style.
-                </p>
-                <Link to="/grow">
-                  <Button variant="secondary" size="sm">Learn More</Button>
-                </Link>
-              </div>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-shadow duration-300">
-              <div className="text-center">
-                <div className="text-4xl mb-4">💰</div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">Invest</h3>
-                <div className="flex justify-center mb-3">
-                  <Tag variant="invest">Coming Soon</Tag>
-                </div>
-                <p className="text-gray-600 mb-6">
-                  Analyze market trends and make informed investment decisions. 
-                  Track market movements and identify the optimal timing for your investments.
-                </p>
-                <Link to="/invest">
-                  <Button variant="secondary" size="sm">Learn More</Button>
-                </Link>
-              </div>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-shadow duration-300">
-              <div className="text-center">
-                <div className="text-4xl mb-4">🏠</div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">Manage</h3>
-                <div className="flex justify-center mb-3">
-                  <Tag variant="manage">Coming Soon</Tag>
-                </div>
-                <p className="text-gray-600 mb-6">
-                  Track your portfolio performance and manage properties efficiently. 
-                  Monitor cash flow, expenses, and property value changes in real-time.
-                </p>
-                <Link to="/manage">
-                  <Button variant="secondary" size="sm">Learn More</Button>
-                </Link>
-              </div>
-            </Card>
-          </div>
-
-          {/* Bottom row - 2 centered cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
-            <Card className="hover:shadow-lg transition-shadow duration-300">
-              <div className="text-center">
-                <div className="text-4xl mb-4">⚙️</div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">Operate</h3>
-                <div className="flex justify-center mb-3">
-                  <Tag variant="operate">Coming Soon</Tag>
-                </div>
-                <p className="text-gray-600 mb-6">
-                  Streamline property operations and maintenance workflows. 
-                  Manage tenants, repairs, and property administration from one platform.
-                </p>
-                <Link to="/operate">
-                  <Button variant="secondary" size="sm">Learn More</Button>
-                </Link>
-              </div>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-shadow duration-300">
-              <div className="text-center">
-                <div className="text-4xl mb-4">📊</div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">Sell</h3>
-                <div className="flex justify-center mb-3">
-                  <Tag variant="sell">In Development</Tag>
-                </div>
-                <p className="text-gray-600 mb-6">
-                  Maximize returns with strategic selling and market timing. 
-                  Analyze market conditions and optimize your exit strategy for maximum profit.
-                </p>
-                <Link to="/sell">
-                  <Button variant="secondary" size="sm">Learn More</Button>
-                </Link>
-              </div>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-
       {/* Call to Action Section (Start Exploring) */}
       <section className="bg-blue-100 py-20">
         <div className="max-w-screen-xl mx-auto px-4">
                     <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Start exploring smarter
+              Be the first to experience Proptagon
             </h2>
             <p className="text-xl text-gray-700 mb-8">
-              Join thousands of investors using Proptagon to find the right suburbs faster.
+              Join our waitlist to get early access to the Grow module and be notified when we launch.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/grow">
-                <Button size="lg">
-                  Explore Now
-                </Button>
-              </Link>
-              <Button variant="secondary" size="lg">
+              <Button variant="secondary" size="lg" disabled>
+                Join Waitlist
+              </Button>
+              <Button size="lg" disabled>
                 Request Demo
               </Button>
             </div>

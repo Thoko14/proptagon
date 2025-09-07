@@ -2,7 +2,7 @@ import React from 'react'
 
 interface TagProps {
   children: React.ReactNode
-  variant: 'grow' | 'invest' | 'manage' | 'operate' | 'sell'
+  variant: 'grow' | 'invest' | 'strategise' | 'manage' | 'sell'
   size?: 'sm' | 'md'
   className?: string
 }
@@ -16,8 +16,8 @@ const Tag: React.FC<TagProps> = ({
   const variantClasses = {
     grow: 'bg-emerald-100 text-emerald-800 border-emerald-200',
     invest: 'bg-cyan-100 text-cyan-800 border-cyan-200',
+    strategise: 'bg-purple-100 text-purple-800 border-purple-200',
     manage: 'bg-blue-100 text-blue-800 border-blue-200',
-    operate: 'bg-purple-100 text-purple-800 border-purple-200',
     sell: 'bg-orange-100 text-orange-800 border-orange-200'
   }
   

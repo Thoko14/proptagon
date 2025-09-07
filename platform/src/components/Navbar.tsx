@@ -8,10 +8,12 @@ const Navbar: React.FC = () => {
 
   const navLinks = [
     { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+    { name: 'separator', path: '' },
     { name: 'Grow', path: '/grow' },
     { name: 'Invest', path: '/invest' },
+    { name: 'Strategise', path: '/strategise' },
     { name: 'Manage', path: '/manage' },
-    { name: 'Operate', path: '/operate' },
     { name: 'Sell', path: '/sell' }
   ]
 
@@ -29,24 +31,29 @@ const Navbar: React.FC = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <Link 
-                key={link.name}
-                to={link.path} 
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  isActiveLink(link.path)
-                    ? 'text-primary bg-primary-light'
-                    : 'text-gray-700 hover:text-primary'
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
-            <div className="flex items-center space-x-3">
-              <Button variant="secondary" size="sm">
-                Get Started
-              </Button>
-            </div>
+            {navLinks.map((link) => {
+              if (link.name === 'separator') {
+                return (
+                  <div key={link.name} className="flex items-center">
+                    <div className="w-px h-6 bg-gray-300"></div>
+                    <span className="ml-3 text-xs text-gray-500 font-medium">MODULES</span>
+                  </div>
+                )
+              }
+              return (
+                <Link 
+                  key={link.name}
+                  to={link.path} 
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    isActiveLink(link.path)
+                      ? 'text-primary bg-primary-light'
+                      : 'text-gray-700 hover:text-primary'
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              )
+            })}
           </div>
 
           {/* Mobile menu button */}
@@ -74,25 +81,30 @@ const Navbar: React.FC = () => {
       {isMenuOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
-            {navLinks.map((link) => (
-              <Link 
-                key={link.name}
-                to={link.path} 
-                className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
-                  isActiveLink(link.path)
-                    ? 'text-primary bg-primary-light'
-                    : 'text-gray-700 hover:text-primary'
-                }`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {link.name}
-              </Link>
-            ))}
-            <div className="px-3 py-2">
-              <Button variant="secondary" size="sm" className="w-full">
-                Get Started
-              </Button>
-            </div>
+            {navLinks.map((link) => {
+              if (link.name === 'separator') {
+                return (
+                  <div key={link.name} className="px-3 py-2">
+                    <div className="border-t border-gray-200 my-2"></div>
+                    <span className="text-xs text-gray-500 font-medium">MODULES</span>
+                  </div>
+                )
+              }
+              return (
+                <Link 
+                  key={link.name}
+                  to={link.path} 
+                  className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
+                    isActiveLink(link.path)
+                      ? 'text-primary bg-primary-light'
+                      : 'text-gray-700 hover:text-primary'
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {link.name}
+                </Link>
+              )
+            })}
           </div>
         </div>
       )}

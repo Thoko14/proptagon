@@ -9,8 +9,8 @@ Proptagon is a comprehensive property investment platform designed to help users
 **🏠 Multi-Module Architecture**
 - **Grow Module**: Property discovery and suburb analysis for growth-focused investors
 - **Invest Module**: Investment analysis and portfolio management tools
-- **Manage Module**: Property management and tenant relationship tools
-- **Operate Module**: Operational efficiency and maintenance tracking
+- **Strategise Module**: Strategic portfolio management and analytics for data-driven decisions
+- **Manage Module**: Property management operations, tenant relationships, and day-to-day administration
 - **Sell Module**: Sales strategy and market timing tools
 
 **🎯 Investment Strategies**
