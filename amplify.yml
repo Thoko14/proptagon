@@ -3,15 +3,16 @@ frontend:
   phases:
     preBuild:
       commands:
-        - npm ci   # or "npm install" until lockfile is fixed
+        - cd platform
+        - npm ci         # lockfile in platform/
     build:
       commands:
-        - npm run build
+        - cd platform
+        - npm run build  # produces platform/dist
   artifacts:
-    baseDirectory: dist
+    baseDirectory: platform/dist
     files:
       - '**/*'
   cache:
     paths:
-      - node_modules/**/*
-
+      - platform/node_modules/**/*
