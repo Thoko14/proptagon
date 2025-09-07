@@ -1,0 +1,831 @@
+{
+  "timestamp": "2025-01-27T11:00:00.000Z",
+  "totalCount": 131,
+  "recentCompletion": {
+    "date": "2025-01-27",
+    "feature": "School Catchments MVP (Epic B3)",
+    "status": "COMPLETED AND TESTED - PRODUCTION READY",
+    "components": [
+      "modules/grow/frontend/components/LayersFab.tsx",
+      "modules/grow/frontend/components/SchoolCatchmentsSidebar.tsx", 
+      "modules/grow/frontend/hooks/useSchoolCatchments.ts"
+    ],
+    "integration": [
+      "modules/grow/frontend/components/GrowMap.tsx",
+      "platform/src/pages/GrowPage.tsx"
+    ],
+    "data": "platform/public/geojson/aus_catchments_2023_2025.geojson",
+    "testingCompleted": "All functionality tested and verified working correctly",
+    "features": [
+      "FAB positioning and styling",
+      "Sidebar interactions and accordions", 
+      "Filter interdependency logic",
+      "State-specific filtering for all states",
+      "Color legend and map rendering",
+      "Tooltip system and school information display",
+      "Apply/Reset functionality"
+    ]
+  },
+  "categories": {
+    "High Priority": [
+      {
+        "file": "modules/grow/frontend/components/LayersFab.tsx",
+        "line": 1,
+        "pattern": "COMPLETED",
+        "content": "School Catchments MVP - Epic B3 ✅ IMPLEMENTED ⚠️ NEEDS TESTING"
+      },
+      {
+        "file": "data/docs/01-IMPORTANT.md",
+        "line": 127,
+        "pattern": "TODO:",
+        "content": "// TODO: Implement save property functionality ✅ IMPLEMENTED"
+      },
+      {
+        "file": "data/docs/01-IMPORTANT.md",
+        "line": 215,
+        "pattern": "TODO:",
+        "content": "- **Functions marked with `// TODO: Implement`** - These are required features"
+      },
+      {
+        "file": "data/docs/DEVELOPMENT_GUIDELINES.md",
+        "line": 9,
+        "pattern": "TODO:",
+        "content": "- **Functions marked with `// TODO: Implement`** - These are required features"
+      },
+      {
+        "file": "data/docs/DEVELOPMENT_GUIDELINES.md",
+        "line": 99,
+        "pattern": "TODO:",
+        "content": "// TODO: Implement save property functionality"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 58,
+        "pattern": "TODO:",
+        "content": "- `// TODO: Implement` (Line 68 in GrowViewManager.tsx)"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 66,
+        "pattern": "TODO:",
+        "content": "onAddToCompare={() => {/* TODO: Implement */}}"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 74,
+        "pattern": "TODO:",
+        "content": "- `// TODO: Implement show properties functionality` (Line 379 in GrowPage.tsx)"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 75,
+        "pattern": "TODO:",
+        "content": "- `// TODO: Implement` (Line 80 in GrowViewManager.tsx)"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 79,
+        "pattern": "TODO:",
+        "content": "// TODO: Implement show properties functionality"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 83,
+        "pattern": "TODO:",
+        "content": "onAddToCompare={() => {/* TODO: Implement */}}"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 111,
+        "pattern": "TODO:",
+        "content": "- `// TODO: Implement save property functionality` (Line 340 in GrowPage.tsx)"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 112,
+        "pattern": "TODO:",
+        "content": "- `onAddToCompare={() => {/* TODO: Implement */}}` (Line 50 in GrowViewManager.tsx)"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 113,
+        "pattern": "TODO:",
+        "content": "- `onSaveProperty={() => {/* TODO: Implement */}}` (Line 51 in GrowViewManager.tsx)"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 117,
+        "pattern": "TODO:",
+        "content": "// TODO: Implement save property functionality"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 121,
+        "pattern": "TODO:",
+        "content": "onAddToCompare={() => {/* TODO: Implement */}}"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 122,
+        "pattern": "TODO:",
+        "content": "onSaveProperty={() => {/* TODO: Implement */}}"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 132,
+        "pattern": "TODO:",
+        "content": "- `onRemoveItem={() => {/* TODO: Implement */}}` (Line 59 in GrowViewManager.tsx)"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 133,
+        "pattern": "TODO:",
+        "content": "- `onReorderItems={() => {/* TODO: Implement */}}` (Line 60 in GrowViewManager.tsx)"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 137,
+        "pattern": "TODO:",
+        "content": "onRemoveItem={() => {/* TODO: Implement */}}"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 138,
+        "pattern": "TODO:",
+        "content": "onReorderItems={() => {/* TODO: Implement */}}"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 162,
+        "pattern": "TODO:",
+        "content": "- **Missing**: Multiple `# TODO: Implement real API request` comments"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 166,
+        "pattern": "TODO:",
+        "content": "# TODO: Implement real API request"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 172,
+        "pattern": "TODO:",
+        "content": "- **Missing**: Multiple `# TODO: Implement` comments for scoring logic"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 176,
+        "pattern": "TODO:",
+        "content": "# TODO: Implement real location evaluation"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 177,
+        "pattern": "TODO:",
+        "content": "# TODO: Implement infrastructure evaluation"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 178,
+        "pattern": "TODO:",
+        "content": "# TODO: Implement market trend analysis"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 179,
+        "pattern": "TODO:",
+        "content": "# TODO: Implement rental yield calculation"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 185,
+        "pattern": "TODO:",
+        "content": "- **Missing**: `// TODO: Implement real API request` (Line 31)"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 189,
+        "pattern": "TODO:",
+        "content": "// TODO: Implement real API request"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 197,
+        "pattern": "TODO:",
+        "content": "- **Missing**: `// TODO: Implement manage presets modal` (Line 364)"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 201,
+        "pattern": "TODO:",
+        "content": "// TODO: Implement manage presets modal"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 218,
+        "pattern": "TODO:",
+        "content": "- **Missing**: `{/* TODO: Implement dynamic strategy recommendations */}` (Line 28)"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 222,
+        "pattern": "TODO:",
+        "content": "{/* TODO: Implement dynamic strategy recommendations */}"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 228,
+        "pattern": "TODO:",
+        "content": "- **Missing**: `{/* TODO: Implement detailed scoring metrics */}` (Line 28)"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 232,
+        "pattern": "TODO:",
+        "content": "{/* TODO: Implement detailed scoring metrics */}"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 259,
+        "pattern": "TODO:",
+        "content": "- Any function marked with `// TODO: Implement` or `# TODO: Implement`"
+      },
+      {
+        "file": "modules/grow/backend/scoring/main.py",
+        "line": 35,
+        "pattern": "TODO:",
+        "content": "# TODO: Implement complete scoring logic"
+      },
+      {
+        "file": "modules/grow/frontend/api/fetchScore.ts",
+        "line": 32,
+        "pattern": "TODO:",
+        "content": "// TODO: Implement real API request"
+      },
+      {
+        "file": "modules/grow/frontend/components/GrowTopBar.tsx",
+        "line": 469,
+        "pattern": "TODO:",
+        "content": "// TODO: Implement manage presets modal"
+      },
+      {
+        "file": "modules/grow/frontend/components/ScoreCard.tsx",
+        "line": 29,
+        "pattern": "TODO:",
+        "content": "{/* TODO: Implement detailed scoring metrics */}"
+      },
+      {
+        "file": "modules/grow/frontend/components/StrategyBox.tsx",
+        "line": 29,
+        "pattern": "TODO:",
+        "content": "{/* TODO: Implement dynamic strategy recommendations */}"
+      },
+      {
+        "file": "modules/invest/backend/main.py",
+        "line": 25,
+        "pattern": "TODO:",
+        "content": "# TODO: Implement Invest module functionality"
+      },
+      {
+        "file": "modules/invest/frontend/App.tsx",
+        "line": 16,
+        "pattern": "TODO:",
+        "content": "{/* TODO: Implement Invest module functionality */}"
+      },
+      {
+        "file": "modules/manage/frontend/App.tsx",
+        "line": 16,
+        "pattern": "TODO:",
+        "content": "{/* TODO: Implement Manage module functionality */}"
+      },
+      {
+        "file": "modules/operate/frontend/App.tsx",
+        "line": 16,
+        "pattern": "TODO:",
+        "content": "{/* TODO: Implement Operate module functionality */}"
+      },
+      {
+        "file": "modules/sell/frontend/App.tsx",
+        "line": 16,
+        "pattern": "TODO:",
+        "content": "{/* TODO: Implement Sell module functionality */}"
+      },
+      {
+        "file": "scripts/generate-test-users.ts",
+        "line": 65,
+        "pattern": "TODO:",
+        "content": "// TODO: Implement real user creation"
+      },
+      {
+        "file": "scripts/preserve-todos.js",
+        "line": 125,
+        "pattern": "TODO:",
+        "content": "else if (todo.pattern === 'TODO:' && todo.content.includes('Implement')) {"
+      },
+      {
+        "file": "scripts/preserve-todos.js",
+        "line": 223,
+        "pattern": "TODO:",
+        "content": "console.log('  ✅ DO NOT DELETE: Functions marked with TODO: Implement');"
+      },
+      {
+        "file": "scripts/seed-suburbs.py",
+        "line": 102,
+        "pattern": "TODO:",
+        "content": "# TODO: Implement real database operation"
+      }
+    ],
+    "Medium Priority": [
+      {
+        "file": "data/docs/01-IMPORTANT.md",
+        "line": 128,
+        "pattern": "FUTURE:",
+        "content": "// FUTURE: Add to user favorites/watchlist with persistence"
+      },
+      {
+        "file": "data/docs/01-IMPORTANT.md",
+        "line": 219,
+        "pattern": "FUTURE:",
+        "content": "- **Any code marked with `FUTURE:` comments** - These are planned enhancements"
+      },
+      {
+        "file": "data/docs/DEVELOPMENT_GUIDELINES.md",
+        "line": 13,
+        "pattern": "FUTURE:",
+        "content": "- **Any code marked with `FUTURE:` comments** - These are planned enhancements"
+      },
+      {
+        "file": "data/docs/DEVELOPMENT_GUIDELINES.md",
+        "line": 100,
+        "pattern": "FUTURE:",
+        "content": "// FUTURE: Add to user favorites/watchlist with persistence"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 40,
+        "pattern": "FUTURE:",
+        "content": "// FUTURE: Implement suburb-specific property routing"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 63,
+        "pattern": "FUTURE:",
+        "content": "// FUTURE: Implement map centering and polygon highlighting"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 67,
+        "pattern": "FUTURE:",
+        "content": "// FUTURE: Implement suburb comparison functionality"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 80,
+        "pattern": "FUTURE:",
+        "content": "// FUTURE: Implement suburb-specific property filtering"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 84,
+        "pattern": "FUTURE:",
+        "content": "// FUTURE: Implement suburb comparison functionality"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 104,
+        "pattern": "FUTURE:",
+        "content": "// FUTURE: Implement property data fetching and state management"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 118,
+        "pattern": "FUTURE:",
+        "content": "// FUTURE: Implement property saving to user favorites/watchlist"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 123,
+        "pattern": "FUTURE:",
+        "content": "// FUTURE: Implement property comparison and saving functionality"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 139,
+        "pattern": "FUTURE:",
+        "content": "// FUTURE: Implement compare item management functionality"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 167,
+        "pattern": "FUTURE:",
+        "content": "# FUTURE: Connect to real property data APIs (Domain, RealEstate.com.au, etc.)"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 180,
+        "pattern": "FUTURE:",
+        "content": "# FUTURE: Implement comprehensive scoring algorithms"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 190,
+        "pattern": "FUTURE:",
+        "content": "// FUTURE: Connect to backend scoring API"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 202,
+        "pattern": "FUTURE:",
+        "content": "// FUTURE: Implement strategy preset management UI"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 213,
+        "pattern": "FUTURE:",
+        "content": "// FUTURE: Implement proper error tracking and user feedback"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 223,
+        "pattern": "FUTURE:",
+        "content": "{/* FUTURE: Implement AI-powered strategy suggestions */}"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 233,
+        "pattern": "FUTURE:",
+        "content": "{/* FUTURE: Implement detailed scoring breakdown and explanations */}"
+      },
+      {
+        "file": "scripts/preserve-todos.js",
+        "line": 22,
+        "pattern": "FUTURE:",
+        "content": "'FUTURE:',"
+      },
+      {
+        "file": "scripts/preserve-todos.js",
+        "line": 23,
+        "pattern": "NOT IMPLEMENTED",
+        "content": "'NOT IMPLEMENTED',"
+      },
+      {
+        "file": "scripts/preserve-todos.js",
+        "line": 128,
+        "pattern": "FUTURE:",
+        "content": "else if (todo.pattern === 'FUTURE:' || todo.pattern === 'NOT IMPLEMENTED') {"
+      },
+      {
+        "file": "scripts/preserve-todos.js",
+        "line": 128,
+        "pattern": "NOT IMPLEMENTED",
+        "content": "else if (todo.pattern === 'FUTURE:' || todo.pattern === 'NOT IMPLEMENTED') {"
+      }
+    ],
+    "Low Priority": [
+      {
+        "file": "data/docs/01-IMPORTANT.md",
+        "line": 10,
+        "pattern": "MISSING",
+        "content": "- `data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md` - What's missing"
+      },
+      {
+        "file": "data/docs/01-IMPORTANT.md",
+        "line": 30,
+        "pattern": "MISSING",
+        "content": "1. Check `MISSING_FUNCTIONALITY_ANALYSIS.md` for related requirements"
+      },
+      {
+        "file": "data/docs/01-IMPORTANT.md",
+        "line": 69,
+        "pattern": "MISSING",
+        "content": "1. Check `MISSING_FUNCTIONALITY_ANALYSIS.md` section D3 for requirements"
+      },
+      {
+        "file": "data/docs/01-IMPORTANT.md",
+        "line": 87,
+        "pattern": "MISSING",
+        "content": "1. Check `MISSING_FUNCTIONALITY_ANALYSIS.md` Epic E for requirements"
+      },
+      {
+        "file": "data/docs/01-IMPORTANT.md",
+        "line": 169,
+        "pattern": "TODO:",
+        "content": "git log -S \"TODO:\" --oneline"
+      },
+      {
+        "file": "data/docs/01-IMPORTANT.md",
+        "line": 172,
+        "pattern": "TODO:",
+        "content": "git show <commit-hash> | grep -A 5 -B 5 \"TODO:\""
+      },
+      {
+        "file": "data/docs/01-IMPORTANT.md",
+        "line": 429,
+        "pattern": "MISSING",
+        "content": "1. **Check the analysis docs** - `data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md`"
+      },
+      {
+        "file": "data/docs/01-IMPORTANT.md",
+        "line": 436,
+        "pattern": "TODO:",
+        "content": "1. **Check git history** - `git log -S \"TODO:\" --oneline`"
+      },
+      {
+        "file": "data/docs/01-IMPORTANT.md",
+        "line": 465,
+        "pattern": "MISSING",
+        "content": "- **`MISSING_FUNCTIONALITY_ANALYSIS.md`** - Your roadmap of what needs to be built"
+      },
+      {
+        "file": "data/docs/DEVELOPMENT_GUIDELINES.md",
+        "line": 131,
+        "pattern": "MISSING",
+        "content": "- `data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md`"
+      },
+      {
+        "file": "data/docs/DEVELOPMENT_GUIDELINES.md",
+        "line": 152,
+        "pattern": "TODO:",
+        "content": "git log -S \"TODO:\" --oneline"
+      },
+      {
+        "file": "data/docs/DEVELOPMENT_GUIDELINES.md",
+        "line": 155,
+        "pattern": "TODO:",
+        "content": "git show <commit-hash> | grep -A 5 -B 5 \"TODO:\""
+      },
+      {
+        "file": "data/docs/DEVELOPMENT_GUIDELINES.md",
+        "line": 158,
+        "pattern": "TODO:",
+        "content": "git log --oneline -p | grep -A 10 -B 10 \"TODO:\""
+      },
+      {
+        "file": "data/docs/DEVELOPMENT_GUIDELINES.md",
+        "line": 197,
+        "pattern": "MISSING",
+        "content": "1. **Check the analysis docs** - `data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md`"
+      },
+      {
+        "file": "data/docs/DEVELOPMENT_GUIDELINES.md",
+        "line": 204,
+        "pattern": "TODO:",
+        "content": "1. **Check git history** - `git log -S \"TODO:\" --oneline`"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 34,
+        "pattern": "TODO:",
+        "content": "- `// TODO: Navigate to properties view with suburb filter` (Line 15)"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 39,
+        "pattern": "TODO:",
+        "content": "// TODO: Navigate to properties view with suburb filter"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 62,
+        "pattern": "TODO:",
+        "content": "onCenterOnMap={(suburbId) => {/* TODO: Connect to mapRef.current.zoomToSuburb() */}}"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 97,
+        "pattern": "TODO:",
+        "content": "- `properties={[]} // TODO: Get properties from store/API` (Line 37 in GrowViewManager.tsx)"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 98,
+        "pattern": "TODO:",
+        "content": "- `totalCount={0} // TODO: Get total count from store/API` (Line 38 in GrowViewManager.tsx)"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 102,
+        "pattern": "TODO:",
+        "content": "properties={[]} // TODO: Get properties from store/API"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 103,
+        "pattern": "TODO:",
+        "content": "totalCount={0} // TODO: Get total count from store/API"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 211,
+        "pattern": "TODO:",
+        "content": "// TODO: Send to error reporting service (Sentry, etc.)"
+      },
+      {
+        "file": "data/docs/MISSING_FUNCTIONALITY_ANALYSIS.md",
+        "line": 212,
+        "pattern": "TODO:",
+        "content": "// TODO: Open bug form or Sentry user feedback"
+      },
+      {
+        "file": "data/docs/README.md",
+        "line": 17,
+        "pattern": "MISSING",
+        "content": "- **[MISSING_FUNCTIONALITY_ANALYSIS.md](./MISSING_FUNCTIONALITY_ANALYSIS.md)** - Comprehensive analysis of missing functionality and implementation roadmap"
+      },
+      {
+        "file": "data/docs/README.md",
+        "line": 34,
+        "pattern": "MISSING",
+        "content": "2. Check **[MISSING_FUNCTIONALITY_ANALYSIS.md](./MISSING_FUNCTIONALITY_ANALYSIS.md)** for implementation status"
+      },
+      {
+        "file": "data/docs/README.md",
+        "line": 61,
+        "pattern": "MISSING",
+        "content": "- **`MISSING_FUNCTIONALITY_ANALYSIS.md`** - Implementation roadmap and status"
+      },
+      {
+        "file": "data/docs/README.md",
+        "line": 75,
+        "pattern": "MISSING",
+        "content": "- `EPIC_IMPLEMENTATION_STATUS.md` - Superseded by MISSING_FUNCTIONALITY_ANALYSIS.md"
+      },
+      {
+        "file": "data/docs/README.md",
+        "line": 90,
+        "pattern": "MISSING",
+        "content": "2. Review **[MISSING_FUNCTIONALITY_ANALYSIS.md](./MISSING_FUNCTIONALITY_ANALYSIS.md)**"
+      },
+      {
+        "file": "data/docs/archive/README.md",
+        "line": 15,
+        "pattern": "MISSING",
+        "content": "- **Replaced By**: `MISSING_FUNCTIONALITY_ANALYSIS.md` - provides more detailed analysis including Epic G and implementation roadmap"
+      },
+      {
+        "file": "data/docs/archive/README.md",
+        "line": 20,
+        "pattern": "MISSING",
+        "content": "- **Replaced By**: Current implementation analysis in `MISSING_FUNCTIONALITY_ANALYSIS.md` and `01-IMPORTANT.md`"
+      },
+      {
+        "file": "data/docs/archive/README.md",
+        "line": 28,
+        "pattern": "MISSING",
+        "content": "- **`MISSING_FUNCTIONALITY_ANALYSIS.md`** - Comprehensive implementation roadmap"
+      },
+      {
+        "file": "infrastructure/lib/amplify-stack.ts",
+        "line": 7,
+        "pattern": "TODO:",
+        "content": "// TODO: Erweitere Props nach Bedarf"
+      },
+      {
+        "file": "infrastructure/lib/amplify-stack.ts",
+        "line": 24,
+        "pattern": "TODO:",
+        "content": "repository: 'https://github.com/your-username/propbase', // TODO: Update repository URL"
+      },
+      {
+        "file": "infrastructure/lib/amplify-stack.ts",
+        "line": 25,
+        "pattern": "TODO:",
+        "content": "oauthToken: cdk.SecretValue.secretsManager('github-token'), // TODO: Create GitHub token"
+      },
+      {
+        "file": "infrastructure/lib/amplify-stack.ts",
+        "line": 44,
+        "pattern": "TODO:",
+        "content": "// TODO: Configure custom domain if available"
+      },
+      {
+        "file": "infrastructure/lib/propbase-stack.ts",
+        "line": 29,
+        "pattern": "TODO:",
+        "content": "// TODO: Configure Amplify for frontend deployment"
+      },
+      {
+        "file": "modules/grow/frontend/components/GrowErrorBoundary.tsx",
+        "line": 33,
+        "pattern": "TODO:",
+        "content": "// TODO: Send to error reporting service (Sentry, etc.)"
+      },
+      {
+        "file": "modules/grow/frontend/components/GrowErrorBoundary.tsx",
+        "line": 54,
+        "pattern": "TODO:",
+        "content": "// TODO: Open bug form or Sentry user feedback"
+      },
+      {
+        "file": "modules/grow/frontend/components/GrowTopBar.tsx",
+        "line": 490,
+        "pattern": "TODO:",
+        "content": "// TODO: Navigate to property filters view"
+      },
+      {
+        "file": "modules/grow/frontend/components/PropertiesFab.tsx",
+        "line": 16,
+        "pattern": "TODO:",
+        "content": "// TODO: Navigate to properties view with suburb filter"
+      },
+      {
+        "file": "modules/grow/frontend/components/SuburbToolkit.tsx",
+        "line": 19,
+        "pattern": "TODO:",
+        "content": "// TODO: Navigate to properties view with suburb filter"
+      },
+      {
+        "file": "modules/grow/frontend/hooks/useGrowMap.ts",
+        "line": 134,
+        "pattern": "TODO:",
+        "content": "// TODO: Re-enable these effects once basic map is working"
+      },
+      {
+        "file": "scripts/preserve-todos.js",
+        "line": 21,
+        "pattern": "TODO:",
+        "content": "'TODO:',"
+      },
+      {
+        "file": "scripts/preserve-todos.js",
+        "line": 24,
+        "pattern": "MISSING",
+        "content": "'MISSING',"
+      },
+      {
+        "file": "scripts/preserve-todos.js",
+        "line": 25,
+        "pattern": "PLACEHOLDER",
+        "content": "'PLACEHOLDER',"
+      },
+      {
+        "file": "scripts/preserve-todos.js",
+        "line": 26,
+        "pattern": "MOCK DATA",
+        "content": "'MOCK DATA',"
+      },
+      {
+        "file": "scripts/preserve-todos.js",
+        "line": 27,
+        "pattern": "PRESERVED:",
+        "content": "'PRESERVED:'"
+      },
+      {
+        "file": "scripts/preserve-todos.js",
+        "line": 166,
+        "pattern": "TODO:",
+        "content": "console.log('💡 Use: git log -S \"TODO:\" --oneline');"
+      }
+    ],
+    "Critical Files": [
+      {
+        "file": "modules/grow/backend/data/fetch.py",
+        "line": 32,
+        "pattern": "TODO:",
+        "content": "# TODO: Implement real API request"
+      },
+      {
+        "file": "modules/grow/backend/data/fetch.py",
+        "line": 60,
+        "pattern": "TODO:",
+        "content": "# TODO: Implement real API request"
+      },
+      {
+        "file": "modules/grow/backend/data/fetch.py",
+        "line": 87,
+        "pattern": "TODO:",
+        "content": "# TODO: Implement real API request"
+      },
+      {
+        "file": "modules/grow/backend/data/fetch.py",
+        "line": 112,
+        "pattern": "TODO:",
+        "content": "# TODO: Implement real API request"
+      },
+      {
+        "file": "modules/grow/backend/scoring/logic/scoring_algorithms.py",
+        "line": 14,
+        "pattern": "TODO:",
+        "content": "# TODO: Implement real location evaluation"
+      },
+      {
+        "file": "modules/grow/backend/scoring/logic/scoring_algorithms.py",
+        "line": 32,
+        "pattern": "TODO:",
+        "content": "# TODO: Implement infrastructure evaluation"
+      },
+      {
+        "file": "modules/grow/backend/scoring/logic/scoring_algorithms.py",
+        "line": 40,
+        "pattern": "TODO:",
+        "content": "# TODO: Implement market trend analysis"
+      },
+      {
+        "file": "modules/grow/backend/scoring/logic/scoring_algorithms.py",
+        "line": 48,
+        "pattern": "TODO:",
+        "content": "# TODO: Implement rental yield calculation"
+      }
+    ]
+  }
+}

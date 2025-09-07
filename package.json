@@ -1,0 +1,33 @@
+{
+  "name": "propbase",
+  "version": "1.0.0",
+  "description": "A comprehensive SaaS project for real estate investment and management",
+  "private": true,
+  "workspaces": [
+    "modules/*/frontend",
+    "platform",
+    "shared"
+  ],
+  "scripts": {
+    "dev": "cd platform && npm run dev",
+    "start": "cd platform && npm run start",
+    "build": "cd platform && npm run build",
+    "test": "cd platform && npm run test",
+    "lint": "cd platform && npm run lint",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "concurrently": "^8.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "dependencies": {
+    "mapbox-gl": "^3.14.0",
+    "zustand": "^4.4.7",
+    "lucide-react": "^0.294.0"
+  }
+}

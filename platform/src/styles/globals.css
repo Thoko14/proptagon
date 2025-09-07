@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles can be added here */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f9fafb; /* subtle light grey bg */
+  color: #111827; /* Tailwind gray-900 */
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom focus styles */
+.focus-ring:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px #0ea5e9; /* sky-500 */
+} 
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-weight: 600;
+}
+
+/* Sky Blue Theme Utilities */
+@layer utilities {
+  .text-primary {
+    color: #0ea5e9; /* sky-500 */
+  }
+  
+  .bg-primary {
+    background-color: #0ea5e9; /* sky-500 */
+  }
+  
+  .border-primary {
+    border-color: #0ea5e9; /* sky-500 */
+  }
+  
+  .hover\:bg-primary:hover {
+    background-color: #0284c7; /* sky-600 */
+  }
+  
+  .hover\:text-primary:hover {
+    color: #0284c7; /* sky-600 */
+  }
+  
+  .focus\:ring-primary:focus {
+    --tw-ring-color: #0ea5e9; /* sky-500 */
+  }
+  
+  .focus\:border-primary:focus {
+    border-color: #0ea5e9; /* sky-500 */
+  }
+}
+
+/* Custom tooltip popup styles */
+.custom-tooltip-popup {
+  z-index: 9999 !important;
+  pointer-events: auto !important;
+}
+
+.custom-tooltip-popup .mapboxgl-popup-content {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.custom-tooltip-popup .mapboxgl-popup-tip {
+  border-top-color: #e5e7eb;
+}
