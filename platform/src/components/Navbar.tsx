@@ -29,21 +29,26 @@ const Navbar: React.FC = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => {
+          <div className="hidden md:flex items-center">
+            {navLinks.map((link, index) => {
               if (link.name === 'separator') {
                 return (
-                  <div key={link.name} className="flex items-center">
+                  <div key={link.name} className="flex items-center ml-8 mr-6">
                     <div className="w-px h-6 bg-gray-300"></div>
-                    <span className="ml-3 text-xs text-gray-500 font-medium">MODULES</span>
+                    <span className="ml-3 text-xs text-gray-500 font-medium">MODULES:</span>
                   </div>
                 )
               }
+              
+              // Different spacing for main nav vs modules
+              const isMainNav = link.name === 'Home' || link.name === 'About';
+              const spacingClass = isMainNav ? 'mr-8' : 'mr-5';
+              
               return (
                 <Link 
                   key={link.name}
                   to={link.path} 
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${spacingClass} ${
                     isActiveLink(link.path)
                       ? 'text-primary bg-primary-light'
                       : 'text-gray-700 hover:text-primary'

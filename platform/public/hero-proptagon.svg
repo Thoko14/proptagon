@@ -1,0 +1,163 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0ea5e9;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="cardGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.95" />
+      <stop offset="100%" style="stop-color:#f8fafc;stop-opacity:0.9" />
+    </linearGradient>
+    
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="800" fill="url(#bgGradient)"/>
+  
+  <!-- Subtle pattern overlay -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="800" fill="url(#grid)"/>
+  
+  <!-- Main content area -->
+  <g transform="translate(100, 100)">
+    
+    <!-- Left side - Problem/Challenge -->
+    <g transform="translate(0, 50)">
+      <!-- Confused investor -->
+      <circle cx="80" cy="80" r="60" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+      <text x="80" y="90" text-anchor="middle" fill="white" font-size="40" font-family="Arial">😕</text>
+      
+      <!-- Scattered data points -->
+      <g opacity="0.7">
+        <circle cx="20" cy="20" r="8" fill="#ef4444"/>
+        <circle cx="140" cy="30" r="6" fill="#f59e0b"/>
+        <circle cx="30" cy="140" r="7" fill="#10b981"/>
+        <circle cx="130" cy="150" r="5" fill="#8b5cf6"/>
+        <circle cx="80" cy="200" r="6" fill="#f97316"/>
+      </g>
+      
+      <!-- Question marks -->
+      <text x="80" y="250" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="16" font-family="Arial">Where to invest?</text>
+      <text x="80" y="270" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="16" font-family="Arial">What's the risk?</text>
+      <text x="80" y="290" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="16" font-family="Arial">How to grow?</text>
+    </g>
+    
+    <!-- Center - Proptagon Platform -->
+    <g transform="translate(400, 0)">
+      <!-- Main platform card -->
+      <rect x="0" y="50" width="400" height="500" rx="20" fill="url(#cardGradient)" stroke="rgba(255,255,255,0.3)" stroke-width="2" filter="url(#glow)"/>
+      
+      <!-- Platform header -->
+      <rect x="20" y="70" width="360" height="60" rx="10" fill="#0ea5e9"/>
+      <text x="200" y="110" text-anchor="middle" fill="white" font-size="24" font-weight="bold" font-family="Arial">Proptagon</text>
+      
+      <!-- Module cards -->
+      <g transform="translate(30, 150)">
+        <!-- Grow module -->
+        <rect x="0" y="0" width="160" height="80" rx="8" fill="rgba(16, 185, 129, 0.1)" stroke="#10b981" stroke-width="2"/>
+        <text x="80" y="30" text-anchor="middle" fill="#10b981" font-size="20" font-weight="bold" font-family="Arial">📈 Grow</text>
+        <text x="80" y="50" text-anchor="middle" fill="#374151" font-size="12" font-family="Arial">Discover suburbs</text>
+        <text x="80" y="65" text-anchor="middle" fill="#374151" font-size="12" font-family="Arial">Growth potential</text>
+        
+        <!-- Invest module -->
+        <rect x="180" y="0" width="160" height="80" rx="8" fill="rgba(59, 130, 246, 0.1)" stroke="#3b82f6" stroke-width="2"/>
+        <text x="260" y="30" text-anchor="middle" fill="#3b82f6" font-size="20" font-weight="bold" font-family="Arial">💰 Invest</text>
+        <text x="260" y="50" text-anchor="middle" fill="#374151" font-size="12" font-family="Arial">Smart decisions</text>
+        <text x="260" y="65" text-anchor="middle" fill="#374151" font-size="12" font-family="Arial">Financial tools</text>
+        
+        <!-- Strategise module -->
+        <rect x="0" y="100" width="160" height="80" rx="8" fill="rgba(139, 92, 246, 0.1)" stroke="#8b5cf6" stroke-width="2"/>
+        <text x="80" y="130" text-anchor="middle" fill="#8b5cf6" font-size="20" font-weight="bold" font-family="Arial">🎯 Strategise</text>
+        <text x="80" y="150" text-anchor="middle" fill="#374151" font-size="12" font-family="Arial">Tailored plans</text>
+        <text x="80" y="165" text-anchor="middle" fill="#374151" font-size="12" font-family="Arial">Risk assessment</text>
+        
+        <!-- Manage module -->
+        <rect x="180" y="100" width="160" height="80" rx="8" fill="rgba(245, 158, 11, 0.1)" stroke="#f59e0b" stroke-width="2"/>
+        <text x="260" y="130" text-anchor="middle" fill="#f59e0b" font-size="20" font-weight="bold" font-family="Arial">🏠 Manage</text>
+        <text x="260" y="150" text-anchor="middle" fill="#374151" font-size="12" font-family="Arial">Property ops</text>
+        <text x="260" y="165" text-anchor="middle" fill="#374151" font-size="12" font-family="Arial">Tenant relations</text>
+        
+        <!-- Sell module -->
+        <rect x="90" y="200" width="160" height="80" rx="8" fill="rgba(239, 68, 68, 0.1)" stroke="#ef4444" stroke-width="2"/>
+        <text x="170" y="230" text-anchor="middle" fill="#ef4444" font-size="20" font-weight="bold" font-family="Arial">📊 Sell</text>
+        <text x="170" y="250" text-anchor="middle" fill="#374151" font-size="12" font-family="Arial">Exit strategy</text>
+        <text x="170" y="265" text-anchor="middle" fill="#374151" font-size="12" font-family="Arial">Market timing</text>
+      </g>
+      
+      <!-- Data visualization elements -->
+      <g transform="translate(50, 350)" opacity="0.8">
+        <!-- Growth chart -->
+        <polyline points="0,50 30,30 60,20 90,15 120,10" fill="none" stroke="#10b981" stroke-width="3"/>
+        <circle cx="0" cy="50" r="4" fill="#10b981"/>
+        <circle cx="30" cy="30" r="4" fill="#10b981"/>
+        <circle cx="60" cy="20" r="4" fill="#10b981"/>
+        <circle cx="90" cy="15" r="4" fill="#10b981"/>
+        <circle cx="120" cy="10" r="4" fill="#10b981"/>
+        
+        <!-- Map visualization -->
+        <rect x="150" y="20" width="80" height="60" rx="5" fill="rgba(14, 165, 233, 0.1)" stroke="#0ea5e9" stroke-width="2"/>
+        <circle cx="170" cy="40" r="3" fill="#0ea5e9"/>
+        <circle cx="190" cy="35" r="3" fill="#0ea5e9"/>
+        <circle cx="210" cy="45" r="3" fill="#0ea5e9"/>
+        <circle cx="180" cy="55" r="3" fill="#0ea5e9"/>
+        <circle cx="200" cy="60" r="3" fill="#0ea5e9"/>
+      </g>
+    </g>
+    
+    <!-- Right side - Success/Outcome -->
+    <g transform="translate(900, 50)">
+      <!-- Confident investor -->
+      <circle cx="80" cy="80" r="60" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+      <text x="80" y="90" text-anchor="middle" fill="white" font-size="40" font-family="Arial">😊</text>
+      
+      <!-- Success indicators -->
+      <g opacity="0.8">
+        <rect x="20" y="150" width="120" height="40" rx="20" fill="rgba(16, 185, 129, 0.2)" stroke="#10b981" stroke-width="2"/>
+        <text x="80" y="175" text-anchor="middle" fill="#10b981" font-size="14" font-weight="bold" font-family="Arial">Portfolio Growth</text>
+        
+        <rect x="20" y="200" width="120" height="40" rx="20" fill="rgba(59, 130, 246, 0.2)" stroke="#3b82f6" stroke-width="2"/>
+        <text x="80" y="225" text-anchor="middle" fill="#3b82f6" font-size="14" font-weight="bold" font-family="Arial">Smart Decisions</text>
+        
+        <rect x="20" y="250" width="120" height="40" rx="20" fill="rgba(139, 92, 246, 0.2)" stroke="#8b5cf6" stroke-width="2"/>
+        <text x="80" y="275" text-anchor="middle" fill="#8b5cf6" font-size="14" font-weight="bold" font-family="Arial">Clear Strategy</text>
+      </g>
+      
+      <!-- Success metrics -->
+      <text x="80" y="320" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-size="16" font-weight="bold" font-family="Arial">+25% Returns</text>
+      <text x="80" y="340" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-size="16" font-weight="bold" font-family="Arial">5 Properties</text>
+      <text x="80" y="360" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-size="16" font-weight="bold" font-family="Arial">Confident Future</text>
+    </g>
+    
+    <!-- Connecting arrows -->
+    <g stroke="rgba(255,255,255,0.6)" stroke-width="3" fill="none" marker-end="url(#arrowhead)">
+      <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+          <polygon points="0 0, 10 3.5, 0 7" fill="rgba(255,255,255,0.6)"/>
+        </marker>
+      </defs>
+      <path d="M 200 150 Q 300 100 400 200" stroke-dasharray="5,5"/>
+      <path d="M 800 200 Q 850 150 900 150" stroke-dasharray="5,5"/>
+    </g>
+    
+    <!-- Main headline area -->
+    <g transform="translate(0, 600)">
+      <rect x="0" y="0" width="1000" height="100" rx="15" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+      <text x="500" y="40" text-anchor="middle" fill="white" font-size="32" font-weight="bold" font-family="Arial">From Confusion to Confidence</text>
+      <text x="500" y="65" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-size="18" font-family="Arial">Your complete property investment journey</text>
+    </g>
+  </g>
+</svg>

@@ -11,29 +11,49 @@ const LandingPage: React.FC = () => {
       <div className="bg-gray-50">
 
       {/* Hero Section */}
+      
+
       <section className="bg-white py-16">
         <div className="relative max-w-screen-xl mx-auto px-4">
-          <div className="relative h-[700px] sm:h-[750px] lg:h-[800px] rounded-xl overflow-hidden shadow-2xl ring-1 ring-sky-200">
+          <div className="relative h-[680px] sm:h-[740px] lg:h-[800px] rounded-2xl overflow-hidden shadow-2xl ring-1 ring-sky-100 transform hover:scale-[1.01] transition-all duration-500" style={{ 
+            boxShadow: '0 50px 100px -20px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(14, 165, 233, 0.2), inset 0 2px 0 rgba(255, 255, 255, 0.2), 0 0 50px rgba(14, 165, 233, 0.1)' 
+          }}>
             <img
               src="/hero-map3.png"
               alt="Map of investment hotspots"
-              className="w-full h-full object-cover object-bottom"
+              className="w-full h-full object-cover object-center"
               style={{
-                filter: 'brightness(1.2) saturate(0.6) contrast(0.9)'
+                filter: 'saturate(0.4) brightness(1.1) contrast(0.9) drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3))',
+                transform: 'translateZ(0)'
               }}
+              loading="eager"
+              fetchPriority="high"
             />
-            <div className="absolute inset-0 bg-black/20" />
-            <div className="absolute inset-0 bg-white/20 backdrop-blur-s" />
 
-            {/* Hero text content without visible box, slightly higher */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 z-10 translate-y-[-20%]">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6" style={{ textShadow: '0 0 8px rgba(255, 255, 255, 0.8)' }}>
+            {/* Light sky/white wash to soften image */}
+            <div className="absolute inset-0 bg-white/10 mix-blend-screen" />
+            <div className="absolute inset-0 bg-sky-100/20 mix-blend-lighten" />
+
+            {/* Hero content */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 z-10 -translate-y-16">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
                 Smarter property investing starts here
               </h1>
-              <p className="mt-2 text-lg sm:text-xl text-gray-800 max-w-2xl mb-8" style={{ textShadow: '0 0 6px rgba(255, 255, 255, 0.6)' }} >
+              <p className="mt-2 text-xl sm:text-2xl lg:text-3xl text-gray-800 max-w-2xl mb-8">
                 Research suburbs, score opportunities, and build your portfolio with confidence.
               </p>
-              <Button variant="secondary" size="lg" disabled className="!bg-white !opacity-100">
+              <Button
+                size="lg"
+                className="shadow-2xl hover:!bg-sky-600 transform hover:scale-105 transition-all duration-200 !opacity-100"
+                disabled
+                style={{
+                  backgroundColor: '#0ea5e9 !important',
+                  color: '#ffffff !important',
+                  border: '1px solid #0ea5e9 !important',
+                  boxShadow: '0 10px 25px rgba(14, 165, 233, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important',
+                  opacity: '1 !important'
+                }}
+              >
                 Join Waitlist
               </Button>
             </div>
