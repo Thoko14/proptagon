@@ -15,7 +15,7 @@
       "function": {
         "joinWaitlist": {
           "deploymentBucketName": "amplify-proptagon-dev-82d11-deployment",
-          "s3Key": "amplify-builds/joinWaitlist-4273495a3436752f4c62-build.zip",
+          "s3Key": "amplify-builds/joinWaitlist-6a78414531725a447454-build.zip",
           "waitlistTable": "waitlist",
           "sesFrom": "no-reply@proptagon.com",
           "replyTo": "info@proptagon.com",
@@ -31,7 +31,14 @@
           "siteUrl": "https://proptagon.com",
           "jwtSecret": "LpXfZtqfVNPyfp3eO9H7yi/gM2xr06cFqSh5DqXpM3k=",
           "deploymentBucketName": "amplify-proptagon-dev-82d11-deployment",
-          "s3Key": "amplify-builds/confirmWaitlist-2f4e4e38513056455277-build.zip"
+          "s3Key": "amplify-builds/confirmWaitlist-584f7a6e6f7a4d4f3268-build.zip"
+        },
+        "unsubscribeWaitlist": {
+          "waitlistTable": "waitlist",
+          "jwtSecret": "LpXfZtqfVNPyfp3eO9H7yi/gM2xr06cFqSh5DqXpM3k=",
+          "siteUrl": "https://proptagon.com",
+          "deploymentBucketName": "amplify-proptagon-dev-82d11-deployment",
+          "s3Key": "amplify-builds/unsubscribeWaitlist-2b70396d41465377646c-build.zip"
         }
       },
       "api": {

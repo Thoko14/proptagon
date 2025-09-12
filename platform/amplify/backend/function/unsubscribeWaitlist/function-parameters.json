@@ -1,0 +1,17 @@
+{
+  "lambdaLayers": [],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "waitlistTable",
+      "environmentVariableName": "WAITLIST_TABLE"
+    },
+    {
+      "cloudFormationParameterName": "jwtSecret",
+      "environmentVariableName": "JWT_SECRET"
+    },
+    {
+      "cloudFormationParameterName": "siteUrl",
+      "environmentVariableName": "SITE_URL"
+    }
+  ]
+}

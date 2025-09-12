@@ -17,6 +17,14 @@
           ],
           "category": "function",
           "resourceName": "confirmWaitlist"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "unsubscribeWaitlist"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -32,6 +40,11 @@
     "joinWaitlist": {
       "build": true,
       "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "unsubscribeWaitlist": {
+      "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
@@ -162,6 +175,46 @@
         {
           "category": "function",
           "resourceName": "joinWaitlist"
+        }
+      ]
+    },
+    "AMPLIFY_function_unsubscribeWaitlist_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "unsubscribeWaitlist"
+        }
+      ]
+    },
+    "AMPLIFY_function_unsubscribeWaitlist_jwtSecret": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "unsubscribeWaitlist"
+        }
+      ]
+    },
+    "AMPLIFY_function_unsubscribeWaitlist_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "unsubscribeWaitlist"
+        }
+      ]
+    },
+    "AMPLIFY_function_unsubscribeWaitlist_siteUrl": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "unsubscribeWaitlist"
+        }
+      ]
+    },
+    "AMPLIFY_function_unsubscribeWaitlist_waitlistTable": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "unsubscribeWaitlist"
         }
       ]
     }
