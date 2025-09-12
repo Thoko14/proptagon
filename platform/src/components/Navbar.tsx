@@ -44,7 +44,7 @@ const Navbar: React.FC = () => {
               const isMainNav = link.name === 'Home' || link.name === 'About';
               const spacingClass = isMainNav ? 'mr-8' : 'mr-5';
               
-              return (
+!02              return (
                 <Link 
                   key={link.name}
                   to={link.path} 

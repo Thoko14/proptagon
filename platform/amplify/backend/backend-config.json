@@ -1,0 +1,169 @@
+{
+  "api": {
+    "waitlistAPI": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "joinWaitlist"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "confirmWaitlist"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
+  "function": {
+    "confirmWaitlist": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "joinWaitlist": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_confirmWaitlist_apiBaseUrl": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "confirmWaitlist"
+        }
+      ]
+    },
+    "AMPLIFY_function_confirmWaitlist_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "confirmWaitlist"
+        }
+      ]
+    },
+    "AMPLIFY_function_confirmWaitlist_jwtSecret": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "confirmWaitlist"
+        }
+      ]
+    },
+    "AMPLIFY_function_confirmWaitlist_replyTo": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "confirmWaitlist"
+        }
+      ]
+    },
+    "AMPLIFY_function_confirmWaitlist_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "confirmWaitlist"
+        }
+      ]
+    },
+    "AMPLIFY_function_confirmWaitlist_sesFrom": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "confirmWaitlist"
+        }
+      ]
+    },
+    "AMPLIFY_function_confirmWaitlist_siteUrl": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "confirmWaitlist"
+        }
+      ]
+    },
+    "AMPLIFY_function_confirmWaitlist_waitlistTable": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "confirmWaitlist"
+        }
+      ]
+    },
+    "AMPLIFY_function_joinWaitlist_apiBaseUrl": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "joinWaitlist"
+        }
+      ]
+    },
+    "AMPLIFY_function_joinWaitlist_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "joinWaitlist"
+        }
+      ]
+    },
+    "AMPLIFY_function_joinWaitlist_jwtSecret": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "joinWaitlist"
+        }
+      ]
+    },
+    "AMPLIFY_function_joinWaitlist_replyTo": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "joinWaitlist"
+        }
+      ]
+    },
+    "AMPLIFY_function_joinWaitlist_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "joinWaitlist"
+        }
+      ]
+    },
+    "AMPLIFY_function_joinWaitlist_sesFrom": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "joinWaitlist"
+        }
+      ]
+    },
+    "AMPLIFY_function_joinWaitlist_siteUrl": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "joinWaitlist"
+        }
+      ]
+    },
+    "AMPLIFY_function_joinWaitlist_waitlistTable": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "joinWaitlist"
+        }
+      ]
+    }
+  }
+}

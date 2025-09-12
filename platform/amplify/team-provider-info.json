@@ -1,0 +1,42 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-proptagon-dev-82d11-authRole",
+      "UnauthRoleArn": "arn:aws:iam::231470900595:role/amplify-proptagon-dev-82d11-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::231470900595:role/amplify-proptagon-dev-82d11-authRole",
+      "Region": "eu-north-1",
+      "DeploymentBucketName": "amplify-proptagon-dev-82d11-deployment",
+      "UnauthRoleName": "amplify-proptagon-dev-82d11-unauthRole",
+      "StackName": "amplify-proptagon-dev-82d11",
+      "StackId": "arn:aws:cloudformation:eu-north-1:231470900595:stack/amplify-proptagon-dev-82d11/5e237210-8fb1-11f0-b040-06fd1943b9df",
+      "AmplifyAppId": "d1scu6kr97d0pd"
+    },
+    "categories": {
+      "function": {
+        "joinWaitlist": {
+          "deploymentBucketName": "amplify-proptagon-dev-82d11-deployment",
+          "s3Key": "amplify-builds/joinWaitlist-4273495a3436752f4c62-build.zip",
+          "waitlistTable": "waitlist",
+          "sesFrom": "no-reply@proptagon.com",
+          "replyTo": "info@proptagon.com",
+          "siteUrl": "https://proptagon.com",
+          "jwtSecret": "LpXfZtqfVNPyfp3eO9H7yi/gM2xr06cFqSh5DqXpM3k=",
+          "apiBaseUrl": "https://rs00fugmrh.execute-api.eu-north-1.amazonaws.com/dev"
+        },
+        "confirmWaitlist": {
+          "waitlistTable": "waitlist",
+          "apiBaseUrl": "https://rs00fugmrh.execute-api.eu-north-1.amazonaws.com/dev",
+          "sesFrom": "no-reply@proptagon.com",
+          "replyTo": "info@proptagon.com",
+          "siteUrl": "https://proptagon.com",
+          "jwtSecret": "LpXfZtqfVNPyfp3eO9H7yi/gM2xr06cFqSh5DqXpM3k=",
+          "deploymentBucketName": "amplify-proptagon-dev-82d11-deployment",
+          "s3Key": "amplify-builds/confirmWaitlist-2f4e4e38513056455277-build.zip"
+        }
+      },
+      "api": {
+        "waitlistAPI": {}
+      }
+    }
+  }
+}

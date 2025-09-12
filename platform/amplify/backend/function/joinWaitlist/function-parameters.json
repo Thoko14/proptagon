@@ -1,0 +1,30 @@
+{
+  "lambdaLayers": [],
+  "permissions": {},
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "waitlistTable",
+      "environmentVariableName": "WAITLIST_TABLE"
+    },
+    {
+      "cloudFormationParameterName": "sesFrom",
+      "environmentVariableName": "SES_FROM"
+    },
+    {
+      "cloudFormationParameterName": "replyTo",
+      "environmentVariableName": "REPLY_TO"
+    },
+    {
+      "cloudFormationParameterName": "siteUrl",
+      "environmentVariableName": "SITE_URL"
+    },
+    {
+      "cloudFormationParameterName": "jwtSecret",
+      "environmentVariableName": "JWT_SECRET"
+    },
+    {
+      "cloudFormationParameterName": "apiBaseUrl",
+      "environmentVariableName": "API_BASE_URL"
+    }
+  ]
+}

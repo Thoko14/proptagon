@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "paths": {
+    "/join": {
+      "name": "/join",
+      "lambdaFunction": "joinWaitlist",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/confirm": {
+      "name": "/confirm",
+      "lambdaFunction": "confirmWaitlist",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}
