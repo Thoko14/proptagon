@@ -45,7 +45,7 @@ exports.handler = async (event) => {
 
     // Redirect to a confirmation page on your site
     const site = process.env.SITE_URL || "/";
-    return { statusCode: 302, headers: { Location: `${site}/unsubscribed` }, body: "" };
+    return { statusCode: 302, headers: { Location: `${site}/waitlist-unsubscribed` }, body: "" };
   } catch (err) {
     console.error(err);
     return { statusCode: 500, body: "Server error" };
