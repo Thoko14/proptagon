@@ -233,7 +233,7 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
                   {/* Turnstile widget */}
                   <div className="flex justify-center">
                     <Turnstile
-                      siteKey={(import.meta as any).env?.VITE_TURNSTILE_SITE_KEY || '1x00000000000000000000AA'} // Use test key if env var not set
+                      siteKey="0x4AAAAAABz9j_2o-p61UTMt" // Your real Turnstile site key
                       onSuccess={(token) => setTurnstileToken(token)}
                       onError={() => setTurnstileToken(null)}
                       onExpire={() => setTurnstileToken(null)}
