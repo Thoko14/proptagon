@@ -43,6 +43,7 @@ exports.handler = async (event) => {
     const name  = (body.name || "").toString().trim();
     const source= (body.source || "hero").toString().slice(0, 64);
     const utm   = (body.utm || "").toString().slice(0, 512);
+    const turnstileToken = String(body.turnstileToken || "").trim();
     const ip =
       event.requestContext?.identity?.sourceIp || // REST API (v1)
       event.requestContext?.http?.sourceIp ||     // HTTP API (v2)
@@ -94,6 +95,50 @@ exports.handler = async (event) => {
       .replace(/javascript:/gi, '') // Remove javascript: protocol
       .replace(/on\w+\s*=/gi, '') // Remove event handlers
       .slice(0, 100); // Limit length
+
+    // Verify Turnstile token
+    if (turnstileToken) {
+      try {
+        const turnstileResponse = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: new URLSearchParams({
+            secret: process.env.TURNSTILE_SECRET_KEY,
+            response: turnstileToken,
+            remoteip: ip
+          })
+        });
+        
+        const turnstileResult = await turnstileResponse.json();
+        
+        if (!turnstileResult.success) {
+          console.warn('Turnstile verification failed:', turnstileResult);
+          return { 
+            statusCode: 400, 
+            headers, 
+            body: JSON.stringify({ error: "Security verification failed. Please try again." }) 
+          };
+        }
+      } catch (err) {
+        console.error('Turnstile verification error:', err);
+        return { 
+          statusCode: 400, 
+          headers, 
+          body: JSON.stringify({ error: "Security verification failed. Please try again." }) 
+        };
+      }
+    } else {
+      // In production, require Turnstile token
+      if (process.env.NODE_ENV === 'production') {
+        return { 
+          statusCode: 400, 
+          headers, 
+          body: JSON.stringify({ error: "Security verification required." }) 
+        };
+      }
+    }
 
     const now = new Date().toISOString();
     const TableName = process.env.WAITLIST_TABLE;

@@ -194,6 +194,7 @@ const AboutPage: React.FC = () => {
               </div>
             </div>
 
+
             {/* Team Member Card */}
             <div className="flex justify-center">
               <Card className="text-center hover:shadow-lg transition-shadow duration-300 max-w-lg">

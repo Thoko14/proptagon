@@ -170,6 +170,14 @@
         }
       ]
     },
+    "AMPLIFY_function_joinWaitlist_turnstileSecretKey": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "joinWaitlist"
+        }
+      ]
+    },
     "AMPLIFY_function_joinWaitlist_waitlistTable": {
       "usedBy": [
         {

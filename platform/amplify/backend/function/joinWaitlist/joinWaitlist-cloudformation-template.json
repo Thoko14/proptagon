@@ -33,6 +33,9 @@
     },
     "apiBaseUrl": {
       "Type": "String"
+    },
+    "turnstileSecretKey": {
+      "Type": "String"
     }
   },
   "Conditions": {
@@ -105,6 +108,9 @@
             },
             "API_BASE_URL": {
               "Ref": "apiBaseUrl"
+            },
+            "TURNSTILE_SECRET_KEY": {
+              "Ref": "turnstileSecretKey"
             }
           }
         },

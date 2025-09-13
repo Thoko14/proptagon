@@ -25,6 +25,10 @@
     {
       "cloudFormationParameterName": "apiBaseUrl",
       "environmentVariableName": "API_BASE_URL"
+    },
+    {
+      "cloudFormationParameterName": "turnstileSecretKey",
+      "environmentVariableName": "TURNSTILE_SECRET_KEY"
     }
   ]
 }

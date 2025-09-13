@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Button from './Button'
+import { Turnstile } from '@marsidev/react-turnstile'
 
 interface WaitlistModalProps {
   isOpen: boolean
@@ -13,6 +14,7 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
   const [isSuccess, setIsSuccess] = useState(false)
   const [error, setError] = useState('')
   const [submittedEmail, setSubmittedEmail] = useState('') // Store email for success message
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
 
   // Enhanced email validation with security measures
   const validateEmail = (email: string): { isValid: boolean; error?: string } => {
@@ -96,7 +98,8 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
           email: sanitizedEmail,
           name: sanitizedName,
           source: 'hero-modal',
-          utm: window.location.search // Include UTM parameters for tracking
+          utm: window.location.search, // Include UTM parameters for tracking
+          turnstileToken: turnstileToken // Include Turnstile token for bot protection
         }),
       })
 
@@ -131,6 +134,7 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
     setError('')
     setIsSuccess(false)
     setSubmittedEmail('')
+    setTurnstileToken(null)
     onClose()
   }
 
@@ -226,11 +230,23 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
                     </div>
                   )}
 
+                  {/* Turnstile widget */}
+                  <div className="flex justify-center">
+                    <Turnstile
+                      siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY || '1x00000000000000000000AA'} // Use test key if env var not set
+                      onSuccess={(token) => setTurnstileToken(token)}
+                      onError={() => setTurnstileToken(null)}
+                      onExpire={() => setTurnstileToken(null)}
+                      theme="light"
+                      size="normal"
+                    />
+                  </div>
+
                   {/* Submit button */}
                   <Button
                     type="submit"
                     size="lg"
-                    disabled={isSubmitting || !email.trim() || !validateEmail(email).isValid}
+                    disabled={isSubmitting || !email.trim() || !validateEmail(email).isValid || !turnstileToken}
                     className="w-full bg-sky-500 text-white hover:bg-sky-600 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? 'Joining...' : 'Join Waitlist'}
