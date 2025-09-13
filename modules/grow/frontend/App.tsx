@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '../../../platform/src/components/Layout';
 import Button from '../../../platform/src/components/Button';
 import Card from '../../../platform/src/components/Card';
 import Tag from '../../../platform/src/components/Tag';
+import WaitlistModal from '../../../platform/src/components/WaitlistModal';
 
 /**
  * Landing page for the Grow module
  */
 const GrowPage: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <Layout>
       <div className="bg-gray-50">
@@ -25,10 +28,14 @@ const GrowPage: React.FC = () => {
                 Use strategic filters to find high-potential areas that match your investment style.
               </p>
               <div className="flex justify-center mb-8">
-                <Tag variant="grow">Live</Tag>
+                <Tag variant="grow">Under development</Tag>
               </div>
-              <Button variant="secondary" size="lg">
-                Explore Now
+              <Button 
+                variant="secondary" 
+                size="lg" 
+                onClick={() => setIsModalOpen(true)}
+              >
+                Join Waitlist
               </Button>
             </div>
           </div>
@@ -110,95 +117,7 @@ const GrowPage: React.FC = () => {
           </div>
         </section>
 
-        {/* Comparison Table */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-          <div className="max-w-screen-xl mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                How Grow compares
-              </h2>
-            </div>
-
-            <div className="overflow-x-auto">
-              <table className="w-full bg-white rounded-xl shadow-sm border border-gray-100">
-                <thead>
-                  <tr className="border-b border-gray-200">
-                    <th className="text-left p-6 font-semibold text-gray-900">Feature</th>
-                    <th className="text-center p-6 font-semibold text-gray-900">Proptagon (Grow) ✅</th>
-                    <th className="text-center p-6 font-semibold text-gray-900">RealEstate Investar</th>
-                    <th className="text-center p-6 font-semibold text-gray-900">Microburbs / OpenAgent</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="border-b border-gray-100">
-                    <td className="p-6 text-gray-700">Suburb investment score (strategy-based)</td>
-                    <td className="p-6 text-center">
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                        ✅ Yes
-                      </span>
-                    </td>
-                    <td className="p-6 text-center text-gray-500">✗ (fixed criteria)</td>
-                    <td className="p-6 text-center text-gray-500">✗</td>
-                  </tr>
-                  <tr className="border-b border-gray-100">
-                    <td className="p-6 text-gray-700">Interactive heatmap with filters & overlays</td>
-                    <td className="p-6 text-center">
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                        ✅ Yes
-                      </span>
-                    </td>
-                    <td className="p-6 text-center text-gray-500">✗</td>
-                    <td className="p-6 text-center text-gray-500">✗</td>
-                  </tr>
-                  <tr className="border-b border-gray-100">
-                    <td className="p-6 text-gray-700">Investor strategy filters (growth, yield, etc.)</td>
-                    <td className="p-6 text-center">
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                        ✅ Yes
-                      </span>
-                    </td>
-                    <td className="p-6 text-center text-gray-500">✗</td>
-                    <td className="p-6 text-center text-gray-500">✗</td>
-                  </tr>
-                  <tr className="border-b border-gray-100">
-                    <td className="p-6 text-gray-700">School catchment area overlays</td>
-                    <td className="p-6 text-center">
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                        ✅ Yes
-                      </span>
-                    </td>
-                    <td className="p-6 text-center text-gray-500">✗</td>
-                    <td className="p-6 text-center text-gray-500">✗</td>
-                  </tr>
-                  <tr className="border-b border-gray-100">
-                    <td className="p-6 text-gray-700">Alerts & suburb watchlist</td>
-                    <td className="p-6 text-center">
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                        ✅ Yes
-                      </span>
-                    </td>
-                    <td className="p-6 text-center text-gray-500">✗</td>
-                    <td className="p-6 text-center text-gray-500">✗</td>
-                  </tr>
-                  <tr>
-                    <td className="p-6 text-gray-700">Free suburb exploration (no login required)</td>
-                    <td className="p-6 text-center">
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                        ✅ Yes
-                      </span>
-                    </td>
-                    <td className="p-6 text-center text-gray-500">✗ (trial paywall)</td>
-                    <td className="p-6 text-center">
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                        ✅ Yes
-                      </span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>         
-          </div>
-        </section>
+        
 
         {/* Call to Action */}
         <section className="bg-blue-100 py-20">
@@ -211,11 +130,15 @@ const GrowPage: React.FC = () => {
                 Start exploring suburbs and finding investment opportunities today.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg">
-                  Start Exploring
+                <Button 
+                  variant="secondary" 
+                  size="lg" 
+                  onClick={() => setIsModalOpen(true)}
+                >
+                  Join Waitlist
                 </Button>
                 <Link to="/">
-                  <Button variant="secondary" size="lg">
+                  <Button size="lg">
                     Back to Home
                   </Button>
                 </Link>
@@ -224,6 +147,12 @@ const GrowPage: React.FC = () => {
           </div>
         </section>
       </div>
+      
+      {/* Waitlist Modal */}
+      <WaitlistModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
     </Layout>
   );
 };

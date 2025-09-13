@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '../../../platform/src/components/Layout';
 import Button from '../../../platform/src/components/Button';
 import Card from '../../../platform/src/components/Card';
 import Tag from '../../../platform/src/components/Tag';
+import WaitlistModal from '../../../platform/src/components/WaitlistModal';
 
 /**
  * Landing page for the Sell module
  */
 const SellPage: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <Layout>
       <div className="bg-gray-50">
@@ -25,10 +28,14 @@ const SellPage: React.FC = () => {
                 and optimize your exit strategy for maximum profit.
               </p>
               <div className="flex justify-center mb-8">
-                <Tag variant="sell">In Development</Tag>
+                <Tag variant="sell">Coming soon</Tag>
               </div>
-              <Button variant="secondary" size="lg" disabled>
-                In Development
+              <Button 
+                variant="secondary" 
+                size="lg" 
+                onClick={() => setIsModalOpen(true)}
+              >
+                Join Waitlist
               </Button>
             </div>
           </div>
@@ -121,7 +128,11 @@ const SellPage: React.FC = () => {
                 Join the waitlist to be notified when Proptagon Sell launches.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button variant="secondary" size="lg" disabled>
+                <Button 
+                  variant="secondary" 
+                  size="lg" 
+                  onClick={() => setIsModalOpen(true)}
+                >
                   Join Waitlist
                 </Button>
                 <Link to="/">
@@ -134,6 +145,12 @@ const SellPage: React.FC = () => {
           </div>
         </section>
       </div>
+      
+      {/* Waitlist Modal */}
+      <WaitlistModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
     </Layout>
   );
 };

@@ -8,6 +8,7 @@ interface ButtonProps {
   onClick?: () => void
   type?: 'button' | 'submit' | 'reset'
   className?: string
+  style?: React.CSSProperties
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -17,7 +18,8 @@ const Button: React.FC<ButtonProps> = ({
   disabled = false,
   onClick,
   type = 'button',
-  className = ''
+  className = '',
+  style
 }) => {
   const baseClasses = 'inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed'
   
@@ -42,6 +44,7 @@ const Button: React.FC<ButtonProps> = ({
       className={classes}
       onClick={onClick}
       disabled={disabled}
+      style={style}
     >
       {children}
     </button>

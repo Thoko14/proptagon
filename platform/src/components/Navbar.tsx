@@ -30,7 +30,7 @@ const Navbar: React.FC = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center">
-            {navLinks.map((link, index) => {
+            {navLinks.map((link) => {
               if (link.name === 'separator') {
                 return (
                   <div key={link.name} className="flex items-center ml-8 mr-6">
@@ -44,7 +44,7 @@ const Navbar: React.FC = () => {
               const isMainNav = link.name === 'Home' || link.name === 'About';
               const spacingClass = isMainNav ? 'mr-8' : 'mr-5';
               
-!02              return (
+              return (
                 <Link 
                   key={link.name}
                   to={link.path} 

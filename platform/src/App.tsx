@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import LandingPage from './pages/LandingPage'
 import AboutPage from './pages/AboutPage'
 import PrivacyPage from './pages/PrivacyPage'
+import UnsubscribedPage from './pages/UnsubscribedPage'
+import ConfirmedPage from './pages/ConfirmedPage'
 import GrowPage from '../../modules/grow/frontend/App'
 import InvestPage from '../../modules/invest/frontend/App'
 import StrategisePage from '../../modules/strategise/frontend/App'
@@ -16,6 +18,8 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/waitlist-confirmed" element={<ConfirmedPage />} />
+          <Route path="/waitlist-unsubscribed" element={<UnsubscribedPage />} />
           <Route path="/grow" element={<GrowPage />} />
           <Route path="/invest" element={<InvestPage />} />
           <Route path="/strategise" element={<StrategisePage />} />

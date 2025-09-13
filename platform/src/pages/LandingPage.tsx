@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Layout from '../components/Layout'
 import Button from '../components/Button'
 import Card from '../components/Card'
 import Tag from '../components/Tag'
+import WaitlistModal from '../components/WaitlistModal'
 
 const LandingPage: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
   return (
     <Layout>
       <div className="bg-gray-50">
@@ -44,8 +47,8 @@ const LandingPage: React.FC = () => {
               </p>
               <Button
                 size="lg"
+                onClick={() => setIsModalOpen(true)}
                 className="shadow-2xl hover:!bg-sky-600 transform hover:scale-105 transition-all duration-200 !opacity-100"
-                disabled
                 style={{
                   backgroundColor: '#0ea5e9 !important',
                   color: '#ffffff !important',
@@ -73,7 +76,7 @@ const LandingPage: React.FC = () => {
             </p>
             <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 max-w-2xl mx-auto">
               <p className="text-orange-800 font-medium">
-                🚧 <strong>Under Development:</strong> Grow, Manage, and Sell modules are part of our MVP. Join the waitlist to get early access!
+                🚧 <strong>Under Development:</strong> Our Grow module is currently part of our MVP. Join the waitlist to get early access!
               </p>
             </div>
           </div>
@@ -139,7 +142,7 @@ const LandingPage: React.FC = () => {
                 <div className="text-4xl mb-4">🏠</div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">Manage</h3>
                 <div className="flex justify-center mb-3">
-                  <Tag variant="manage">Under Development</Tag>
+                  <Tag variant="manage">Coming soon</Tag>
                 </div>
                 <p className="text-gray-600 mb-6">
                   <strong>Stage 4:</strong> Handle day-to-day property management operations and tenant relations. 
@@ -156,7 +159,7 @@ const LandingPage: React.FC = () => {
                 <div className="text-4xl mb-4">📊</div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">Sell</h3>
                 <div className="flex justify-center mb-3">
-                  <Tag variant="sell">Under Development</Tag>
+                  <Tag variant="sell">Coming soon</Tag>
                 </div>
                 <p className="text-gray-600 mb-6">
                   <strong>Stage 5:</strong> Maximize returns with strategic selling and market timing. 
@@ -177,14 +180,14 @@ const LandingPage: React.FC = () => {
         <div className="max-w-screen-xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              How Grow Works
+              Our first module: Grow 
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
               Our MVP focuses on the Grow module to help you discover and research high-potential investment opportunities
             </p>
             <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 max-w-2xl mx-auto">
               <p className="text-orange-800 font-medium">
-                🚧 <strong>Join the Waitlist:</strong> Grow, Manage, and Sell modules are under development. Get early access when we launch!
+                🚧 <strong>Join the Waitlist:</strong> Our Grow module is currentlyunder development. Get early access when we launch!
               </p>
             </div>
           </div>
@@ -252,8 +255,11 @@ const LandingPage: React.FC = () => {
       <div className="max-w-screen-xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              How Grow compares
+              What makes Grow unique?
             </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+              Our first module provides a comprehensive set that sets it apart from the competition and helps you make smarter investment decisions.
+            </p>
           </div>
 
           <div className="overflow-x-auto">
@@ -348,7 +354,11 @@ const LandingPage: React.FC = () => {
               Join our waitlist to get early access to the Grow module and be notified when we launch.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="secondary" size="lg" disabled>
+              <Button 
+                variant="secondary" 
+                size="lg" 
+                onClick={() => setIsModalOpen(true)}
+              >
                 Join Waitlist
               </Button>
               <Button size="lg" disabled>
@@ -360,6 +370,12 @@ const LandingPage: React.FC = () => {
       </section>
 
       </div>
+      
+      {/* Waitlist Modal */}
+      <WaitlistModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
     </Layout>
   )
 }
