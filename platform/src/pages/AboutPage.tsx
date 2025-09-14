@@ -198,8 +198,12 @@ const AboutPage: React.FC = () => {
             {/* Team Member Card */}
             <div className="flex justify-center">
               <Card className="text-center hover:shadow-lg transition-shadow duration-300 max-w-lg">
-                <div className="w-24 h-24 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">👨‍💼</span>
+                <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4">
+                  <img 
+                    src="/thomas-kohlborn-headshot.jpg" 
+                    alt="Thomas Kohlborn" 
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">Thomas Kohlborn</h3>
                 <p className="text-sky-600 font-medium mb-4">Founder & CEO</p>

@@ -361,9 +361,6 @@ const LandingPage: React.FC = () => {
               >
                 Join Waitlist
               </Button>
-              <Button size="lg" disabled>
-                Request Demo
-              </Button>
             </div>
           </div>
         </div>
