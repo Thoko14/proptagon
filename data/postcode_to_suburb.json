@@ -1,0 +1,62 @@
+{
+  "10115": {
+    "suburb": "Berlin-Mitte",
+    "city": "Berlin",
+    "state": "Berlin",
+    "region": "Ostdeutschland"
+  },
+  "22765": {
+    "suburb": "Hamburg-Altona",
+    "city": "Hamburg",
+    "state": "Hamburg",
+    "region": "Norddeutschland"
+  },
+  "80799": {
+    "suburb": "München-Schwabing",
+    "city": "München",
+    "state": "Bayern",
+    "region": "Süddeutschland"
+  },
+  "50667": {
+    "suburb": "Köln-Innenstadt",
+    "city": "Köln",
+    "state": "Nordrhein-Westfalen",
+    "region": "Westdeutschland"
+  },
+  "70173": {
+    "suburb": "Stuttgart-Mitte",
+    "city": "Stuttgart",
+    "state": "Baden-Württemberg",
+    "region": "Süddeutschland"
+  },
+  "60311": {
+    "suburb": "Frankfurt-Innenstadt",
+    "city": "Frankfurt am Main",
+    "state": "Hessen",
+    "region": "Mitteldeutschland"
+  },
+  "20095": {
+    "suburb": "Hamburg-Altstadt",
+    "city": "Hamburg",
+    "state": "Hamburg",
+    "region": "Norddeutschland"
+  },
+  "80331": {
+    "suburb": "München-Altstadt",
+    "city": "München",
+    "state": "Bayern",
+    "region": "Süddeutschland"
+  },
+  "10117": {
+    "suburb": "Berlin-Mitte",
+    "city": "Berlin",
+    "state": "Berlin",
+    "region": "Ostdeutschland"
+  },
+  "22767": {
+    "suburb": "Hamburg-Altona",
+    "city": "Hamburg",
+    "state": "Hamburg",
+    "region": "Norddeutschland"
+  }
+} 

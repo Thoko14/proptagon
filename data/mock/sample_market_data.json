@@ -1,0 +1,38 @@
+[
+  {
+    "suburb": "Berlin-Mitte",
+    "postcode": "10115",
+    "medianPrice": 750000,
+    "priceGrowth1y": 0.08,
+    "priceGrowth5y": 0.25,
+    "daysOnMarket": 45,
+    "auctionClearanceRate": 0.75,
+    "rentalYield": 0.04,
+    "vacancyRate": 0.02,
+    "volatility": 0.12
+  },
+  {
+    "suburb": "Hamburg-Altona",
+    "postcode": "22765",
+    "medianPrice": 850000,
+    "priceGrowth1y": 0.06,
+    "priceGrowth5y": 0.20,
+    "daysOnMarket": 52,
+    "auctionClearanceRate": 0.70,
+    "rentalYield": 0.035,
+    "vacancyRate": 0.015,
+    "volatility": 0.10
+  },
+  {
+    "suburb": "München-Schwabing",
+    "postcode": "80799",
+    "medianPrice": 1200000,
+    "priceGrowth1y": 0.10,
+    "priceGrowth5y": 0.30,
+    "daysOnMarket": 38,
+    "auctionClearanceRate": 0.85,
+    "rentalYield": 0.03,
+    "vacancyRate": 0.01,
+    "volatility": 0.08
+  }
+] 

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "prop_001",
+    "address": "Musterstraße 123",
+    "suburb": "Berlin-Mitte",
+    "postcode": "10115",
+    "propertyType": "residential",
+    "currentPrice": 750000,
+    "previousPrice": 720000,
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "landSize": 500,
+    "buildYear": 2010,
+    "lastRenovation": 2020,
+    "createdAt": "2024-01-15T10:30:00Z",
+    "updatedAt": "2024-01-15T10:30:00Z"
+  },
+  {
+    "id": "prop_002",
+    "address": "Beispielweg 456",
+    "suburb": "Hamburg-Altona",
+    "postcode": "22765",
+    "propertyType": "residential",
+    "currentPrice": 850000,
+    "previousPrice": 820000,
+    "bedrooms": 4,
+    "bathrooms": 3,
+    "landSize": 650,
+    "buildYear": 2015,
+    "lastRenovation": 2022,
+    "createdAt": "2024-01-16T14:20:00Z",
+    "updatedAt": "2024-01-16T14:20:00Z"
+  },
+  {
+    "id": "prop_003",
+    "address": "Testallee 789",
+    "suburb": "München-Schwabing",
+    "postcode": "80799",
+    "propertyType": "commercial",
+    "currentPrice": 1200000,
+    "previousPrice": 1150000,
+    "bedrooms": null,
+    "bathrooms": 2,
+    "landSize": 800,
+    "buildYear": 2008,
+    "lastRenovation": 2019,
+    "createdAt": "2024-01-17T09:15:00Z",
+    "updatedAt": "2024-01-17T09:15:00Z"
+  }
+] 
