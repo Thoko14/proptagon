@@ -6,11 +6,11 @@ applications:
         preBuild:
           commands:
             # Install dependencies for all workspaces using the ROOT lockfile
-            - cd .. && npm ci
+            - npm ci
         build:
           commands:
             # Build only the "platform" workspace (Vite project)
-            - cd .. && npm run build --workspace=platform
+            - npm run build
       artifacts:
         # Deploy the built files from the workspace output
         baseDirectory: dist
@@ -18,5 +18,4 @@ applications:
           - '**/*'
       cache:
         paths:
-          - ../node_modules/**/*
           - node_modules/**/*
