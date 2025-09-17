@@ -67,7 +67,7 @@ export const useMapEvents = (
   }, []);
 
   // Mouse move handler for hover effects - DISABLED for localities integration
-  const handleMouseMove = useCallback((e: mapboxgl.MapMouseEvent) => {
+  const handleMouseMove = useCallback((_e: mapboxgl.MapMouseEvent) => {
     // DISABLED: This handler was showing SA2 names instead of locality names
     // The localities system now handles all hover interactions
     return;
@@ -89,7 +89,7 @@ export const useMapEvents = (
   }, [map]);
 
   // Map click handler - DISABLED for localities integration
-  const handleMapClick = useCallback((e: any, _suburbData: SuburbFeature[] | null, calculateScore: (suburb: SuburbFeature) => number) => {
+  const handleMapClick = useCallback((_e: any, _suburbData: SuburbFeature[] | null, _calculateScore: (suburb: SuburbFeature) => number) => {
     // DISABLED: This handler was showing SA2 names instead of locality names
     // The localities system now handles all click interactions
     return;

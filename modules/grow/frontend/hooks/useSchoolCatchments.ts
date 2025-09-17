@@ -126,14 +126,14 @@ export const useSchoolCatchments = (map: React.MutableRefObject<mapboxgl.Map | n
 
     // Check state-specific filters
     if (state.stateSelections) {
-      const stateConditions = [];
+      const stateConditions: any[] = [];
       Object.entries(state.stateSelections).forEach(([stateCode, stateData]: [string, any]) => {
         if (stateData && Object.keys(stateData).length > 0) {
-          const stateTypeConditions = [];
+          const stateTypeConditions: any[] = [];
           
           // First, collect all selected types and years for this state
-          const selectedTypes = [];
-          const selectedYears = [];
+          const selectedTypes: string[] = [];
+          const selectedYears: number[] = [];
           
           Object.entries(stateData).forEach(([typeName, isSelected]: [string, any]) => {
             if (isSelected) {

@@ -79,7 +79,7 @@ export const useMapLayers = (map: MutableRefObject<mapboxgl.Map | null>) => {
   }, []);
 
   // Add GeoJSON source - DISABLED for localities integration
-  const addSource = useCallback((data: any) => {
+  const addSource = useCallback((_data: any) => {
     // DISABLED: No longer creating SA2 GeoJSON source since we're using localities vector tileset
     console.log('SA2 source creation disabled - using localities vector tileset instead');
     return;
