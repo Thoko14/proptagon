@@ -31,7 +31,7 @@ const LoginPage: React.FC = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!formData.email) {
       newErrors.email = 'Email address is required'
-    } else if (formData.email !== 'test' && !emailRegex.test(formData.email)) {
+    } else if (!emailRegex.test(formData.email)) {
       newErrors.email = 'Please enter a valid email address'
     }
 
@@ -69,7 +69,7 @@ const LoginPage: React.FC = () => {
       
       // For demo purposes, accept test credentials
       // In real implementation, this would authenticate against the backend
-      if ((formData.email === 'test' && formData.password === 'test') || 
+      if ((formData.email === 'test@test.com' && formData.password === 'test') || 
           (formData.email === 'demo@propbase.com' && formData.password === 'password123')) {
         // Success - login and redirect to dashboard
         login(formData.email)
