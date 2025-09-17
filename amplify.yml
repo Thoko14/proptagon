@@ -1,20 +1,22 @@
 version: 1
-frontend:
-  phases:
-    preBuild:
-      commands:
-        # Install dependencies for all workspaces using the ROOT lockfile
-        - npm ci
-    build:
-      commands:
-        # Build only the "platform" workspace (Vite project)
-        - npm run build --workspace=platform   # equivalent: npm run -w platform build
-  artifacts:
-    # Deploy the built files from the workspace output
-    baseDirectory: platform/dist
-    files:
-      - '**/*'
-  cache:
-    paths:
-      - node_modules/**/*
-      - platform/node_modules/**/*
+applications:
+  - appRoot: platform
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            # Install dependencies for all workspaces using the ROOT lockfile
+            - cd .. && npm ci
+        build:
+          commands:
+            # Build only the "platform" workspace (Vite project)
+            - cd .. && npm run build --workspace=platform
+      artifacts:
+        # Deploy the built files from the workspace output
+        baseDirectory: dist
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - ../node_modules/**/*
+          - node_modules/**/*
