@@ -16,13 +16,16 @@ const AuthModal: React.FC<AuthModalProps> = ({
 
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden'
+      // Use CSS class to prevent scroll while maintaining scrollbar space
+      document.body.classList.add('modal-open')
     } else {
-      document.body.style.overflow = 'unset'
+      // Remove the class
+      document.body.classList.remove('modal-open')
     }
 
     return () => {
-      document.body.style.overflow = 'unset'
+      // Cleanup on unmount
+      document.body.classList.remove('modal-open')
     }
   }, [isOpen])
 

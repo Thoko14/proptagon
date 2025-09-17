@@ -60,6 +60,23 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* Prevent layout shift when scrollbar appears/disappears */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* Modal open state - prevent body scroll */
+body.modal-open {
+  overflow: hidden !important;
+  padding-right: var(--scrollbar-width, 0px) !important;
+}
+
+/* Alternative: Use CSS to prevent scrollbar from disappearing */
+body.no-scroll {
+  overflow: hidden !important;
+  padding-right: 15px !important; /* Fixed scrollbar width for most browsers */
+}
+
 /* Custom tooltip popup styles */
 .custom-tooltip-popup {
   z-index: 9999 !important;
