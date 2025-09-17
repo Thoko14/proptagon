@@ -1,9 +1,14 @@
 import React, { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const location = useLocation()
+  const navigate = useNavigate()
+
+  const handleLoginClick = () => {
+    navigate('/login')
+  }
 
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -58,6 +63,14 @@ const Navbar: React.FC = () => {
                 </Link>
               )
             })}
+            
+            {/* Login Button */}
+            <button
+              onClick={handleLoginClick}
+              className="ml-8 px-4 py-2 bg-primary text-white text-sm font-medium rounded-md hover:bg-primary-dark transition-colors"
+            >
+              Login
+            </button>
           </div>
 
           {/* Mobile menu button */}
@@ -109,6 +122,19 @@ const Navbar: React.FC = () => {
                 </Link>
               )
             })}
+            
+            {/* Mobile Login Button */}
+            <div className="px-3 py-2">
+              <button
+                onClick={() => {
+                  handleLoginClick()
+                  setIsMenuOpen(false)
+                }}
+                className="w-full px-4 py-2 bg-primary text-white text-base font-medium rounded-md hover:bg-primary-dark transition-colors"
+              >
+                Login
+              </button>
+            </div>
           </div>
         </div>
       )}
