@@ -1,7 +1,7 @@
 import React from 'react';
 import { useGrowState } from '../hooks/useGrowState';
 import { GrowTopNavigation } from './GrowTopNavigation';
-// GrowViewManager was deleted
+import { GrowViewManager } from './GrowViewManager';
 import { BackNavigation } from './BackNavigation';
 import { SuburbToolkit } from './SuburbToolkit';
 import { PropertiesFab } from './PropertiesFab';
@@ -10,10 +10,10 @@ export const GrowPageRefactored: React.FC = () => {
   const { isLoading, error, clearError } = useGrowState();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="bg-gray-50">
       {/* Error Display */}
       {error && (
-        <div className="fixed top-4 right-4 z-50 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded shadow-lg">
+        <div className="fixed top-20 right-4 z-50 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded shadow-lg">
           <div className="flex items-center justify-between">
             <span>{error}</span>
             <button
@@ -37,7 +37,7 @@ export const GrowPageRefactored: React.FC = () => {
       )}
 
       {/* Main Content */}
-      <div className="flex flex-col h-screen">
+      <div className="flex flex-col min-h-[calc(100vh-200px)]">
         {/* Top Navigation */}
         <GrowTopNavigation />
         
@@ -45,9 +45,7 @@ export const GrowPageRefactored: React.FC = () => {
         <BackNavigation />
         
         {/* Main View Area */}
-        <div className="flex-1 overflow-hidden">
-          {/* GrowViewManager was deleted - placeholder */}
-        </div>
+        <GrowViewManager />
       </div>
 
       {/* Floating Components */}

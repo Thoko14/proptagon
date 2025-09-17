@@ -1,13 +1,20 @@
 import React, { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/useAuth'
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
+  const { isAuthenticated, user, logout } = useAuth()
 
   const handleLoginClick = () => {
     navigate('/login')
+  }
+
+  const handleLogoutClick = () => {
+    logout()
+    navigate('/')
   }
 
   const navLinks = [
@@ -64,13 +71,22 @@ const Navbar: React.FC = () => {
               )
             })}
             
-            {/* Login Button */}
-            <button
-              onClick={handleLoginClick}
-              className="ml-8 px-4 py-2 bg-primary text-white text-sm font-medium rounded-md hover:bg-primary-dark transition-colors"
-            >
-              Login
-            </button>
+            {/* Login/Logout Button */}
+            {isAuthenticated ? (
+              <button
+                onClick={handleLogoutClick}
+                className="ml-8 px-4 py-2 bg-gray-600 text-white text-sm font-medium rounded-md hover:bg-gray-700 transition-colors"
+              >
+                Logout
+              </button>
+            ) : (
+              <button
+                onClick={handleLoginClick}
+                className="ml-8 px-4 py-2 bg-primary text-white text-sm font-medium rounded-md hover:bg-primary-dark transition-colors"
+              >
+                Login
+              </button>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -123,17 +139,29 @@ const Navbar: React.FC = () => {
               )
             })}
             
-            {/* Mobile Login Button */}
+            {/* Mobile Login/Logout Button */}
             <div className="px-3 py-2">
-              <button
-                onClick={() => {
-                  handleLoginClick()
-                  setIsMenuOpen(false)
-                }}
-                className="w-full px-4 py-2 bg-primary text-white text-base font-medium rounded-md hover:bg-primary-dark transition-colors"
-              >
-                Login
-              </button>
+              {isAuthenticated ? (
+                <button
+                  onClick={() => {
+                    handleLogoutClick()
+                    setIsMenuOpen(false)
+                  }}
+                  className="w-full px-4 py-2 bg-gray-600 text-white text-base font-medium rounded-md hover:bg-gray-700 transition-colors"
+                >
+                  Logout
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    handleLoginClick()
+                    setIsMenuOpen(false)
+                  }}
+                  className="w-full px-4 py-2 bg-primary text-white text-base font-medium rounded-md hover:bg-primary-dark transition-colors"
+                >
+                  Login
+                </button>
+              )}
             </div>
           </div>
         </div>

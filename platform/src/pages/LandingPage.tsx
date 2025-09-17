@@ -30,7 +30,7 @@ const LandingPage: React.FC = () => {
                 transform: 'translateZ(0)'
               }}
               loading="eager"
-              fetchpriority="high"
+                fetchPriority="high"
             />
 
             {/* Light sky/white wash to soften image */}

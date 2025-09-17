@@ -14,7 +14,7 @@ import ResetPasswordPage from './pages/ResetPasswordPage'
 import DashboardPage from './pages/dashboard'
 import AuthModal from './components/AuthModal'
 import GrowLandingPage from '../../modules/grow/frontend/GrowLandingPage'
-import GrowPage from '../../modules/grow/frontend/App'
+import GrowPage from './pages/GrowPage'
 import InvestPage from '../../modules/invest/frontend/App'
 import StrategisePage from '../../modules/strategise/frontend/App'
 import ManagePage from '../../modules/manage/frontend/App'
@@ -23,7 +23,10 @@ import { useAuth } from './context/useAuth'
 
 // Component to handle Grow routing based on authentication status
 function GrowRoute() {
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, user } = useAuth()
+  
+  // Debug logging
+  console.log('GrowRoute - isAuthenticated:', isAuthenticated, 'user:', user)
   
   // If authenticated, show the full Grow application
   // If not authenticated, show the landing page
