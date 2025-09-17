@@ -19,6 +19,16 @@ import InvestPage from '../../modules/invest/frontend/App'
 import StrategisePage from '../../modules/strategise/frontend/App'
 import ManagePage from '../../modules/manage/frontend/App'
 import SellPage from '../../modules/sell/frontend/App'
+import { useAuth } from './context/useAuth'
+
+// Component to handle Grow routing based on authentication status
+function GrowRoute() {
+  const { isAuthenticated } = useAuth()
+  
+  // If authenticated, show the full Grow application
+  // If not authenticated, show the landing page
+  return isAuthenticated ? <GrowPage /> : <GrowLandingPage />
+}
 
 function AppContent() {
   const location = useLocation()
@@ -73,7 +83,7 @@ function AppContent() {
         <Route path="/waitlist-unsubscribed" element={<UnsubscribedPage />} />
         
         {/* Module landing pages (for non-logged-in users) */}
-        <Route path="/grow" element={<GrowLandingPage />} />
+        <Route path="/grow" element={<GrowRoute />} />
         <Route path="/invest" element={<InvestPage />} />
         <Route path="/strategise" element={<StrategisePage />} />
         <Route path="/manage" element={<ManagePage />} />

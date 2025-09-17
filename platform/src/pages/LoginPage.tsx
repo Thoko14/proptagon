@@ -31,15 +31,15 @@ const LoginPage: React.FC = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!formData.email) {
       newErrors.email = 'Email address is required'
-    } else if (!emailRegex.test(formData.email)) {
+    } else if (formData.email !== 'test' && !emailRegex.test(formData.email)) {
       newErrors.email = 'Please enter a valid email address'
     }
 
     // Password validation
     if (!formData.password) {
       newErrors.password = 'Password is required'
-    } else if (formData.password.length < 8) {
-      newErrors.password = 'Password must be at least 8 characters'
+    } else if (formData.password.length < 4) {
+      newErrors.password = 'Password must be at least 4 characters'
     }
 
     setErrors(newErrors)
@@ -67,9 +67,10 @@ const LoginPage: React.FC = () => {
       // Simulate login API call
       await new Promise(resolve => setTimeout(resolve, 1500))
       
-      // For demo purposes, accept any valid email/password combination
+      // For demo purposes, accept test credentials
       // In real implementation, this would authenticate against the backend
-      if (formData.email === 'demo@propbase.com' && formData.password === 'password123') {
+      if ((formData.email === 'test' && formData.password === 'test') || 
+          (formData.email === 'demo@propbase.com' && formData.password === 'password123')) {
         // Success - login and redirect to dashboard
         login(formData.email)
         navigate('/dashboard')
