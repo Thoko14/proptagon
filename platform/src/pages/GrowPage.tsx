@@ -4,6 +4,8 @@ import GrowMap, { GrowMapRef } from '../../../modules/grow/frontend/components/G
 import { GrowTopBar } from '../../../modules/grow/frontend/components/GrowTopBar';
 import { LayersFab } from '../../../modules/grow/frontend/components/LayersFab';
 import { SchoolCatchmentsSidebar } from '../../../modules/grow/frontend/components/SchoolCatchmentsSidebar';
+import { SuburbToolkit } from '../../../modules/grow/frontend/components/SuburbToolkit';
+import { useGrowState } from '../../../modules/grow/frontend/hooks/useGrowState';
 import Button from '../components/Button';
 // import { MAPBOX_CONFIG } from '../../../modules/grow/frontend/config/mapbox'; // Not used in simplified approach
 
@@ -16,6 +18,11 @@ const GrowPage: React.FC = () => {
   const [selectedSuburb, setSelectedSuburb] = useState<string | null>(null);
   const [mapInstance, setMapInstance] = useState<any>(null);
   const [isCatchmentsSidebarOpen, setIsCatchmentsSidebarOpen] = useState(false);
+  const [currentFilterState, setCurrentFilterState] = useState<any>(null);
+  
+  // Get toolkit functions from useGrowState
+  const growState = useGrowState();
+  const { toolkit } = growState;
 
   // Debug map instance setting
   const handleMapReady = (map: any) => {
@@ -164,7 +171,8 @@ const GrowPage: React.FC = () => {
 
   // Handle suburb click from map
   const handleSuburbClick = (suburb: { name: string; code: string; score: number; kpis: any; position: { x: number; y: number } }) => {
-    setSelectedSuburb(suburb.name);
+    // Show the toolkit with the suburb/catchment data
+    toolkit.showToolkit(suburb);
     
     // Clear search highlight when clicking on a suburb
     if (mapRef.current) {
@@ -188,8 +196,24 @@ const GrowPage: React.FC = () => {
 
   // Handle catchments filter changes
   const handleCatchmentsFilterChange = (filter: any) => {
-    // Note: applyCatchmentsFilter not implemented in simplified localities approach
     console.log('📊 Catchments filter changed:', filter);
+    
+    // Store the current filter state for use in school queries
+    setCurrentFilterState(filter);
+    
+    // Apply the filter using the applyFilter function (this handles hiding suburbs)
+    if (mapRef.current?.applyCatchmentsFilter) {
+      mapRef.current.applyCatchmentsFilter(filter);
+    }
+    
+    // Also toggle NSW catchments for backward compatibility
+    const nswSelections = filter.stateSelections?.NSW || {};
+    const primary = !!nswSelections['Primary'] || !!filter.globalTypes?.primary;
+    const secondary = !!nswSelections['Secondary'] || !!filter.globalTypes?.secondary;
+    const future = !!nswSelections['Future'] || !!filter.globalTypes?.future;
+    if (mapRef.current?.toggleNswCatchments) {
+      mapRef.current.toggleNswCatchments({ primary, secondary, future });
+    }
   };
 
   // Mock suburb data
@@ -206,7 +230,7 @@ const GrowPage: React.FC = () => {
 
   return (
     <Layout>
-      <div className="grow-app w-full flex flex-col relative" style={{ height: 'calc(100vh - 140px)' }}>
+      <div className="grow-app w-full h-full grid grid-rows-[auto_1fr] overflow-hidden">
         <GrowTopBar 
           onSearch={handleSearchResult} 
           onSuburbSearch={handleSuburbSearch}
@@ -214,7 +238,7 @@ const GrowPage: React.FC = () => {
         />
         
         {/* Main Content Area */}
-        <div className="flex-1 flex">
+        <div className="flex min-h-0 overflow-hidden">
         {isStrategyMode ? (
           <>
             {/* Left Panel - KPI Sliders */}
@@ -301,24 +325,28 @@ const GrowPage: React.FC = () => {
           </>
         ) : (
           /* Map View */
-          <div className="flex-1 relative">
+          <div className="flex-1 relative z-0 min-h-0">
             <GrowMap 
               ref={mapRef}
               onMapReady={handleMapReady} 
               onSuburbClick={handleSuburbClick}
               className="w-full h-full"
+              currentFilterState={currentFilterState}
             />
             
-            {/* School Catchments FAB - Positioned relative to map container */}
-            <div className="absolute bottom-16 right-4 z-[9999]">
+            {/* School Catchments FAB - Positioned top-right, lower z-index so sidebar can cover it */}
+            <div className="absolute top-4 right-4 z-[9998]">
               <LayersFab 
                 isOpen={isCatchmentsSidebarOpen}
                 onToggle={handleCatchmentsToggle}
               />
             </div>
             
-            {/* School Catchments Sidebar - Positioned relative to map container */}
-            <div className="absolute inset-0 z-[9998]" style={{ height: '100%', pointerEvents: 'none' }}>
+            {/* Suburb Toolkit - Shows catchment/school information */}
+            <SuburbToolkit growState={growState} />
+            
+            {/* School Catchments Sidebar - Higher z-index to appear over FAB when open */}
+            <div className="absolute inset-0 z-[9999]" style={{ height: '100%', pointerEvents: 'none' }}>
               <SchoolCatchmentsSidebar
                 isOpen={isCatchmentsSidebarOpen}
                 onClose={handleCatchmentsClose}
@@ -328,7 +356,7 @@ const GrowPage: React.FC = () => {
             
             {/* Suburb Detail Panel (when a suburb is selected) */}
             {selectedSuburb && (
-              <div className="absolute top-4 right-4 w-80 bg-white rounded-lg shadow-lg border border-gray-200 p-6">
+              <div className="absolute top-4 left-4 w-80 bg-white rounded-lg shadow-lg border border-gray-200 p-6">
                 <div className="flex justify-between items-start mb-4">
                   <h3 className="text-lg font-semibold text-gray-900">{selectedSuburb}</h3>
                   <button

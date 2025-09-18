@@ -76,7 +76,7 @@ function AppContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="h-screen bg-gray-50 flex flex-col">
       <Routes>
         {/* Landing and public pages */}
         <Route path="/" element={<LandingPage />} />

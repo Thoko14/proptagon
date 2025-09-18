@@ -97,3 +97,8 @@ body.no-scroll {
 .custom-tooltip-popup .mapboxgl-popup-tip {
   border-top-color: #e5e7eb;
 }
+
+/* Hide Mapbox "Improve this map" link */
+.mapboxgl-ctrl-attrib a[href*="mapbox.com/feedback"] {
+  display: none !important;
+}
