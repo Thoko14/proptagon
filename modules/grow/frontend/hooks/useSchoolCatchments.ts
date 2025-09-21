@@ -1,105 +1,271 @@
-import { useCallback, useRef, useEffect } from 'react';
+import React, { useCallback, useRef, useEffect } from 'react';
 import mapboxgl from 'mapbox-gl';
 
-interface SchoolCatchmentsConfig {
-  sourceId: string;
-  fillLayerId: string;
-  lineLayerId: string;
-  dataUrl: string;
-}
-
-const CATCHMENTS_CONFIG: SchoolCatchmentsConfig = {
-  sourceId: 'catchments',
-  fillLayerId: 'catchments-fill',
-  lineLayerId: 'catchments-line',
-  dataUrl: '/geojson/aus_catchments_2023_2025.geojson',
+// NSW Vector Tilesets Configuration
+const NSW_TILESETS = {
+  primary: 'mapbox://tommstar25.dg9ropwk',
+  secondary: 'mapbox://tommstar25.cbf6rphf', 
+  future: 'mapbox://tommstar25.42l9a1mu',
+  schools: 'mapbox://tommstar25.0mxd9sgh'
 };
 
-const TYPE_COLORS = {
-  Primary: '#4F8DFB',
-  'Junior Secondary': '#F4A640',
-  'Senior Secondary': '#B23A7F',
-  'Single Sex': '#6E56CF',
-  Secondary: '#2CA6A4',
+const NSW_SOURCE_IDS = {
+  primary: 'nsw-catchments-primary',
+  secondary: 'nsw-catchments-secondary',
+  future: 'nsw-catchments-future',
+  schools: 'nsw-schools'
 };
 
-export const useSchoolCatchments = (map: React.MutableRefObject<mapboxgl.Map | null>) => {
-  const sourceAdded = useRef(false);
+const NSW_LAYER_IDS = {
+  primary: {
+    fill: 'nsw-catchments-primary-fill',
+    line: 'nsw-catchments-primary-line'
+  },
+  secondary: {
+    fill: 'nsw-catchments-secondary-fill', 
+    line: 'nsw-catchments-secondary-line'
+  },
+  future: {
+    fill: 'nsw-catchments-future-fill',
+    line: 'nsw-catchments-future-line'
+  },
+  schools: {
+    points: 'nsw-schools-points',
+    labels: 'nsw-schools-labels'
+  }
+};
+
+const NSW_SOURCE_LAYERS = {
+  primary: 'catchments_primary', // Enriched tileset uses 'catchments_primary' layer name
+  secondary: 'catchments_secondary', // Enriched tileset uses 'catchments_secondary' layer name
+  future: 'catchments', // Future tileset unchanged
+  schools: 'schools'
+};
+
+// Note: TYPE_COLORS removed as we're using NSW vector tiles with fixed colors
+
+export const useSchoolCatchments = (
+  map: React.MutableRefObject<mapboxgl.Map | null>,
+  onCatchmentClick?: (data: any) => void,
+  currentFilterState?: any
+) => {
+  
+  // Store currentFilterState in a ref so it persists across renders
+  const currentFilterStateRef = useRef(currentFilterState);
+  React.useEffect(() => {
+    currentFilterStateRef.current = currentFilterState;
+  }, [currentFilterState]);
+  
+  const sourcesAdded = useRef(false);
   const layersAdded = useRef(false);
 
-  // Add catchments source (only once)
-  const addCatchmentsSource = useCallback(async () => {
-    if (!map.current || sourceAdded.current) return;
+  // Add NSW vector tile sources (only once)
+  const addNswSources = useCallback(() => {
+    if (!map.current || sourcesAdded.current) return;
 
     try {
-      console.log('📥 Loading school catchments data...');
-      const response = await fetch(CATCHMENTS_CONFIG.dataUrl);
-      if (!response.ok) {
-        throw new Error(`Failed to load catchments data: ${response.status}`);
+      // Add NSW catchment sources
+      if (!map.current.getSource(NSW_SOURCE_IDS.primary)) {
+        map.current.addSource(NSW_SOURCE_IDS.primary, {
+          type: 'vector',
+          url: NSW_TILESETS.primary
+        });
+        console.log('✅ NSW primary source added');
       }
-      const data = await response.json();
-      console.log('📊 Catchments data loaded:', data.features?.length, 'features');
 
-      // Add source
-      map.current.addSource(CATCHMENTS_CONFIG.sourceId, {
-        type: 'geojson',
-        data: data,
-      });
+      if (!map.current.getSource(NSW_SOURCE_IDS.secondary)) {
+        map.current.addSource(NSW_SOURCE_IDS.secondary, {
+          type: 'vector', 
+          url: NSW_TILESETS.secondary
+        });
+        console.log('✅ NSW secondary source added');
+      }
 
-      sourceAdded.current = true;
-      console.log('✅ Catchments source added');
+      if (!map.current.getSource(NSW_SOURCE_IDS.future)) {
+        map.current.addSource(NSW_SOURCE_IDS.future, {
+          type: 'vector',
+          url: NSW_TILESETS.future
+        });
+        console.log('✅ NSW future source added');
+      }
+
+      if (!map.current.getSource(NSW_SOURCE_IDS.schools)) {
+        map.current.addSource(NSW_SOURCE_IDS.schools, {
+          type: 'vector',
+          url: NSW_TILESETS.schools
+        });
+        console.log('✅ NSW schools source added');
+      }
+
+      sourcesAdded.current = true;
+      console.log('✅ All NSW sources added');
     } catch (error) {
-      console.error('❌ Error loading catchments data:', error);
-      // Show non-blocking toast (you can implement this later)
-      // showToast('Catchments failed to load. Check your connection and try again.');
+      console.error('❌ Error adding NSW sources:', error);
     }
   }, [map]);
 
-  // Add catchments layers (only once)
-  const addCatchmentsLayers = useCallback(() => {
-    if (!map.current || !sourceAdded.current || layersAdded.current) return;
 
-    // Add fill layer
-    map.current.addLayer({
-      id: CATCHMENTS_CONFIG.fillLayerId,
+  // Add NSW vector tile layers (only once)
+  const addNswLayers = useCallback(() => {
+    if (!map.current || !sourcesAdded.current || layersAdded.current) return;
+
+    try {
+      const style = map.current.getStyle();
+      // Insert after poi-label to ensure catchments appear above roads
+      const insertionLayer = style.layers.find(l => l.id === 'poi-label') || style.layers[style.layers.length - 1];
+
+      const ensureLayer = (id: string, spec: any) => {
+        if (!map.current!.getLayer(id)) {
+          map.current!.addLayer(spec, insertionLayer?.id);
+        }
+      };
+
+      // Primary catchment layers
+      ensureLayer(NSW_LAYER_IDS.primary.fill, {
+        id: NSW_LAYER_IDS.primary.fill,
+        type: 'fill',
+        source: NSW_SOURCE_IDS.primary,
+        'source-layer': NSW_SOURCE_LAYERS.primary,
+        paint: {
+          'fill-color': '#3b82f6',
+          'fill-opacity': 0.3,
+        },
+        layout: {
+          visibility: 'none', // Initially hidden
+        },
+      });
+      
+
+      ensureLayer(NSW_LAYER_IDS.primary.line, {
+        id: NSW_LAYER_IDS.primary.line,
+        type: 'line',
+        source: NSW_SOURCE_IDS.primary,
+        'source-layer': NSW_SOURCE_LAYERS.primary,
+        paint: {
+          'line-color': '#1d4ed8',
+          'line-width': 1,
+        },
+        layout: {
+          visibility: 'none', // Initially hidden
+        },
+      });
+
+      // Secondary catchment layers
+      ensureLayer(NSW_LAYER_IDS.secondary.fill, {
+        id: NSW_LAYER_IDS.secondary.fill,
+        type: 'fill',
+        source: NSW_SOURCE_IDS.secondary,
+        'source-layer': NSW_SOURCE_LAYERS.secondary,
+        paint: {
+          'fill-color': '#10b981',
+          'fill-opacity': 0.3,
+        },
+        layout: {
+          visibility: 'none', // Initially hidden
+        },
+      });
+
+      ensureLayer(NSW_LAYER_IDS.secondary.line, {
+        id: NSW_LAYER_IDS.secondary.line,
+        type: 'line',
+        source: NSW_SOURCE_IDS.secondary,
+        'source-layer': NSW_SOURCE_LAYERS.secondary,
+        paint: {
+          'line-color': '#059669',
+          'line-width': 1,
+        },
+        layout: {
+          visibility: 'none', // Initially hidden
+        },
+      });
+
+      // Future catchment layers
+      ensureLayer(NSW_LAYER_IDS.future.fill, {
+        id: NSW_LAYER_IDS.future.fill,
       type: 'fill',
-      source: CATCHMENTS_CONFIG.sourceId,
+        source: NSW_SOURCE_IDS.future,
+        'source-layer': NSW_SOURCE_LAYERS.future,
       paint: {
-        'fill-color': [
-          'case',
-          ['==', ['get', 'type'], 'Primary'], TYPE_COLORS.Primary,
-          ['==', ['get', 'type'], 'Junior Secondary'], TYPE_COLORS['Junior Secondary'],
-          ['==', ['get', 'type'], 'Senior Secondary'], TYPE_COLORS['Senior Secondary'],
-          ['==', ['get', 'type'], 'Single Sex'], TYPE_COLORS['Single Sex'],
-          ['==', ['get', 'type'], 'Secondary'], TYPE_COLORS.Secondary,
-          '#999999' // fallback color
-        ],
-        'fill-opacity': 0.18,
-      },
-      filter: ['==', ['get', 'code'], ''], // Hidden by default
-    });
+          'fill-color': '#f59e0b',
+          'fill-opacity': 0.3,
+        },
+        layout: {
+          visibility: 'none', // Initially hidden
+        },
+      });
 
-    // Add line layer
-    map.current.addLayer({
-      id: CATCHMENTS_CONFIG.lineLayerId,
+      ensureLayer(NSW_LAYER_IDS.future.line, {
+        id: NSW_LAYER_IDS.future.line,
       type: 'line',
-      source: CATCHMENTS_CONFIG.sourceId,
+        source: NSW_SOURCE_IDS.future,
+        'source-layer': NSW_SOURCE_LAYERS.future,
       paint: {
-        'line-color': '#3a3a3a',
+          'line-color': '#d97706',
         'line-width': 1,
       },
-      filter: ['==', ['get', 'code'], ''], // Hidden by default
-    });
+        layout: {
+          visibility: 'none', // Initially hidden
+        },
+      });
+
+      // Schools layers
+      ensureLayer(NSW_LAYER_IDS.schools.points, {
+        id: NSW_LAYER_IDS.schools.points,
+        type: 'circle',
+        source: NSW_SOURCE_IDS.schools,
+        'source-layer': NSW_SOURCE_LAYERS.schools,
+        paint: {
+          'circle-color': [
+            'case',
+            ['==', ['get', 'level'], 'primary'], '#3b82f6',
+            ['==', ['get', 'level'], 'secondary'], '#10b981',
+            ['==', ['get', 'level'], 'k-12'], '#8b5cf6',
+            '#6b7280' // other/default
+          ],
+          'circle-radius': 6,
+          'circle-stroke-color': '#ffffff',
+          'circle-stroke-width': 2,
+        },
+        layout: {
+          visibility: 'none', // Initially hidden
+        },
+      });
+
+      ensureLayer(NSW_LAYER_IDS.schools.labels, {
+        id: NSW_LAYER_IDS.schools.labels,
+        type: 'symbol',
+        source: NSW_SOURCE_IDS.schools,
+        'source-layer': NSW_SOURCE_LAYERS.schools,
+        paint: {
+          'text-color': '#1f2937',
+          'text-halo-color': '#ffffff',
+          'text-halo-width': 2,
+        },
+        layout: {
+          'text-field': ['get', 'name'],
+          'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+          'text-size': 14,
+          'text-anchor': 'top',
+          'text-offset': [0, 1.5],
+          'text-allow-overlap': true,
+          'text-ignore-placement': false,
+          'text-optional': true,
+          visibility: 'none', // Initially hidden
+        },
+      });
 
     layersAdded.current = true;
-    console.log('✅ Catchments layers added');
+      console.log('✅ All NSW layers added');
+    } catch (error) {
+      console.error('❌ Error adding NSW layers:', error);
+    }
   }, [map]);
 
-  // Apply filter to both layers
+  // Apply filter to NSW vector layers
   const applyFilter = useCallback((state: any) => {
     if (!map.current || !layersAdded.current) return;
 
-    console.log('🔍 Applying catchments filter with state:', state);
+    console.log('🔍 Applying NSW catchments filter with state:', state);
 
     // Check if state is in the expected format
     if (!state || typeof state !== 'object' || Array.isArray(state)) {
@@ -107,302 +273,478 @@ export const useSchoolCatchments = (map: React.MutableRefObject<mapboxgl.Map | n
       return;
     }
 
-    // Build filter expression based on state
-    const conditions = [];
+    // Check if NSW filters are active
+    let hasNswFilters = false;
+    let primaryActive = false;
+    let secondaryActive = false;
+    let futureActive = false;
 
-    // Check global types
-    if (state.globalTypes) {
-      const typeConditions = [];
-      if (state.globalTypes.primary) {
-        typeConditions.push(['==', ['get', 'type'], 'Primary']);
-      }
-      if (state.globalTypes.secondary) {
-        typeConditions.push(['in', ['get', 'type'], ['literal', ['Secondary', 'Junior Secondary', 'Senior Secondary', 'Single Sex']]]);
-      }
-      if (typeConditions.length > 0) {
-        conditions.push(['any', ...typeConditions]);
-      }
+    // Check NSW state selections
+    if (state.stateSelections && state.stateSelections.NSW) {
+      const nswData = state.stateSelections.NSW;
+      primaryActive = nswData.Primary === true;
+      secondaryActive = nswData.Secondary === true;
+      futureActive = nswData.Future === true;
+      hasNswFilters = primaryActive || secondaryActive || futureActive;
     }
 
-    // Check state-specific filters
-    if (state.stateSelections) {
-      const stateConditions: any[] = [];
-      Object.entries(state.stateSelections).forEach(([stateCode, stateData]: [string, any]) => {
-        if (stateData && Object.keys(stateData).length > 0) {
-          const stateTypeConditions: any[] = [];
-          
-          // First, collect all selected types and years for this state
-          const selectedTypes: string[] = [];
-          const selectedYears: number[] = [];
-          
-          Object.entries(stateData).forEach(([typeName, isSelected]: [string, any]) => {
-            if (isSelected) {
-              if (typeName.startsWith('year_')) {
-                const year = parseInt(typeName.replace('year_', ''));
-                selectedYears.push(year);
+    if (hasNswFilters) {
+      // Show NSW catchments, hide suburbs
+      console.log('🏫 Showing NSW school catchments, hiding suburbs');
+      
+      // Hide all localities/suburb layers
+      const localitiesLayers = [
+        'localities-outline-z6-9',
+        'localities-outline-z10-11', 
+        'localities-outline-z12',
+        'localities-fill-z6-9',
+        'localities-fill-z10-11',
+        'localities-fill-z12',
+        'localities-search-highlight-z6-9',
+        'localities-search-highlight-z10-11',
+        'localities-search-highlight-z12',
+        // Also hide any old suburb layers
+        'suburbs-fill',
+        'suburbs-outline',
+        'suburbs-hover-highlight',
+        'suburbs-search-highlight'
+      ];
+      
+      localitiesLayers.forEach(layerId => {
+        if (map.current!.getLayer(layerId)) {
+          map.current!.setLayoutProperty(layerId, 'visibility', 'none');
+          console.log(`🔍 Hidden layer: ${layerId}`);
               } else {
-                selectedTypes.push(typeName);
-              }
-            }
-          });
-          
-          // Create precise filter conditions
-          if (selectedTypes.length > 0 && selectedYears.length > 0) {
-            // If both types and years are selected, we need to be more specific
-            // For VIC: match specific type + year combinations
-            // For NSW: match Secondary type + any selected year
-            if (stateCode === 'VIC') {
-              // VIC logic: be specific about type + year combinations
-              selectedTypes.forEach(type => {
-                if (type === 'Junior Secondary') {
-                  // Junior Secondary: years 7-9
-                  selectedYears.filter(year => year >= 7 && year <= 9).forEach(year => {
-                    stateTypeConditions.push(['all', 
-                      ['==', ['get', 'state'], 'VIC'],
-                      ['==', ['get', 'type'], 'Junior Secondary'],
-                      ['==', ['get', 'year_level'], year]
-                    ]);
-                  });
-                } else if (type === 'Senior Secondary') {
-                  // Senior Secondary: years 10-12
-                  selectedYears.filter(year => year >= 10 && year <= 12).forEach(year => {
-                    stateTypeConditions.push(['all', 
-                      ['==', ['get', 'state'], 'VIC'],
-                      ['==', ['get', 'type'], 'Senior Secondary'],
-                      ['==', ['get', 'year_level'], year]
-                    ]);
-                  });
-                } else if (type === 'Single Sex') {
-                  // Single Sex: year 7 only
-                  if (selectedYears.includes(7)) {
-                    stateTypeConditions.push(['all', 
-                      ['==', ['get', 'state'], 'VIC'],
-                      ['==', ['get', 'type'], 'Single Sex'],
-                      ['==', ['get', 'year_level'], 7]
-                    ]);
-                  }
-                }
-              });
-            } else if (stateCode === 'NSW') {
-              // NSW logic: Secondary type + any selected year
-              if (selectedTypes.includes('Secondary')) {
-                // If all years 7-12 are selected, show only year 7 to avoid overlapping polygons
-                if (selectedYears.length === 6 && selectedYears.every(year => year >= 7 && year <= 12)) {
-                  stateTypeConditions.push(['all', 
-                    ['==', ['get', 'state'], 'NSW'],
-                    ['==', ['get', 'type'], 'Secondary'],
-                    ['==', ['get', 'year_level'], 7]
-                  ]);
-                } else {
-                  // Otherwise, show selected years
-                  selectedYears.forEach(year => {
-                    stateTypeConditions.push(['all', 
-                      ['==', ['get', 'state'], 'NSW'],
-                      ['==', ['get', 'type'], 'Secondary'],
-                      ['==', ['get', 'year_level'], year]
-                    ]);
-                  });
-                }
-              }
-            } else if (stateCode === 'SA') {
-              // SA logic: Senior Secondary type (whole-of-secondary, no year granularity)
-              if (selectedTypes.includes('Senior Secondary')) {
-                // SA Senior Secondary schools have year_level: null, so show them when no specific years are selected
-                if (selectedYears.length === 0) {
-                  stateTypeConditions.push(['all', 
-                    ['==', ['get', 'state'], 'SA'],
-                    ['==', ['get', 'type'], 'Senior Secondary'],
-                    ['==', ['get', 'year_level'], null]
-                  ]);
-                }
-              }
-            }
-          } else if (selectedTypes.length > 0) {
-            // Only types selected (no specific years)
-            selectedTypes.forEach(type => {
-              stateTypeConditions.push(['all', 
-                ['==', ['get', 'state'], stateCode.toUpperCase()],
-                ['==', ['get', 'type'], type]
-              ]);
-            });
-          } else if (selectedYears.length > 0) {
-            // Only years selected (fallback to showing all types for those years)
-            selectedYears.forEach(year => {
-              stateTypeConditions.push(['all', 
-                ['==', ['get', 'state'], stateCode.toUpperCase()],
-                ['==', ['get', 'year_level'], year]
-              ]);
-            });
-          }
-          
-          if (stateTypeConditions.length > 0) {
-            stateConditions.push(['any', ...stateTypeConditions]);
-          }
+          console.log(`🔍 Layer not found: ${layerId}`);
         }
       });
-      if (stateConditions.length > 0) {
-        conditions.push(['any', ...stateConditions]);
+      
+      // Show/hide NSW catchment layers based on selections
+      map.current.setLayoutProperty(NSW_LAYER_IDS.primary.fill, 'visibility', primaryActive ? 'visible' : 'none');
+      map.current.setLayoutProperty(NSW_LAYER_IDS.primary.line, 'visibility', primaryActive ? 'visible' : 'none');
+      map.current.setLayoutProperty(NSW_LAYER_IDS.secondary.fill, 'visibility', secondaryActive ? 'visible' : 'none');
+      map.current.setLayoutProperty(NSW_LAYER_IDS.secondary.line, 'visibility', secondaryActive ? 'visible' : 'none');
+      map.current.setLayoutProperty(NSW_LAYER_IDS.future.fill, 'visibility', futureActive ? 'visible' : 'none');
+      map.current.setLayoutProperty(NSW_LAYER_IDS.future.line, 'visibility', futureActive ? 'visible' : 'none');
+      
+      // Show schools automatically with catchments, but filter by catchment type
+      const showSchools = primaryActive || secondaryActive; // No schools for future
+      console.log('🔍 Setting school layers visibility:', showSchools);
+      
+      map.current.setLayoutProperty(NSW_LAYER_IDS.schools.points, 'visibility', showSchools ? 'visible' : 'none');
+      map.current.setLayoutProperty(NSW_LAYER_IDS.schools.labels, 'visibility', showSchools ? 'visible' : 'none');
+      
+      // Filter schools by catchment type using data-driven styling
+      if (showSchools) {
+        // Set filter for schools based on active catchment types
+        const schoolFilter: any[] = ['any'];
+        
+        if (primaryActive) {
+          schoolFilter.push(['==', ['get', 'level'], 'primary']);
+        }
+        if (secondaryActive) {
+          schoolFilter.push(['==', ['get', 'level'], 'secondary']);
+          schoolFilter.push(['==', ['get', 'level'], 'k-12']); // Include K-12 schools with secondary
+        }
+        
+        map.current.setFilter(NSW_LAYER_IDS.schools.points, schoolFilter);
+        map.current.setFilter(NSW_LAYER_IDS.schools.labels, schoolFilter);
+      } else {
+        // Clear filter when no schools should be shown
+        map.current.setFilter(NSW_LAYER_IDS.schools.points, null);
+        map.current.setFilter(NSW_LAYER_IDS.schools.labels, null);
       }
-    }
-
-    // Check if any filters are active
-    const hasActiveFilters = conditions.length > 0;
-
-    if (hasActiveFilters) {
-      // Show catchments, hide suburbs
-      console.log('🏫 Showing school catchments, hiding suburbs');
       
-      // Hide suburb layers
-      map.current.setLayoutProperty('suburbs-fill', 'visibility', 'none');
-      map.current.setLayoutProperty('suburbs-outline', 'visibility', 'none');
-      map.current.setLayoutProperty('suburbs-hover-highlight', 'visibility', 'none');
-      map.current.setLayoutProperty('suburbs-search-highlight', 'visibility', 'none');
-      
-      // Show catchment layers with filter
-      const filterExpression = ['any', ...conditions];
-      map.current.setFilter(CATCHMENTS_CONFIG.fillLayerId, filterExpression);
-      map.current.setFilter(CATCHMENTS_CONFIG.lineLayerId, filterExpression);
-      map.current.setLayoutProperty(CATCHMENTS_CONFIG.fillLayerId, 'visibility', 'visible');
-      map.current.setLayoutProperty(CATCHMENTS_CONFIG.lineLayerId, 'visibility', 'visible');
-      
-      console.log('🔍 Applied catchments filter expression:', filterExpression);
+      console.log('🔍 NSW catchments visibility:', { primaryActive, secondaryActive, futureActive, showSchools });
     } else {
-      // Hide catchments, show suburbs
-      console.log('🏘️ Showing suburbs, hiding school catchments');
+      // Hide NSW catchments, show suburbs
+      console.log('🏘️ Showing suburbs, hiding NSW school catchments');
       
-      // Show suburb layers
-      map.current.setLayoutProperty('suburbs-fill', 'visibility', 'visible');
-      map.current.setLayoutProperty('suburbs-outline', 'visibility', 'visible');
-      map.current.setLayoutProperty('suburbs-hover-highlight', 'visibility', 'visible');
-      map.current.setLayoutProperty('suburbs-search-highlight', 'visibility', 'visible');
+      // Show all localities/suburb layers
+      const localitiesLayers = [
+        'localities-outline-z6-9',
+        'localities-outline-z10-11', 
+        'localities-outline-z12',
+        'localities-fill-z6-9',
+        'localities-fill-z10-11',
+        'localities-fill-z12',
+        'localities-search-highlight-z6-9',
+        'localities-search-highlight-z10-11',
+        'localities-search-highlight-z12',
+        // Also show any old suburb layers
+        'suburbs-fill',
+        'suburbs-outline',
+        'suburbs-hover-highlight',
+        'suburbs-search-highlight'
+      ];
       
-      // Hide catchment layers
-      map.current.setLayoutProperty(CATCHMENTS_CONFIG.fillLayerId, 'visibility', 'none');
-      map.current.setLayoutProperty(CATCHMENTS_CONFIG.lineLayerId, 'visibility', 'none');
+      localitiesLayers.forEach(layerId => {
+        if (map.current!.getLayer(layerId)) {
+          map.current!.setLayoutProperty(layerId, 'visibility', 'visible');
+        }
+      });
       
-      console.log('🔍 Hidden all catchments, showing suburbs');
+      // Hide all NSW catchment layers
+      map.current.setLayoutProperty(NSW_LAYER_IDS.primary.fill, 'visibility', 'none');
+      map.current.setLayoutProperty(NSW_LAYER_IDS.primary.line, 'visibility', 'none');
+      map.current.setLayoutProperty(NSW_LAYER_IDS.secondary.fill, 'visibility', 'none');
+      map.current.setLayoutProperty(NSW_LAYER_IDS.secondary.line, 'visibility', 'none');
+      map.current.setLayoutProperty(NSW_LAYER_IDS.future.fill, 'visibility', 'none');
+      map.current.setLayoutProperty(NSW_LAYER_IDS.future.line, 'visibility', 'none');
+      map.current.setLayoutProperty(NSW_LAYER_IDS.schools.points, 'visibility', 'none');
+      map.current.setLayoutProperty(NSW_LAYER_IDS.schools.labels, 'visibility', 'none');
+      
+      console.log('🔍 Hidden all NSW catchments, showing suburbs');
     }
   }, [map]);
 
-  // Initialize catchments (add source and layers)
+  // Initialize NSW catchments (add sources and layers)
   const initializeCatchments = useCallback(async () => {
-    await addCatchmentsSource();
-    addCatchmentsLayers();
-  }, [addCatchmentsSource, addCatchmentsLayers]);
+    addNswSources();
+    addNswLayers();
+  }, [addNswSources, addNswLayers]);
 
-  // Add hover interactions
+  // Add hover interactions for NSW layers
   const addHoverInteractions = useCallback(() => {
     if (!map.current || !layersAdded.current) return;
 
     let hoveredFeatureId: string | number | undefined = undefined;
 
+    const allNswLayers = [
+      NSW_LAYER_IDS.primary.fill,
+      NSW_LAYER_IDS.secondary.fill,
+      NSW_LAYER_IDS.future.fill,
+    ];
+
     const handleMouseMove = (e: mapboxgl.MapMouseEvent) => {
       if (!map.current) return;
 
       const features = map.current.queryRenderedFeatures(e.point, {
-        layers: [CATCHMENTS_CONFIG.fillLayerId],
+        layers: allNswLayers,
       });
 
-      // Reset hover state
+      // Reset hover state (feature state not supported for vector tiles)
       if (hoveredFeatureId !== undefined) {
-        map.current.setFeatureState(
-          { source: CATCHMENTS_CONFIG.sourceId, id: hoveredFeatureId },
-          { hover: false }
-        );
+        // Just reset the cursor for vector tiles
+        if (map.current) {
+          map.current.getCanvas().style.cursor = '';
+        }
       }
 
-      // Set new hover state
+      // Set new hover state (feature state not supported for vector tiles)
       if (features.length > 0) {
         hoveredFeatureId = features[0].id;
-        if (hoveredFeatureId !== undefined) {
-          map.current.setFeatureState(
-            { source: CATCHMENTS_CONFIG.sourceId, id: hoveredFeatureId },
-            { hover: true }
-          );
+        if (map.current) {
+          map.current.getCanvas().style.cursor = 'pointer';
         }
-        map.current.getCanvas().style.cursor = 'pointer';
       } else {
         hoveredFeatureId = undefined;
+        if (map.current) {
         map.current.getCanvas().style.cursor = '';
+        }
       }
     };
 
     const handleMouseLeave = () => {
       if (!map.current || hoveredFeatureId === undefined) return;
 
-      map.current.setFeatureState(
-        { source: CATCHMENTS_CONFIG.sourceId, id: hoveredFeatureId },
-        { hover: false }
-      );
+      // Reset cursor for vector tiles (feature state not supported)
       map.current.getCanvas().style.cursor = '';
       hoveredFeatureId = undefined;
     };
 
-    const handleClick = (e: mapboxgl.MapMouseEvent) => {
+    const handleClick = async (e: mapboxgl.MapMouseEvent) => {
       if (!map.current) return;
 
       const features = map.current.queryRenderedFeatures(e.point, {
-        layers: [CATCHMENTS_CONFIG.fillLayerId],
+        layers: allNswLayers,
       });
 
       if (features.length > 0) {
         const feature = features[0];
         const properties = feature.properties;
+        const layerId = feature.layer?.id || 'unknown';
         
-        // Determine school type for display
-        const schoolType = properties?.type === 'Primary' ? 'Primary' : 'Secondary';
+        // Determine catchment type based on sidebar state and layer
+        let catchmentId = properties?.catchment_id;
+        let catchmentType = 'Unknown';
+        let catchmentIdField = '';
+        let schoolLevelFilter = '';
+        
+        console.log('🔍 Raw catchment ID from properties:', catchmentId, 'type:', typeof catchmentId);
+        
+        // Use sidebar state to determine catchment type (mutually exclusive)
+        if (currentFilterStateRef.current?.stateSelections?.NSW) {
+          const nswState = currentFilterStateRef.current.stateSelections.NSW;
+          
+          if (nswState.Primary === true) {
+            catchmentType = 'Primary';
+            catchmentIdField = 'primary_catchment_id';
+            schoolLevelFilter = 'primary';
+          } else if (nswState.Secondary === true) {
+            catchmentType = 'Secondary';
+            catchmentIdField = 'secondary_catchment_id';
+            schoolLevelFilter = 'secondary';
+          } else if (nswState.Future === true) {
+            catchmentType = 'Future';
+            // Future catchments don't have schools
+          }
+        } else {
+          // Fallback to layer-based detection
+          if (layerId.includes('primary')) {
+            catchmentType = 'Primary';
+            catchmentIdField = 'primary_catchment_id';
+            schoolLevelFilter = 'primary';
+          } else if (layerId.includes('secondary')) {
+            catchmentType = 'Secondary';
+            catchmentIdField = 'secondary_catchment_id';
+            schoolLevelFilter = 'secondary';
+          } else if (layerId.includes('future')) {
+            catchmentType = 'Future';
+          }
+        }
+        
+        // Get school data directly from enriched catchment properties
+        let schoolData = null;
+        let associatedSchools = [];
+        
+        
+        if (catchmentType === 'Primary' && properties) {
+          // Check for primary school data in enriched catchment
+          const schoolIds = properties.primary_school_ids;
+          const schoolNames = properties.primary_school_names;
+          const schoolLons = properties.primary_school_lons;
+          const schoolLats = properties.primary_school_lats;
+          
+          if (schoolIds && schoolNames) {
+            // Parse pipe-separated lists
+            const ids = schoolIds.split('|').filter(id => id.trim());
+            const names = schoolNames.split('|').filter(name => name.trim());
+            const lons = schoolLons ? schoolLons.split('|').filter(lon => lon.trim()) : [];
+            const lats = schoolLats ? schoolLats.split('|').filter(lat => lat.trim()) : [];
+            
+            // Create school objects
+            associatedSchools = ids.map((id, index) => ({
+              id: id.trim(),
+              name: names[index]?.trim() || 'Unknown School',
+              lon: lons[index] ? parseFloat(lons[index].trim()) : null,
+              lat: lats[index] ? parseFloat(lats[index].trim()) : null
+            }));
+            
+            // Use first school as primary display
+            if (associatedSchools.length > 0) {
+              schoolData = {
+                name: associatedSchools[0].name,
+                level: 'primary',
+                id: associatedSchools[0].id
+              };
+              console.log('🔍 Found primary schools from enriched catchment:', associatedSchools.length);
+            }
+          }
+        } else if (catchmentType === 'Secondary' && properties) {
+          // Check for secondary school data in enriched catchment
+          const schoolIds = properties.secondary_school_ids;
+          const schoolNames = properties.secondary_school_names;
+          const schoolLons = properties.secondary_school_lons;
+          const schoolLats = properties.secondary_school_lats;
+          
+          if (schoolIds && schoolNames) {
+            // Parse pipe-separated lists
+            const ids = schoolIds.split('|').filter(id => id.trim());
+            const names = schoolNames.split('|').filter(name => name.trim());
+            const lons = schoolLons ? schoolLons.split('|').filter(lon => lon.trim()) : [];
+            const lats = schoolLats ? schoolLats.split('|').filter(lat => lat.trim()) : [];
+            
+            // Create school objects
+            associatedSchools = ids.map((id, index) => ({
+              id: id.trim(),
+              name: names[index]?.trim() || 'Unknown School',
+              lon: lons[index] ? parseFloat(lons[index].trim()) : null,
+              lat: lats[index] ? parseFloat(lats[index].trim()) : null
+            }));
+            
+            // Use first school as primary display
+            if (associatedSchools.length > 0) {
+              schoolData = {
+                name: associatedSchools[0].name,
+                level: 'secondary',
+                id: associatedSchools[0].id
+              };
+              console.log('🔍 Found secondary schools from enriched catchment:', associatedSchools.length);
+            }
+          }
+        }
+        
+        // Handle catchments with no associated schools
+        if (!schoolData && (catchmentType === 'Primary' || catchmentType === 'Secondary')) {
+          console.log('🔍 No schools found in enriched catchment for:', catchmentId);
+        }
+        
+        // Use school data if found, otherwise show catchment info
+        let displayName = properties?.name || 'Unknown Catchment';
+        let schoolType = catchmentType;
+        
+        if (schoolData) {
+          displayName = schoolData.name || 'Unknown School';
+          schoolType = schoolData.level || catchmentType;
+          console.log('🔍 Using actual school name:', displayName);
+        } else {
+          console.log('🔍 No school found, showing catchment name:', displayName);
+        }
         
         // Determine grades coverage
         let gradesDisplay = 'Coverage not specified';
-        if (properties?.grades) {
+        if (schoolData?.grades) {
+          gradesDisplay = schoolData.grades;
+        } else if (properties?.grades) {
           gradesDisplay = properties.grades;
         } else if (properties?.year_level) {
           gradesDisplay = `Year ${properties.year_level}`;
         }
         
-        // Create popup with new format
-        new mapboxgl.Popup()
-          .setLngLat(e.lngLat)
-          .setHTML(`
-            <div class="p-3 min-w-[200px]">
-              <h3 class="font-semibold text-gray-900 text-base mb-1">${properties?.school_name || 'Unknown School'}</h3>
-              <p class="text-sm text-gray-700 mb-1">${schoolType}</p>
-              <p class="text-sm text-gray-600 mb-2">Grades: ${gradesDisplay}</p>
-              <div class="text-xs text-gray-500 space-y-1">
-                <div>State: ${properties?.state || 'Unknown'}</div>
-                <div>Source: ${properties?.source || 'Unknown'}</div>
-                <div>Year: ${properties?.year || 'Unknown'}</div>
+        // Create school list display for multiple schools
+        let schoolListDisplay = '';
+        if (associatedSchools.length > 1) {
+          schoolListDisplay = `
+            <div class="mt-2">
+              <div class="text-xs text-gray-500 uppercase tracking-wide mb-1">All Schools (${associatedSchools.length})</div>
+              <div class="space-y-1 max-h-32 overflow-y-auto">
+                ${associatedSchools.map(school => `
+                  <div class="text-xs text-gray-700 flex items-center gap-1">
+                    <span class="text-blue-500">•</span>
+                    <span>${school.name}</span>
+                  </div>
+                `).join('')}
               </div>
             </div>
-          `)
-          .addTo(map.current);
+          `;
+        }
+        
+        // Create comprehensive catchment information for the toolkit
+        const combinedInfo = `
+          <div class="mt-4 p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg border border-gray-200">
+            <h4 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+              <span class="text-lg">🎓</span>
+              ${displayName}
+            </h4>
+            <div class="space-y-3">
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <div class="text-xs text-gray-500 uppercase tracking-wide">School Type</div>
+                  <div class="text-sm font-medium text-gray-900">${schoolType}</div>
+                </div>
+                <div>
+                  <div class="text-xs text-gray-500 uppercase tracking-wide">State</div>
+                  <div class="text-sm font-medium text-gray-900">NSW</div>
+                </div>
+              </div>
+              
+              <div class="border-t border-gray-200 pt-3">
+                <div class="text-xs text-gray-500 uppercase tracking-wide mb-2">School Information</div>
+                <div class="space-y-2">
+                  <div class="flex items-center gap-2">
+                    <span class="text-lg">🏫</span>
+                    <div>
+                      <div class="text-sm font-medium text-gray-900">${displayName}</div>
+                      <div class="text-xs text-gray-600">${schoolType} • ${gradesDisplay}</div>
+                      <div class="text-xs text-gray-500">Catchment ID: ${catchmentId || 'Unknown'}</div>
+                      ${schoolData ? '<div class="text-xs text-green-600">✓ Precomputed school data</div>' : ''}
+                    </div>
+                  </div>
+                  ${schoolListDisplay}
+                  ${associatedSchools.length > 0 ? `
+                    <div class="mt-3">
+                      <button 
+                        onclick="fetchSchoolDetails('${associatedSchools.map(s => s.id).join(',')}')"
+                        class="w-full px-3 py-2 text-xs font-medium text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-md border border-blue-200 transition-colors"
+                      >
+                        📋 More Details (${associatedSchools.length} schools)
+                      </button>
+                    </div>
+                  ` : ''}
+                </div>
+              </div>
+              
+              <div class="text-xs text-gray-500 text-center pt-2 border-t border-gray-200">
+                Data from NSW Education Department
+              </div>
+            </div>
+          </div>
+        `;
+        
+        // Create a comprehensive suburb toolkit entry
+        const mockSuburbData = {
+          name: displayName,
+          code: `catchment-${layerId}`,
+          score: 75, // Mock score
+          kpis: {
+            yield: 4.2,
+            growth5y: 8.5,
+            vacancy: 2.1
+          },
+          position: { x: 20, y: 240 }, // Fixed position for top-left
+          catchmentInfo: combinedInfo,
+          schoolInfo: '', // Combined into catchmentInfo
+          isCatchment: true // Flag to indicate this is catchment data
+        };
+        
+        // Trigger the suburb toolkit with comprehensive information
+        if (onCatchmentClick) {
+          onCatchmentClick(mockSuburbData);
+        }
       }
     };
 
-    // Add event listeners
-    map.current.on('mousemove', CATCHMENTS_CONFIG.fillLayerId, handleMouseMove);
-    map.current.on('mouseleave', CATCHMENTS_CONFIG.fillLayerId, handleMouseLeave);
-    map.current.on('click', CATCHMENTS_CONFIG.fillLayerId, handleClick);
+    // Add event listeners for all NSW layers
+    if (map.current) {
+      allNswLayers.forEach(layerId => {
+        if (map.current) {
+          map.current.on('mousemove', layerId, handleMouseMove);
+          map.current.on('mouseleave', layerId, handleMouseLeave);
+          map.current.on('click', layerId, handleClick);
+        }
+      });
+    }
 
     // Cleanup function
     return () => {
       if (!map.current) return;
-      map.current.off('mousemove', CATCHMENTS_CONFIG.fillLayerId, handleMouseMove);
-      map.current.off('mouseleave', CATCHMENTS_CONFIG.fillLayerId, handleMouseLeave);
-      map.current.off('click', CATCHMENTS_CONFIG.fillLayerId, handleClick);
+      allNswLayers.forEach(layerId => {
+        if (map.current) {
+          map.current.off('mousemove', layerId, handleMouseMove);
+          map.current.off('mouseleave', layerId, handleMouseLeave);
+          map.current.off('click', layerId, handleClick);
+        }
+      });
     };
   }, [map]);
 
-  // Update line width on hover
-  const updateLineWidth = useCallback(() => {
-    if (!map.current || !layersAdded.current) return;
+  // Note: Line width hover effects removed for vector tiles (feature state not supported)
 
-    map.current.setPaintProperty(CATCHMENTS_CONFIG.lineLayerId, 'line-width', [
-      'case',
-      ['boolean', ['feature-state', 'hover'], false],
-      2, // Hovered
-      1  // Default
-    ]);
+  // Global function to fetch school details from DynamoDB
+  useEffect(() => {
+    // Add global function for fetching school details
+    (window as any).fetchSchoolDetails = async (schoolIds: string) => {
+      console.log('🔍 Fetching school details for IDs:', schoolIds);
+      try {
+        // TODO: Implement DynamoDB fetch for full school records
+        // This would typically call your backend API to get detailed school information
+        const ids = schoolIds.split(',');
+        console.log('🔍 Would fetch details for schools:', ids);
+        
+        // For now, just show an alert - replace with actual API call
+        alert(`Would fetch detailed information for ${ids.length} schools:\n${ids.join(', ')}`);
+      } catch (error) {
+        console.error('❌ Error fetching school details:', error);
+        alert('Error fetching school details. Please try again.');
+      }
+    };
+    
+    
+    return () => {
+      // Cleanup global functions
+      delete (window as any).fetchSchoolDetails;
+    };
   }, [map]);
 
   // Initialize everything
@@ -435,9 +777,8 @@ export const useSchoolCatchments = (map: React.MutableRefObject<mapboxgl.Map | n
         await new Promise(resolve => setTimeout(resolve, 500));
 
         await initializeCatchments();
-        console.log('✅ Catchments initialization complete');
+        console.log('✅ NSW catchments initialization complete');
         const cleanup = addHoverInteractions();
-        updateLineWidth();
 
         return cleanup;
       } catch (error) {
@@ -454,11 +795,10 @@ export const useSchoolCatchments = (map: React.MutableRefObject<mapboxgl.Map | n
     return () => {
       if (cleanup) cleanup();
     };
-  }, [map.current, initializeCatchments, addHoverInteractions, updateLineWidth]);
+  }, [map.current, initializeCatchments, addHoverInteractions]);
 
   return {
     initializeCatchments,
     applyFilter,
-    config: CATCHMENTS_CONFIG,
   };
 };

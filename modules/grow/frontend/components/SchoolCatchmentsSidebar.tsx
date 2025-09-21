@@ -5,6 +5,7 @@ interface CatchmentsState {
   globalTypes: {
     primary: boolean;
     secondary: boolean;
+    future?: boolean;
   };
   stateSelections: {
     [state: string]: {
@@ -28,6 +29,7 @@ const TYPE_COLORS = {
   'Senior Secondary': '#B23A7F',
   'Single Sex': '#6E56CF',
   Secondary: '#2CA6A4',
+  Future: '#6E56CF',
 };
 
 const TYPE_STATE_MAPPING = {
@@ -36,6 +38,7 @@ const TYPE_STATE_MAPPING = {
   'Senior Secondary': 'QLD, VIC, SA',
   'Single Sex': 'VIC',
   Secondary: 'NSW',
+  Future: 'NSW',
 };
 
 interface StateConfig {
@@ -56,7 +59,7 @@ const STATE_CONFIGS: Record<string, StateConfig> = {
     // Junior Secondary: years 7-9, Senior Secondary: years 10-12, Single Sex: year 7
   },
   NSW: {
-    types: ['Primary', 'Secondary'],
+    types: ['Primary', 'Secondary', 'Future'],
     yearLevels: [7, 8, 9, 10, 11, 12],
     // Secondary: years 7-12
   },
@@ -71,6 +74,7 @@ export const SchoolCatchmentsSidebar: React.FC<SchoolCatchmentsSidebarProps> = (
     globalTypes: {
       primary: false,
       secondary: false,
+      future: false,
     },
     stateSelections: {},
     accordionOpen: {},
@@ -96,7 +100,7 @@ export const SchoolCatchmentsSidebar: React.FC<SchoolCatchmentsSidebarProps> = (
 
   // Note: Filter is only applied when Apply button is clicked, not automatically
 
-  const updateGlobalType = (type: 'primary' | 'secondary', checked: boolean) => {
+  const updateGlobalType = (type: 'primary' | 'secondary' | 'future', checked: boolean) => {
     setState(prev => {
       const newState = {
         ...prev,
@@ -151,6 +155,14 @@ export const SchoolCatchmentsSidebar: React.FC<SchoolCatchmentsSidebarProps> = (
                 delete updatedStateSelections[stateCode][`year_${year}`];
               });
             }
+          }
+        } else if (type === 'future') {
+          if (checked) {
+            if (config.types.includes('Future')) {
+              updatedStateSelections[stateCode]['Future'] = true;
+            }
+          } else {
+            delete updatedStateSelections[stateCode]['Future'];
           }
         }
       });
@@ -341,6 +353,12 @@ export const SchoolCatchmentsSidebar: React.FC<SchoolCatchmentsSidebarProps> = (
           return allSecondaryTypesSelected && allYearLevelsSelected;
         });
         newState.globalTypes = { ...prev.globalTypes, secondary: allSecondaryChecked };
+      } else if (key === 'Future') {
+        const allFutureChecked = Object.entries(STATE_CONFIGS).every(([stateCode, config]) => {
+          if (!config.types.includes('Future')) return true;
+          return newState.stateSelections[stateCode]?.['Future'] === true;
+        });
+        newState.globalTypes = { ...prev.globalTypes, future: allFutureChecked };
       } else if (key.startsWith('year_')) {
         // When year-level checkboxes change, also check global secondary state
         const allSecondaryChecked = Object.entries(STATE_CONFIGS).every(([stateCode, config]) => {
@@ -439,11 +457,12 @@ export const SchoolCatchmentsSidebar: React.FC<SchoolCatchmentsSidebarProps> = (
 
   return (
     <div
-      className="absolute right-0 top-0 h-full w-80 bg-white shadow-xl transform transition-transform duration-300 ease-in-out"
+      className="absolute right-0 top-0 w-80 bg-white shadow-xl transform transition-transform duration-300 ease-in-out"
       role="dialog"
       aria-modal="true"
       aria-labelledby="catchments-sidebar-title"
       style={{ 
+        height: '100%',
         zIndex: 99998,
         transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
         pointerEvents: 'auto'
@@ -487,6 +506,15 @@ export const SchoolCatchmentsSidebar: React.FC<SchoolCatchmentsSidebarProps> = (
                     className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                   />
                   <span className="text-sm text-gray-700">All Secondary</span>
+                </label>
+                <label className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    checked={state.globalTypes.future || false}
+                    onChange={(e) => updateGlobalType('future', e.target.checked)}
+                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  />
+                  <span className="text-sm text-gray-700">All Future</span>
                 </label>
               </div>
             </div>

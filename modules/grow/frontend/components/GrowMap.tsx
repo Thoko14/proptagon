@@ -1,6 +1,8 @@
 import { forwardRef, useImperativeHandle, useRef, useEffect, useCallback } from 'react';
 import mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 import { useLocalitiesLayers } from '../hooks/useLocalitiesLayers';
+import { useSchoolCatchments } from '../hooks/useSchoolCatchments';
 import { MAPBOX_CONFIG } from '../config/mapbox';
 
 export interface GrowMapRef {
@@ -10,21 +12,25 @@ export interface GrowMapRef {
   highlightSuburbByCode: (suburbCode: string) => void;
   debugSearch: () => void;
   examineZ12Data: () => void;
+  toggleNswCatchments: (opts: { primary?: boolean; secondary?: boolean; future?: boolean }) => void;
+  applyCatchmentsFilter: (filter: any) => void;
 }
 
 interface GrowMapProps {
   onSuburbClick?: (suburb: any) => void;
   onMapReady?: (map: mapboxgl.Map) => void;
   className?: string;
+  currentFilterState?: any;
 }
 
-const GrowMap = forwardRef<GrowMapRef, GrowMapProps>(({ onSuburbClick, onMapReady, className = '' }, ref) => {
+const GrowMap = forwardRef<GrowMapRef, GrowMapProps>(({ onSuburbClick, onMapReady, className = '', currentFilterState }, ref) => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
   const onMapReadyRef = useRef(onMapReady);
   
   // Store the localities layers functions in ref
   const localitiesLayersRef = useRef<any>(null);
+  const schoolCatchmentsRef = useRef<any>(null);
   
   // Update ref when onMapReady changes
   useEffect(() => {
@@ -45,6 +51,13 @@ const GrowMap = forwardRef<GrowMapRef, GrowMapProps>(({ onSuburbClick, onMapRead
 
   // Store the localities layers functions in ref
   localitiesLayersRef.current = localitiesLayers;
+  // Initialize school catchments (NSW vector tiles) and store ref
+  const schoolCatchments = useSchoolCatchments(map, (catchmentData) => {
+    if (onSuburbClick) {
+      onSuburbClick(catchmentData);
+    }
+  }, currentFilterState);
+  schoolCatchmentsRef.current = schoolCatchments;
 
   // Initialize map
   useEffect(() => {
@@ -67,6 +80,17 @@ const GrowMap = forwardRef<GrowMapRef, GrowMapProps>(({ onSuburbClick, onMapRead
       // Call onMapReady when map is ready
       if (onMapReadyRef.current) {
         map.current.on('load', () => {
+          try {
+            const el = mapContainer.current as HTMLDivElement;
+            console.log('🧭 Map loaded. Container size:', {
+              width: el?.clientWidth,
+              height: el?.clientHeight,
+              className: el?.className
+            });
+            // Ensure canvas sizes to container after layout settles
+            map.current!.resize();
+            setTimeout(() => map.current && map.current.resize(), 300);
+          } catch {}
           onMapReadyRef.current!(map.current!);
         });
       }
@@ -75,6 +99,22 @@ const GrowMap = forwardRef<GrowMapRef, GrowMapProps>(({ onSuburbClick, onMapRead
       map.current.on('error', (e) => {
         console.error('❌ Mapbox error:', e);
       });
+
+      // Log initial container size
+      try {
+        const el = mapContainer.current as HTMLDivElement;
+        console.log('📐 Map container mount size:', {
+          width: el?.clientWidth,
+          height: el?.clientHeight,
+          className: el?.className
+        });
+      } catch {}
+
+      // Force resize on window resize
+      const handleWindowResize = () => {
+        try { map.current && map.current.resize(); } catch {}
+      };
+      window.addEventListener('resize', handleWindowResize);
 
     } catch (error) {
       console.error('❌ Error creating Mapbox map:', error);
@@ -85,6 +125,7 @@ const GrowMap = forwardRef<GrowMapRef, GrowMapProps>(({ onSuburbClick, onMapRead
         map.current.remove();
         map.current = null;
       }
+      window.removeEventListener('resize', () => {});
     };
   }, []); // Empty dependency array to run only once
 
@@ -495,7 +536,9 @@ const GrowMap = forwardRef<GrowMapRef, GrowMapProps>(({ onSuburbClick, onMapRead
     clearSearchHighlight,
     highlightSuburbByCode,
     debugSearch,
-    examineZ12Data
+    examineZ12Data,
+    toggleNswCatchments: (opts) => schoolCatchmentsRef.current?.toggleNswCatchments?.(opts),
+    applyCatchmentsFilter: (filter) => schoolCatchmentsRef.current?.applyFilter?.(filter)
   }), [zoomToSuburb, highlightSearchedSuburb, clearSearchHighlight, highlightSuburbByCode, debugSearch, examineZ12Data]);
 
   return (

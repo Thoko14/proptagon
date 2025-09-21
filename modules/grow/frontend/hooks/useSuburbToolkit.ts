@@ -7,7 +7,6 @@ export const useSuburbToolkit = () => {
 
   // Show toolkit for a specific suburb
   const showToolkit = useCallback((suburb: SuburbToolkitData) => {
-    console.log('🔧 showToolkit called with:', suburb);
     setToolkitSuburb(suburb);
     setToolkitPosition(suburb.position);
   }, []);

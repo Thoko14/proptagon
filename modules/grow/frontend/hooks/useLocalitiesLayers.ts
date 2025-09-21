@@ -167,34 +167,38 @@ export const useLocalitiesLayers = (
 
     console.log('🎨 Adding localities layers...');
     
-    // Try to add layers immediately first
-    console.log('🎯 Attempting to add layers immediately...');
-    console.log('🔍 Map style loaded in addLayers:', map.current.isStyleLoaded());
-    console.log('🔍 Map ready in addLayers:', map.current.loaded());
-    
-    try {
-      addLayersInternal();
-      return;
-    } catch (error) {
-      console.log('⚠️ Immediate layer addition failed, waiting for styledata event...', error);
-    }
-    
-    // If immediate addition fails, wait for styledata event
-    console.log('⏳ Waiting for styledata event to ensure style is fully ready...');
-    
-    // Use a timeout as fallback in case styledata event doesn't fire
-    const timeoutId = setTimeout(() => {
-      console.log('⏰ Timeout reached, trying to add layers anyway...');
-      addLayersInternal();
-    }, 1000);
-    
-    const handleStyledata = () => {
-      console.log('✅ Styledata event fired, now adding layers...');
-      clearTimeout(timeoutId);
-      addLayersInternal();
+    // Helper: wait until style has concrete layers (Mapbox Standard loads imports lazily)
+    const waitForConcreteStyle = (attempt: number = 0) => {
+      if (!map.current) return;
+      const style = map.current.getStyle();
+      const isLoaded = map.current.isStyleLoaded();
+      const layerCount = style?.layers?.length || 0;
+      console.log(`🔍 Style readiness check #${attempt}: isLoaded=${isLoaded}, layers=${layerCount}`);
+
+      if (isLoaded && layerCount > 0) {
+        console.log('✅ Style has concrete layers, proceeding to add localities layers');
+        try {
+          addLayersInternal();
+        } catch (e) {
+          console.log('⚠️ addLayersInternal threw, retrying on next styledata', e);
+          map.current!.once('styledata', () => waitForConcreteStyle(attempt + 1));
+        }
+        return;
+      }
+
+      // Guard against infinite retries (max ~5s)
+      if (attempt >= 50) {
+        console.log('⏰ Max attempts reached; adding layers anyway');
+        try { addLayersInternal(); } catch (e) { console.error('❌ Failed to add layers after retries:', e); }
+        return;
+      }
+
+      // Prefer styledata, but also poll to handle edge cases
+      map.current.once('styledata', () => waitForConcreteStyle(attempt + 1));
+      setTimeout(() => waitForConcreteStyle(attempt + 1), 100);
     };
-    
-    map.current.once('styledata', handleStyledata);
+
+    waitForConcreteStyle(0);
     return;
   }, [map]);
 
@@ -227,15 +231,16 @@ export const useLocalitiesLayers = (
     let insertionLayer = null;
     try {
       const style = map.current.getStyle();
-      console.log('🗺️ Available layers in style:', style.layers.map(l => l.id).slice(0, 10));
+      const ids = (style.layers || []).map(l => l.id);
+      console.log('🗺️ Available layers in style:', ids);
 
       // Find a good insertion point for our layers
-      insertionLayer = style.layers.find(l => l.id === 'waterway-label') ||
-                      style.layers.find(l => l.id === 'water') ||
-                      style.layers.find(l => l.id === 'landcover') ||
-                      style.layers[style.layers.length - 1];
+      insertionLayer = style.layers?.find(l => l.id === 'waterway-label') ||
+                      style.layers?.find(l => l.id === 'water') ||
+                      style.layers?.find(l => l.id === 'landcover') ||
+                      (style.layers ? style.layers[style.layers.length - 1] : null);
       console.log('🗺️ Using insertion layer:', insertionLayer?.id);
-      console.log('🗺️ All available layers:', style.layers.map(l => l.id));
+      console.log('🗺️ All available layers:', ids);
     } catch (error) {
       console.log('⚠️ Could not get style, adding layers without insertion point');
     }

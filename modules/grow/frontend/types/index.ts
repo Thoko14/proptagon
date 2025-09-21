@@ -40,6 +40,9 @@ export interface SuburbToolkitData {
     vacancy: number; 
   };
   position: { x: number; y: number };
+  catchmentInfo?: string;
+  schoolInfo?: string;
+  isCatchment?: boolean;
 }
 
 // Property-related types
