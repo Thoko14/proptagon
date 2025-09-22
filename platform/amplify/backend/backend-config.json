@@ -1,5 +1,19 @@
 {
   "api": {
+    "schoolsAPI": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "getSchool"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
     "waitlistAPI": {
       "dependsOn": [
         {
@@ -34,6 +48,12 @@
   "function": {
     "confirmWaitlist": {
       "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "getSchool": {
+      "build": true,
+      "dependsOn": [],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
@@ -111,6 +131,30 @@
         {
           "category": "function",
           "resourceName": "confirmWaitlist"
+        }
+      ]
+    },
+    "AMPLIFY_function_getSchool_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getSchool"
+        }
+      ]
+    },
+    "AMPLIFY_function_getSchool_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getSchool"
+        }
+      ]
+    },
+    "AMPLIFY_function_getSchool_schoolsTable": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getSchool"
         }
       ]
     },

@@ -13,6 +13,11 @@
     },
     "categories": {
       "function": {
+        "getSchool": {
+          "deploymentBucketName": "amplify-proptagon-dev-82d11-deployment",
+          "s3Key": "amplify-builds/getSchool-5a6b7168546945444543-build.zip",
+          "schoolsTable": "schools"
+        },
         "joinWaitlist": {
           "deploymentBucketName": "amplify-proptagon-dev-82d11-deployment",
           "s3Key": "amplify-builds/joinWaitlist-4b63394d4b7378783437-build.zip",
@@ -43,7 +48,8 @@
         }
       },
       "api": {
-        "waitlistAPI": {}
+        "waitlistAPI": {},
+        "schoolsAPI": {}
       }
     }
   }

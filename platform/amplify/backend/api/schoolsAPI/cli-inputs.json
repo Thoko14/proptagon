@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/schools/{school-id}": {
+      "name": "/schools/{school-id}",
+      "lambdaFunction": "getSchool",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

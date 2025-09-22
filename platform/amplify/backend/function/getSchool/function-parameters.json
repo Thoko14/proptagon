@@ -1,0 +1,11 @@
+{
+  "description": "Get a school by school_id from DynamoDB",
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "schoolsTable",
+      "environmentVariableName": "SCHOOLS_TABLE"
+    }
+  ],
+  "lambdaLayers": [],
+  "permissions": {}
+}
