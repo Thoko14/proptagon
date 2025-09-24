@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import Layout from '../components/Layout';
 import GrowMap, { GrowMapRef } from '../../../modules/grow/frontend/components/GrowMap';
 import { GrowTopBar } from '../../../modules/grow/frontend/components/GrowTopBar';
-import { LayersFab } from '../../../modules/grow/frontend/components/LayersFab';
+// import { LayersFab } from '../../../modules/grow/frontend/components/LayersFab';
 import { SchoolCatchmentsSidebar } from '../../../modules/grow/frontend/components/SchoolCatchmentsSidebar';
 import { SuburbToolkit } from '../../../modules/grow/frontend/components/SuburbToolkit';
 import { useGrowState } from '../../../modules/grow/frontend/hooks/useGrowState';
@@ -231,10 +231,14 @@ const GrowPage: React.FC = () => {
   return (
     <Layout>
       <div className="grow-app w-full h-full grid grid-rows-[auto_1fr] overflow-hidden">
-        <GrowTopBar 
-          onSearch={handleSearchResult} 
+        {/* Top bar with search and chips */}
+        <GrowTopBar
+          onSearch={handleSearchResult}
           onSuburbSearch={handleSuburbSearch}
           onStrategyClick={handleStrategyMode}
+          onSuburbListClick={() => setIsStrategyMode(false)}
+          isCatchmentsOpen={isCatchmentsSidebarOpen}
+          onCatchmentsToggle={handleCatchmentsToggle}
         />
         
         {/* Main Content Area */}
@@ -333,14 +337,6 @@ const GrowPage: React.FC = () => {
               className="w-full h-full"
               currentFilterState={currentFilterState}
             />
-            
-            {/* School Catchments FAB - Positioned top-right, lower z-index so sidebar can cover it */}
-            <div className="absolute top-4 right-4 z-[9998]">
-              <LayersFab 
-                isOpen={isCatchmentsSidebarOpen}
-                onToggle={handleCatchmentsToggle}
-              />
-            </div>
             
             {/* Suburb Toolkit - Shows catchment/school information */}
             <SuburbToolkit growState={growState} />

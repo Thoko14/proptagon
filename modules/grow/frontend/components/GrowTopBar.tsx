@@ -3,7 +3,7 @@ import { Search, MapPin, Globe, Hash } from 'lucide-react';
 import { MAPBOX_CONFIG } from '../config/mapbox';
 import { StrategyChip } from './StrategyChip';
 import { LocationChip } from './LocationChip';
-import { FiltersChip } from './FiltersChip';
+// import { FiltersChip } from './FiltersChip';
 import { useGrowStore } from '../store/growStore';
 import Button from '../../../../platform/src/components/Button';
 
@@ -26,6 +26,9 @@ interface GrowTopBarProps {
   onStrategyClick: () => void;
   onSuburbListClick?: () => void;
   isInPropertiesFlow?: boolean;
+  // MVP UI tweak props
+  isCatchmentsOpen?: boolean;
+  onCatchmentsToggle?: () => void;
 }
 
 export const GrowTopBar: React.FC<GrowTopBarProps> = ({ 
@@ -33,7 +36,11 @@ export const GrowTopBar: React.FC<GrowTopBarProps> = ({
   onSuburbSearch,
   onStrategyClick, 
   onSuburbListClick,
-  isInPropertiesFlow = false 
+  // Added for MVP UI tweak
+  isCatchmentsOpen,
+  onCatchmentsToggle,
+  // isInPropertiesFlow not used in MVP UI tweak
+  // isInPropertiesFlow = false 
 }) => {
   const [searchInput, setSearchInput] = useState('');
   const [suggestions, setSuggestions] = useState<SearchSuggestion[]>([]);
@@ -488,7 +495,8 @@ export const GrowTopBar: React.FC<GrowTopBarProps> = ({
 
       {/* Bottom Bar - Chips */}
       <div className="w-full px-6 py-3 bg-gray-50 border-t border-gray-100">
-        <div className="flex items-center justify-center gap-6 max-w-5xl mx-auto">
+        {/* Chips + Catchments button on one line (wrap on narrow) */}
+        <div className="flex items-center justify-center gap-6 flex-wrap max-w-5xl mx-auto">
           {/* Strategy Chip */}
           <div className="flex-shrink-0" style={{ minWidth: '260px', maxWidth: '320px' }}>
             <StrategyChip 
@@ -509,19 +517,22 @@ export const GrowTopBar: React.FC<GrowTopBarProps> = ({
               }}
             />
           </div>
-
-          {/* Filters Chip - Only show in properties flow */}
-          <div className="flex-shrink-0" style={{ minWidth: '260px', maxWidth: '320px' }}>
-            <FiltersChip 
-              isInPropertiesFlow={isInPropertiesFlow}
-              onEditFilters={() => {
-                // TODO: Navigate to property filters view
-                // Edit filters clicked
-              }}
-            />
-          </div>
+          {/* TODO: Re-enable Filters chip when Properties flow ships. */}
+          
+          {/* School Catchments button (primary / outline-active) */}
+          <button
+            type="button"
+            aria-pressed={!!isCatchmentsOpen}
+            onClick={onCatchmentsToggle}
+            className={`${isCatchmentsOpen
+              ? 'bg-white text-primary border border-primary hover:bg-primary-light focus:ring-primary'
+              : 'bg-primary text-white hover:bg-primary-hover focus:ring-primary'} inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed px-4 py-2 text-sm whitespace-nowrap gap-2`}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m22 10-7-3-7 3 7 3 7-3Z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            School Catchments
+          </button>
         </div>
       </div>
-    </div>
+      </div>
   );
 }; 
