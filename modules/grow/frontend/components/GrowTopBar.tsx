@@ -416,7 +416,7 @@ export const GrowTopBar: React.FC<GrowTopBarProps> = ({
             <input
               ref={searchInputRef}
               type="text"
-              placeholder="Postcode, suburb, region, state or territory"
+              placeholder="Search: Postcode, suburb, region, state or territory"
               value={searchInput}
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
