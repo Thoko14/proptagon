@@ -105,7 +105,7 @@ export const LocationChip: React.FC<LocationChipProps> = ({
     <Chip
       icon={MapPin}
       label="Location"
-      value={getLocationDisplay()}
+      value={`Scope: ${getLocationDisplay()}`}
       items={getMenuItems()}
       variant={getLocationVariant()}
       className={className}

@@ -236,9 +236,10 @@ const GrowPage: React.FC = () => {
           onSearch={handleSearchResult}
           onSuburbSearch={handleSuburbSearch}
           onStrategyClick={handleStrategyMode}
-          onSuburbListClick={() => setIsStrategyMode(false)}
+          onSuburbListClick={() => setIsStrategyMode(!isStrategyMode)}
           isCatchmentsOpen={isCatchmentsSidebarOpen}
           onCatchmentsToggle={handleCatchmentsToggle}
+          isSuburbListActive={isStrategyMode}
         />
         
         {/* Main Content Area */}

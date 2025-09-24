@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { Search, MapPin, Globe, Hash } from 'lucide-react';
+import { MapPin, Globe } from 'lucide-react';
 import { MAPBOX_CONFIG } from '../config/mapbox';
 import { StrategyChip } from './StrategyChip';
 import { LocationChip } from './LocationChip';
 // import { FiltersChip } from './FiltersChip';
 import { useGrowStore } from '../store/growStore';
-import Button from '../../../../platform/src/components/Button';
+// import Button from '../../../../platform/src/components/Button';
 
 interface SearchSuggestion {
   id: string;
@@ -29,6 +29,8 @@ interface GrowTopBarProps {
   // MVP UI tweak props
   isCatchmentsOpen?: boolean;
   onCatchmentsToggle?: () => void;
+  // Suburb list mode state
+  isSuburbListActive?: boolean;
 }
 
 export const GrowTopBar: React.FC<GrowTopBarProps> = ({ 
@@ -39,6 +41,7 @@ export const GrowTopBar: React.FC<GrowTopBarProps> = ({
   // Added for MVP UI tweak
   isCatchmentsOpen,
   onCatchmentsToggle,
+  isSuburbListActive,
   // isInPropertiesFlow not used in MVP UI tweak
   // isInPropertiesFlow = false 
 }) => {
@@ -390,7 +393,7 @@ export const GrowTopBar: React.FC<GrowTopBarProps> = ({
   // Get icon for suggestion type
   const getSuggestionIcon = (placeType: string[]) => {
     if (placeType.includes('neighborhood')) return <MapPin className="w-4 h-4" />;
-    if (placeType.includes('postcode')) return <Hash className="w-4 h-4" />;
+    if (placeType.includes('postcode')) return <Globe className="w-4 h-4" />;
     return <Globe className="w-4 h-4" />;
   };
 
@@ -467,36 +470,16 @@ export const GrowTopBar: React.FC<GrowTopBarProps> = ({
             )}
           </div>
 
-          {/* Search Button */}
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={handleSearchClick}
-            className="text-sky-600 border-sky-600 hover:bg-sky-50 px-5 py-[0.55rem] rounded-lg whitespace-nowrap flex items-center gap-2"
-          >
-            <Search className="w-4 h-4" />
-            Search
-          </Button>
-
-          {/* Suburb List Button */}
-          {onSuburbListClick && (
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={onSuburbListClick}
-              className="text-sky-600 border-sky-600 hover:bg-sky-50 px-4 py-2 rounded-lg whitespace-nowrap flex items-center gap-2"
-            >
-              <Hash className="w-4 h-4" />
-              Suburb List
-            </Button>
-          )}
+          {/* Removed standalone Search button (Enter triggers search). */}
         </div>
       </div>
 
       {/* Bottom Bar - Chips */}
       <div className="w-full px-6 py-3 bg-gray-50 border-t border-gray-100">
-        {/* Chips + Catchments button on one line (wrap on narrow) */}
-        <div className="flex items-center justify-center gap-6 flex-wrap max-w-5xl mx-auto">
+        {/* Row 2: Split bar into left (chips) and right (buttons) containers */}
+        <div className="flex items-center justify-between gap-6 flex-wrap max-w-5xl mx-auto">
+          {/* Left: Chips group (centered within left half) */}
+          <div className="flex-1 flex items-center justify-center gap-6 flex-wrap">
           {/* Strategy Chip */}
           <div className="flex-shrink-0" style={{ minWidth: '260px', maxWidth: '320px' }}>
             <StrategyChip 
@@ -518,19 +501,41 @@ export const GrowTopBar: React.FC<GrowTopBarProps> = ({
             />
           </div>
           {/* TODO: Re-enable Filters chip when Properties flow ships. */}
-          
-          {/* School Catchments button (primary / outline-active) */}
-          <button
-            type="button"
-            aria-pressed={!!isCatchmentsOpen}
-            onClick={onCatchmentsToggle}
-            className={`${isCatchmentsOpen
-              ? 'bg-white text-primary border border-primary hover:bg-primary-light focus:ring-primary'
-              : 'bg-primary text-white hover:bg-primary-hover focus:ring-primary'} inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed px-4 py-2 text-sm whitespace-nowrap gap-2`}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m22 10-7-3-7 3 7 3 7-3Z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-            School Catchments
-          </button>
+          </div>
+
+          {/* Right: Mode buttons group (centered within right half) */}
+          <div className="flex-1 flex items-center justify-center gap-6">
+            {/* Browse Suburbs (secondary mode) */}
+            {onSuburbListClick && (
+              <button
+                type="button"
+                aria-label="Suburb List"
+                title="See suburbs ranked by your strategy."
+                onClick={onSuburbListClick}
+                className={`${isSuburbListActive
+                  ? 'bg-white text-primary border border-primary hover:bg-primary-light focus:ring-primary'
+                  : 'bg-primary text-white border border-transparent hover:bg-primary-hover focus:ring-primary'} inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed px-4 py-2 text-base whitespace-nowrap gap-4`}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/></svg>
+                Suburb List
+              </button>
+            )}
+
+            {/* School Catchments (primary mode) */}
+            <button
+              type="button"
+              aria-pressed={!!isCatchmentsOpen}
+              aria-label="School Catchments"
+              title="View catchment boundaries and school details."
+              onClick={onCatchmentsToggle}
+              className={`${isCatchmentsOpen
+                ? 'bg-white text-primary border border-primary hover:bg-primary-light focus:ring-primary'
+                : 'bg-primary text-white border border-transparent hover:bg-primary-hover focus:ring-primary'} inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed px-4 py-2 text-base whitespace-nowrap gap-4`}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m22 10-7-3-7 3 7 3 7-3Z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+              School Catchments
+            </button>
+          </div>
         </div>
       </div>
       </div>
