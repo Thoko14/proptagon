@@ -187,7 +187,14 @@ const GrowPage: React.FC = () => {
 
   // Handle catchments sidebar toggle
   const handleCatchmentsToggle = () => {
-    setIsCatchmentsSidebarOpen(!isCatchmentsSidebarOpen);
+    // Toggle catchments; ensure Suburb List mode is off when catchments are enabled
+    setIsCatchmentsSidebarOpen((prev) => {
+      const next = !prev;
+      if (next) {
+        setIsStrategyMode(false);
+      }
+      return next;
+    });
   };
 
   const handleCatchmentsClose = () => {
@@ -236,7 +243,16 @@ const GrowPage: React.FC = () => {
           onSearch={handleSearchResult}
           onSuburbSearch={handleSuburbSearch}
           onStrategyClick={handleStrategyMode}
-          onSuburbListClick={() => setIsStrategyMode(!isStrategyMode)}
+          onSuburbListClick={() => {
+            // Toggle Suburb List; ensure catchments are closed when list is enabled
+            setIsStrategyMode((prev) => {
+              const next = !prev;
+              if (next) {
+                setIsCatchmentsSidebarOpen(false);
+              }
+              return next;
+            });
+          }}
           isCatchmentsOpen={isCatchmentsSidebarOpen}
           onCatchmentsToggle={handleCatchmentsToggle}
           isSuburbListActive={isStrategyMode}

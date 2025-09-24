@@ -423,7 +423,7 @@ export const GrowTopBar: React.FC<GrowTopBarProps> = ({
               onFocus={() => {
                 if (suggestions.length > 0) setShowSuggestions(true);
               }}
-              className="w-full px-4 py-2 border border-sky-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none placeholder:text-gray-400"
+              className="w-full px-4 py-2 rounded-lg border-2 border-primary/60 hover:border-primary focus:border-primary active:border-primary focus:ring-0 focus-visible:ring-0 active:ring-0 focus:outline-none active:outline-none placeholder:text-gray-400 transition-colors shadow-sm bg-white"
             />
             
             {/* Suggestions Dropdown */}
