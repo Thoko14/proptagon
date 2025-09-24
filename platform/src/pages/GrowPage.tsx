@@ -172,7 +172,7 @@ const GrowPage: React.FC = () => {
   // Handle suburb click from map
   const handleSuburbClick = (suburb: { name: string; code: string; score: number; kpis: any; position: { x: number; y: number } }) => {
     // Show the toolkit with the suburb/catchment data
-    toolkit.showToolkit(suburb);
+    toolkit.showToolkit({ ...suburb, id: suburb.code });
     
     // Clear search highlight when clicking on a suburb
     if (mapRef.current) {

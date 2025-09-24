@@ -1,12 +1,12 @@
 import React, { useCallback, useRef, useEffect } from 'react';
-import mapboxgl from 'mapbox-gl';
+import type { Map as MapboxMap } from 'mapbox-gl';
 
 // NSW Vector Tilesets Configuration
 const NSW_TILESETS = {
   primary: 'mapbox://tommstar25.dg9ropwk',
   secondary: 'mapbox://tommstar25.cbf6rphf', 
   future: 'mapbox://tommstar25.42l9a1mu',
-  schools: 'mapbox://tommstar25.0mxd9sgh'
+  schools: 'mapbox://tommstar25.5zha3q9v'
 };
 
 const NSW_SOURCE_IDS = {
@@ -45,7 +45,7 @@ const NSW_SOURCE_LAYERS = {
 // Note: TYPE_COLORS removed as we're using NSW vector tiles with fixed colors
 
 export const useSchoolCatchments = (
-  map: React.MutableRefObject<mapboxgl.Map | null>,
+  map: React.MutableRefObject<MapboxMap | null>,
   onCatchmentClick?: (data: any) => void,
   currentFilterState?: any
 ) => {
@@ -344,7 +344,6 @@ export const useSchoolCatchments = (
         }
         if (secondaryActive) {
           schoolFilter.push(['==', ['get', 'level'], 'secondary']);
-          schoolFilter.push(['==', ['get', 'level'], 'k-12']); // Include K-12 schools with secondary
         }
         
         map.current.setFilter(NSW_LAYER_IDS.schools.points, schoolFilter);
@@ -468,8 +467,6 @@ export const useSchoolCatchments = (
         // Determine catchment type based on sidebar state and layer
         let catchmentId = properties?.catchment_id;
         let catchmentType = 'Unknown';
-        let catchmentIdField = '';
-        let schoolLevelFilter = '';
         
         console.log('🔍 Raw catchment ID from properties:', catchmentId, 'type:', typeof catchmentId);
         
@@ -479,12 +476,8 @@ export const useSchoolCatchments = (
           
           if (nswState.Primary === true) {
             catchmentType = 'Primary';
-            catchmentIdField = 'primary_catchment_id';
-            schoolLevelFilter = 'primary';
           } else if (nswState.Secondary === true) {
             catchmentType = 'Secondary';
-            catchmentIdField = 'secondary_catchment_id';
-            schoolLevelFilter = 'secondary';
           } else if (nswState.Future === true) {
             catchmentType = 'Future';
             // Future catchments don't have schools
@@ -493,12 +486,8 @@ export const useSchoolCatchments = (
           // Fallback to layer-based detection
           if (layerId.includes('primary')) {
             catchmentType = 'Primary';
-            catchmentIdField = 'primary_catchment_id';
-            schoolLevelFilter = 'primary';
           } else if (layerId.includes('secondary')) {
             catchmentType = 'Secondary';
-            catchmentIdField = 'secondary_catchment_id';
-            schoolLevelFilter = 'secondary';
           } else if (layerId.includes('future')) {
             catchmentType = 'Future';
           }
@@ -518,17 +507,17 @@ export const useSchoolCatchments = (
           
           if (schoolIds && schoolNames) {
             // Parse pipe-separated lists
-            const ids = schoolIds.split('|').filter(id => id.trim());
-            const names = schoolNames.split('|').filter(name => name.trim());
-            const lons = schoolLons ? schoolLons.split('|').filter(lon => lon.trim()) : [];
-            const lats = schoolLats ? schoolLats.split('|').filter(lat => lat.trim()) : [];
+          const ids = schoolIds.split('|').filter((id: string) => id.trim());
+          const names = schoolNames.split('|').filter((name: string) => name.trim());
+          const lons = schoolLons ? schoolLons.split('|').filter((lon: string) => lon.trim()) : [] as string[];
+          const lats = schoolLats ? schoolLats.split('|').filter((lat: string) => lat.trim()) : [] as string[];
             
             // Create school objects
-            associatedSchools = ids.map((id, index) => ({
-              id: id.trim(),
-              name: names[index]?.trim() || 'Unknown School',
-              lon: lons[index] ? parseFloat(lons[index].trim()) : null,
-              lat: lats[index] ? parseFloat(lats[index].trim()) : null
+            associatedSchools = ids.map((sid: string, sIndex: number) => ({
+              id: sid.trim(),
+              name: (names[sIndex] as string | undefined)?.trim() || 'Unknown School',
+              lon: lons[sIndex] ? parseFloat((lons[sIndex] as string).trim()) : null,
+              lat: lats[sIndex] ? parseFloat((lats[sIndex] as string).trim()) : null
             }));
             
             // Use first school as primary display
@@ -550,17 +539,17 @@ export const useSchoolCatchments = (
           
           if (schoolIds && schoolNames) {
             // Parse pipe-separated lists
-            const ids = schoolIds.split('|').filter(id => id.trim());
-            const names = schoolNames.split('|').filter(name => name.trim());
-            const lons = schoolLons ? schoolLons.split('|').filter(lon => lon.trim()) : [];
-            const lats = schoolLats ? schoolLats.split('|').filter(lat => lat.trim()) : [];
+          const ids = schoolIds.split('|').filter((id: string) => id.trim());
+          const names = schoolNames.split('|').filter((name: string) => name.trim());
+          const lons = schoolLons ? schoolLons.split('|').filter((lon: string) => lon.trim()) : [] as string[];
+          const lats = schoolLats ? schoolLats.split('|').filter((lat: string) => lat.trim()) : [] as string[];
             
             // Create school objects
-            associatedSchools = ids.map((id, index) => ({
-              id: id.trim(),
-              name: names[index]?.trim() || 'Unknown School',
-              lon: lons[index] ? parseFloat(lons[index].trim()) : null,
-              lat: lats[index] ? parseFloat(lats[index].trim()) : null
+            associatedSchools = ids.map((sid: string, sIndex: number) => ({
+              id: sid.trim(),
+              name: (names[sIndex] as string | undefined)?.trim() || 'Unknown School',
+              lon: lons[sIndex] ? parseFloat((lons[sIndex] as string).trim()) : null,
+              lat: lats[sIndex] ? parseFloat((lats[sIndex] as string).trim()) : null
             }));
             
             // Use first school as primary display
@@ -594,9 +583,7 @@ export const useSchoolCatchments = (
         
         // Determine grades coverage
         let gradesDisplay = 'Coverage not specified';
-        if (schoolData?.grades) {
-          gradesDisplay = schoolData.grades;
-        } else if (properties?.grades) {
+        if (properties?.grades) {
           gradesDisplay = properties.grades;
         } else if (properties?.year_level) {
           gradesDisplay = `Year ${properties.year_level}`;
@@ -609,7 +596,7 @@ export const useSchoolCatchments = (
             <div class="mt-2">
               <div class="text-xs text-gray-500 uppercase tracking-wide mb-1">All Schools (${associatedSchools.length})</div>
               <div class="space-y-1 max-h-32 overflow-y-auto">
-                ${associatedSchools.map(school => `
+                ${associatedSchools.map((school: { name: string }) => `
                   <div class="text-xs text-gray-700 flex items-center gap-1">
                     <span class="text-blue-500">•</span>
                     <span>${school.name}</span>
@@ -655,7 +642,7 @@ export const useSchoolCatchments = (
                   ${associatedSchools.length > 0 ? `
                     <div class="mt-3">
                       <button 
-                        onclick="fetchSchoolDetails('${associatedSchools.map(s => s.id).join(',')}')"
+                        onclick="fetchSchoolDetails('${associatedSchools.map((s: { id: string }) => s.id).join(',')}')"
                         class="w-full px-3 py-2 text-xs font-medium text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-md border border-blue-200 transition-colors"
                       >
                         📋 More Details (${associatedSchools.length} schools)

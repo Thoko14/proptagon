@@ -5,7 +5,7 @@ export const NSW_CATCHMENTS_TILESETS = {
   primary: 'mapbox://tommstar25.dg9ropwk',
   secondary: 'mapbox://tommstar25.cbf6rphf',
   future: 'mapbox://tommstar25.42l9a1mu',
-  schools: 'mapbox://tommstar25.0mxd9sgh',
+  schools: 'mapbox://tommstar25.5zha3q9v',
 } as const;
 
 // Suggested source IDs for Mapbox

@@ -7,7 +7,7 @@ interface SuburbToolkitProps {
 
 export const SuburbToolkit: React.FC<SuburbToolkitProps> = ({ growState }) => {
   const { toolkit, navigation, compare } = growState;
-  const { toolkitSuburb, toolkitPosition, isToolkitVisible, hideToolkit } = toolkit;
+  const { toolkitSuburb, isToolkitVisible, hideToolkit } = toolkit;
   const { navigateToSuburbDetail, navigateToPropertyFilters } = navigation;
   
   if (!isToolkitVisible || !toolkitSuburb) return null;
